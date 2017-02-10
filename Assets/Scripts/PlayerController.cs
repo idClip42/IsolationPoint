@@ -183,13 +183,21 @@ public class PlayerController : MonoBehaviour
 		float maxSpeed = crouchState < 3 ? crouchSpeed : runInput ? runSpeed : walkSpeed;
 		if(runInput) Crouch(false);
 		velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+
+		// Drag
 		velocity -= velocity * 0.1f;
 
 		// Gets a new velocity value based on the ground the player is on and with gravity.
 		Vector3 newVelocity = velocity;
 		RaycastHit hitinfo;
 		if(Physics.SphereCast(player.transform.position, player.radius, Vector3.down, out hitinfo, player.height/2))
-			newVelocity = Vector3.ProjectOnPlane(velocity, hitinfo.normal);
+		{
+			// Makes sure ground incline isn't too steep
+			float angle = Vector3.Angle(Vector3.up, hitinfo.normal);
+			if(angle < player.slopeLimit)
+				newVelocity = Vector3.ProjectOnPlane(velocity, hitinfo.normal);
+			else newVelocity = Vector3.ProjectOnPlane(Physics.gravity, hitinfo.normal);
+		}
 		newVelocity += Physics.gravity;
 
 		// Moves the player with the new velocity
@@ -210,7 +218,8 @@ public class PlayerController : MonoBehaviour
 		float rightInput = Input.GetAxisRaw("Horizontal");	// Corresponds to the right direction of the camera
 
 		// Adds input movement to the velocity
-		velocity += (forward * fwdInput + right * rightInput) * acceleration * Time.fixedDeltaTime;
+		if(player.isGrounded)
+			velocity += (forward * fwdInput + right * rightInput) * acceleration * Time.fixedDeltaTime;
 	}
 
 
