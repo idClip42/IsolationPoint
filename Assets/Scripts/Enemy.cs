@@ -15,7 +15,9 @@ public class Enemy : MonoBehaviour {
 
     public float angleOfVision;         //Cone representing field of view
     public float visionDistance;        //Distance the enemy can see at
-    public float searchDuration;
+    public float searchDuration;        //How long the enemy searches for players near the last seen location
+    public float timeBetweenAttacks;    //Delay between attack sequences
+    public float attackSpeed;           //How long does it take for attack sequence to play
 
     public Transform target;            //Destination
 
@@ -29,6 +31,8 @@ public class Enemy : MonoBehaviour {
     bool targetingPlayer;               //True if the target is the player -> run
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
+
+    int numRayChecks;                   //number of body parts to check with rays for sight
 
 
     // Use this for initialization
@@ -50,21 +54,32 @@ public class Enemy : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = walkSpeed;
         agent.acceleration = acceleration;
+        numRayChecks = 6;   //~heeeead, shoulders, knees, and toes(center) ~knees and toes(center)
     }
 	
 	// Update is called once per frame
 	void Update () {
-        agent.autoBraking = true;
-        if (targetingPlayer)
-        {
-            agent.autoBraking = false;
-        }
-
         if (agent.remainingDistance < agent.radius)
         {
-            if (targetingPlayer) targetingPlayer = false;//add search code here along with extra checkview?
+            if (targetingPlayer)
+            {
+                targetingPlayer = false;
+                agent.autoBraking = true;
+                //check if player is still in view
+                CheckView();
+
+                //attack if still targeting player
+                if (targetingPlayer)
+                {
+                    //attack
+                }
+                else
+                {
+                    //search
+                }
+            }
             //find new target if locations size is greater than 0
-            if (gm.locations.Length > 0)
+            else if (gm.locations.Length > 0)
             {
                 target = gm.locations[Random.Range(0, gm.locations.Length)].transform;
             }
@@ -85,30 +100,66 @@ public class Enemy : MonoBehaviour {
         {
             Vector3 toObj = obj.transform.position - transform.position;
             //within angle of vision?
-            if (WithinFieldOfView(toObj))
+            if (WithinFieldOfView(toObj) && toObj.sqrMagnitude <= Mathf.Pow(visionDistance,2))
             {
                 //check for distance and obstacles using ray
-                RaycastHit hit;
-                Physics.Raycast(transform.position, toObj, out hit, visionDistance);
-                //check for obstacles blocking vision -> may need to check around center of player (ie. head, feet, left, and right) to better "see"
-                if (hit.transform == obj.transform)
+                Transform[] parts = new Transform[numRayChecks];//array to store parts to check
+                parts[0] = obj.transform;
+                Animator anim = obj.GetComponentInChildren<Animator>();
+                if (anim == null) Debug.LogError("Player must have Animator component");
+                //loop to get locations of player parts in range
+                foreach (Transform child in anim.GetComponentsInChildren<Transform>())
                 {
-                    if (targetingPlayer)
+                    switch (child.name)
                     {
-                        //check for closest distance when chasing a player
-                        if ((target.position - transform.position).sqrMagnitude > (obj.transform.position - transform.position).sqrMagnitude)
-                        {
-                            target = obj.transform;
-                        }
-                    }
-                    else {
-                        target = obj.transform;
-                        targetingPlayer = true;//now chasing a player
-                    }
+                        case "Head_end":
+                            parts[1] = child;
+                            break;
+                        case "LowerLeg_L":
+                            parts[2] = child;
+                            break;
+                        case "LowerLeg_R":
+                            parts[3] = child;
+                            break;
+                        case "UpperArm_R":
+                            parts[4] = child;
+                            break;
+                        case "UpperArm_L":
+                            parts[5] = child;
+                            break;
+                        default:
+                            break;
+                    }//end switch
                 }
-            }
 
-        }
+                for(int i = 0; i < numRayChecks; i++)
+                {
+                    RaycastHit hit;
+                    Vector3 vecTo = parts[i].position - transform.position;
+                    Physics.Raycast(transform.position, vecTo, out hit, visionDistance);
+                    //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
+                    if (hit.transform == obj.transform)
+                    {
+                        Debug.Log("Body part seen: #" + i);
+                        if (targetingPlayer)
+                        {
+                            //check for closest distance when chasing a player
+                            if ((target.position - transform.position).sqrMagnitude > (obj.transform.position - transform.position).sqrMagnitude)
+                            {
+                                target = obj.transform;
+                            }
+                        }
+                        else {
+                            target = obj.transform;
+                            targetingPlayer = true;//now chasing a player
+                            agent.autoBraking = false;
+                        }//end targeting
+                        break;//break for loop
+                    }//end hit
+                }//end for loop
+            }//end if within view
+
+        }//end foreach
     }
 
     /*
