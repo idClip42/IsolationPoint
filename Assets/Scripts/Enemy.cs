@@ -20,19 +20,24 @@ public class Enemy : MonoBehaviour {
     public float attackSpeed;           //How long does it take for attack sequence to play
 
     public Transform target;            //Destination
+    public Transform wanderTarget;      //Target to be used for wandering
+    Vector3 lastSeen;                   //Last seen location of player
+    Vector3 midWander;                  //Used in wander/search
 
     public float health;                //Enemy health value
     public float meleeDamage;           //Damage enemy does at close range
 
     public Transform facing;            //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching
 
-    bool faceTarget;                   //True when chasing player, false when searching v -> need head node
+    //bool faceTarget;                   //True when chasing player, false when searching v -> need head node
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
     bool targetingPlayer;               //True if the target is the player -> run
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
 
     int numRayChecks;                   //number of body parts to check with rays for sight
+
+    public float searchTimer;                  //Current time spent searching
 
 
     // Use this for initialization
@@ -45,26 +50,30 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void InitializeVariables()
     {
-        faceTarget = true;
-        searching = false;
+        //faceTarget = true;
+        searching = true;
         targetingPlayer = false;
 
         facing = transform;//match to head of model
+        lastSeen = Vector3.zero;
+        midWander = Vector3.zero;
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = walkSpeed;
         agent.acceleration = acceleration;
         numRayChecks = 6;   //~heeeead, shoulders, knees, and toes(center) ~knees and toes(center)
+        searchTimer = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (agent.remainingDistance < agent.radius)
+        if (agent.remainingDistance < agent.radius && !searching)
         {
             if (targetingPlayer)
             {
                 targetingPlayer = false;
                 agent.autoBraking = true;
+
                 //check if player is still in view
                 CheckView();
 
@@ -76,12 +85,32 @@ public class Enemy : MonoBehaviour {
                 else
                 {
                     //search
+                    searching = true;
+                    midWander = transform.forward;
+                    if (target == null)
+                    {
+                        lastSeen = transform.position;
+                    }
+                    else {
+                        lastSeen = target.position;
+                    }
                 }
             }
             //find new target if locations size is greater than 0
             else if (gm.locations.Length > 0)
             {
                 target = gm.locations[Random.Range(0, gm.locations.Length)].transform;
+            }
+        }
+
+        if (searching)
+        {
+            searchTimer += Time.deltaTime;
+            Search();
+            if(searchTimer >= searchDuration)
+            {
+                searching = false;
+                searchTimer = 0;
             }
         }
 
@@ -140,7 +169,6 @@ public class Enemy : MonoBehaviour {
                     //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
                     if (hit.transform == obj.transform)
                     {
-                        Debug.Log("Body part seen: #" + i);
                         if (targetingPlayer)
                         {
                             //check for closest distance when chasing a player
@@ -197,7 +225,7 @@ public class Enemy : MonoBehaviour {
 
 
     /// <summary>
-    /// Checks the angle within which the player is comopared to the direction the enemy is facing
+    /// Checks the angle within which the player is compared to the direction the enemy is facing
     /// </summary>
     /// <param name="toObj">The Vector3 from the facing transform of enemy to the transform of player/target</param>
     /// <returns></returns>
@@ -209,5 +237,26 @@ public class Enemy : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+
+    /// <summary>
+    /// Change destination to be within range of last seen target location.(Not implemented yet)
+    /// Rotate facing transform to sim turning head.(Not implemented yet)
+    /// Wander strangely.
+    /// </summary>
+    void Search()
+    {
+        float one = 6;//length in front to search
+        float two = one / 4;
+        float three = two / 4;
+
+        float randomAngle = Mathf.Deg2Rad * Random.Range(0, 360);
+        Vector3 farWander = new Vector3(Mathf.Cos(randomAngle), 0, Mathf.Sin(randomAngle));
+        farWander = Vector3.ClampMagnitude(farWander,three);
+        midWander += farWander;
+        midWander = Vector3.ClampMagnitude(midWander, two);
+        wanderTarget.position = Vector3.ClampMagnitude(midWander, one) + transform.position;
+        target = wanderTarget;
     }
 }
