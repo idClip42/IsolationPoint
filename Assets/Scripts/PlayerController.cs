@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour 
 {
-	public CharacterController player;	// The Character Controller of the current player character
+	CharacterController player;			// The Character Controller of the current player character
 										// This is the object that gets moved around
+	public CharacterController[] playerList;
+										// The list of Character Controllers to be swapped between
 
 	public float camXSpeed;				// The speed at which the mouse (or other input?)
 	public float camYSpeed;				// moves the camera
@@ -37,7 +39,7 @@ public class PlayerController : MonoBehaviour
 	int crouchState;					// Whether the players is standing (3), crouching (2), or crawling (1)
 	bool firstPerson;					// Whether the player is in first-person mode (true), or third-person mode (false)
 
-
+	int playerNum;						// The index of the current player character
 
 
 
@@ -58,10 +60,38 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void InitializeVariables()
 	{
+		// Initializes the player
+		playerNum = 0;
+		if(playerList.Length == 0) Debug.LogError("Need at least one player in Player List");
+		player = playerList[playerNum];
+
 		// Finds the Main Camera
 		cam = Camera.main;
 		if(cam == null) Debug.LogError("Must have main camera tagged 'MainCamera'");
 
+		// Gets necessary pieces of the selected player
+		SetPlayerVars();
+
+		// Starts with no velocity, standing, in third person.
+		velocity = Vector3.zero;
+		crouchState = 3;
+		firstPerson = false;
+
+		// Character model faces whichever direction they're moving
+		alwaysFaceForward = false;
+
+		// Camera X Offset is stored for later use
+		camXOffset = cameraTarget.transform.localPosition.x;
+	}
+
+
+
+
+	/// <summary>
+	/// Sets the player variables.
+	/// </summary>
+	void SetPlayerVars()
+	{
 		// Finds the Camera Axis
 		cameraAxis = player.transform.FindChild("CameraAxis");
 		if(cameraAxis == null) Debug.LogError("Must have camera axis named 'CameraAxis'");
@@ -83,17 +113,6 @@ public class PlayerController : MonoBehaviour
 		foreach (Transform child in anim.GetComponentsInChildren<Transform>())
 			if(child.name == "FPSCamTarget") fpsCamTarget = child;
 		if(fpsCamTarget == null) Debug.LogError("Must have head bone named 'FPSCamTarget'");
-
-		// Starts with no velocity, standing, in third person.
-		velocity = Vector3.zero;
-		crouchState = 3;
-		firstPerson = false;
-
-		// Character model faces whichever direction they're moving
-		alwaysFaceForward = false;
-
-		// Camera X Offset is stored for later use
-		camXOffset = cameraTarget.transform.localPosition.x;
 	}
 
 
@@ -142,6 +161,9 @@ public class PlayerController : MonoBehaviour
 		// This is for testing purposes
 		SwapMoveMode();
 
+		// Switch between player characters
+		SwapCharacters();
+
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
 	}
@@ -158,7 +180,7 @@ public class PlayerController : MonoBehaviour
 		string fText = firstPerson ? 
 			"Third Person" :
 			"First Person";
-		GUI.Box(new Rect(0,0,200,60), "E - " + eText + "\nC - Crouch\nF - " + fText);
+		GUI.Box(new Rect(0,0,200,80), "E - " + eText + "\nC - Crouch\nF - " + fText + "\nQ - Switch Characters");
 	}
 
 
@@ -262,13 +284,17 @@ public class PlayerController : MonoBehaviour
 			return;
 		} else if(crouch == true && crouchState == 3)		// If intending to crouch and currently standing
 		{
+			//player.center = new Vector3(0, -2.0f/3.0f, 0);	// Move the collider center down
+			//player.center -= new Vector3(0, 2.0f/3.0f, 0);	// Move the collider center down
 			player.height /= 3;								// Halve player height and
-			player.center = new Vector4(0, -2.0f/3.0f, 0);	// Move the collider center down
+			player.center -= new Vector3(0, player.height, 0);	// Move the collider center down
 			crouchState = 2;
 		} else if (crouch == false && crouchState != 3)		// If intending to stand and currently crouching
-		{
-			player.height *= 3;								// Return player height and center to normal
-			player.center = new Vector4(0, 0, 0);
+		{							// Return player height and center to normal
+			//player.center = new Vector3(0, 0, 0);
+			//player.center += new Vector3(0, 2.0f/3.0f, 0);
+			player.center += new Vector3(0, player.height, 0);
+			player.height *= 3;	
 			crouchState = 3;
 		}
 	}
@@ -498,6 +524,31 @@ public class PlayerController : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.E) && !firstPerson)
 			alwaysFaceForward = !alwaysFaceForward;
+	}
+
+
+
+
+	/// <summary>
+	/// Swaps the characters.
+	/// </summary>
+	void SwapCharacters()
+	{
+		if(Input.GetKeyDown(KeyCode.Q))
+		{
+			// Stops character from moving
+			velocity = Vector3.zero;
+			// Sets the animator to stop moving
+			Animate();
+
+			// Moves to the next player
+			++playerNum;
+			if(playerNum >= playerList.Length) playerNum = 0;
+			player = playerList[playerNum];
+			SetPlayerVars();
+			// Check animation state for crouch state
+			crouchState = anim.GetInteger("CrouchState");
+		}
 	}
 
 
