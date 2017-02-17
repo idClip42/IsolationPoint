@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 	void Start () 
 	{
 		InitializeVariables();
-		LockMouse();
+		//LockMouse();
 	}
 
 	/// <summary>
@@ -166,6 +166,9 @@ public class PlayerController : MonoBehaviour
 
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
+
+		if(Input.GetMouseButtonDown(0))
+			LockMouse();
 	}
 
 	/// <summary>
@@ -279,6 +282,8 @@ public class PlayerController : MonoBehaviour
 	/// <param name="crouch">Whether or not you want the player to crouch</param>
 	void Crouch(bool crouch)
 	{
+		float camCrouchOffset = 0.5f;
+
 		if(crouchState == 1)								// If crawling, player cannot stand so don't do anything
 		{
 			return;
@@ -289,6 +294,7 @@ public class PlayerController : MonoBehaviour
 			player.height /= 3;								// Halve player height and
 			player.center -= new Vector3(0, player.height, 0);	// Move the collider center down
 			crouchState = 2;
+			cameraAxis.transform.position -= Vector3.up * camCrouchOffset;
 		} else if (crouch == false && crouchState != 3)		// If intending to stand and currently crouching
 		{							// Return player height and center to normal
 			//player.center = new Vector3(0, 0, 0);
@@ -296,6 +302,7 @@ public class PlayerController : MonoBehaviour
 			player.center += new Vector3(0, player.height, 0);
 			player.height *= 3;	
 			crouchState = 3;
+			cameraAxis.transform.position += Vector3.up * camCrouchOffset;
 		}
 	}
 
@@ -314,12 +321,13 @@ public class PlayerController : MonoBehaviour
 
 		RaycastHit hitInfo;
 		Vector3 top = player.transform.position + player.center + Vector3.down * player.height/2;
-		float maxDist = 1.5f;
+		float maxDist = 0.6f;
 		float radius = 0.8f;
 
-		// Keep these Debug lines in case they're needed for fiddleing later
-		//Debug.DrawLine(top, top + Vector3.up * maxDist);
-		//Debug.DrawLine(top, top + Vector3.right * radius);
+		// Keep these Debug lines in case they're needed for fiddling later
+		Debug.DrawLine(top, top + Vector3.up * maxDist, Color.blue);
+		Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
+		Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
 
 		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist))
 		{
