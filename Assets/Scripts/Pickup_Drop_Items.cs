@@ -6,6 +6,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	GameObject currentItem;
 	GameObject droppedItem;
+	Transform playerHand;
 	Transform playerTransform;
 	PlayerController playerController;
 	float playerRadius;
@@ -21,6 +22,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.R)) {
 			if (CheckValidItem ()) {
+				GetPlayerHand ();
 				SetCurrentItem ();
 				// set current item as the raycasted item
 			}
@@ -48,6 +50,18 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	}
 
 	void SetCurrentItem() {
-		currentItem.transform.position = GameObject.Find ("Hand_R").transform.position;
+		currentItem.transform.position = playerHand.position;
+		currentItem.transform.parent = playerHand;
+	}
+
+	void GetPlayerHand() {
+		Transform[] transforms = playerController.Player.GetComponentsInChildren<Transform> ();
+		Debug.Log ("Called!");
+		foreach (Transform t in transforms) {
+			if (t.gameObject.name == "Hand_R") {
+				playerHand = t;
+				Debug.Log (playerHand.name);
+			}
+		}
 	}
 }
