@@ -20,6 +20,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown (KeyCode.R) && currentItem != null) {
+			DropItem ();
+		}
+
 		if (Input.GetKeyDown (KeyCode.R)) {
 			if (CheckValidItem ()) {
 				GetPlayerHand ();
@@ -41,7 +45,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 		// Raycasts onto the mouse position and returns true if the item is within 2 units and has correct tag
 		if (Physics.Raycast (ray, out hit)) {
-			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
+			if(Vector3.Distance(playerController.transform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
 				currentItem = hit.transform.gameObject;
 				return true;
 			}
@@ -56,12 +60,20 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	void GetPlayerHand() {
 		Transform[] transforms = playerController.Player.GetComponentsInChildren<Transform> ();
-		Debug.Log ("Called!");
 		foreach (Transform t in transforms) {
 			if (t.gameObject.name == "Hand_R") {
 				playerHand = t;
-				Debug.Log (playerHand.name);
 			}
 		}
+	}
+
+	void DropItem(){
+		currentItem.transform.parent = null;
+		RaycastHit hit;
+		if (Physics.Raycast (playerTransform.position, Vector3.down, out hit, 10)) {
+			Debug.Log ("Item should be on the floor");
+			currentItem.transform.position = hit.transform.position;
+		}
+		currentItem = null;
 	}
 }
