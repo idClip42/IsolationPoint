@@ -5,30 +5,27 @@ using UnityEngine;
 public class Pickup_Drop_Items : MonoBehaviour {
 
 	GameObject currentItem;
-	GameObject droppedItem;
+
 	Transform playerHand;
 	Transform playerTransform;
-	PlayerController playerController;
-	float playerRadius;
 
-	// Use this for initialization
+	Vector3 dropLocation;
+
 	void Start () {
-		playerController = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
-		playerTransform = GameObject.Find ("PlayerController").GetComponent<Transform> ();
-
+		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.R) && currentItem != null) {
+			SetTransform ();
 			DropItem ();
 		}
 
 		if (Input.GetKeyDown (KeyCode.R)) {
+			SetTransform ();
 			if (CheckValidItem ()) {
 				GetPlayerHand ();
 				SetCurrentItem ();
-				// set current item as the raycasted item
 			}
 		}
 	}
@@ -45,7 +42,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 		// Raycasts onto the mouse position and returns true if the item is within 2 units and has correct tag
 		if (Physics.Raycast (ray, out hit)) {
-			if(Vector3.Distance(playerController.transform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
+			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
 				currentItem = hit.transform.gameObject;
 				return true;
 			}
@@ -53,13 +50,19 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		return false;	
 	}
 
+	/// <summary>
+	/// Sets the current item to the hand transform and parents it to the hand
+	/// </summary>
 	void SetCurrentItem() {
 		currentItem.transform.position = playerHand.position;
 		currentItem.transform.parent = playerHand;
 	}
 
+	/// <summary>
+	/// Gets the player's hand
+	/// </summary>
 	void GetPlayerHand() {
-		Transform[] transforms = playerController.Player.GetComponentsInChildren<Transform> ();
+		Transform[] transforms = playerTransform.GetComponentsInChildren<Transform> ();
 		foreach (Transform t in transforms) {
 			if (t.gameObject.name == "Hand_R") {
 				playerHand = t;
@@ -67,13 +70,26 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Raycasts below the player and drops the object slightly in front of him
+	/// </summary>
 	void DropItem(){
 		currentItem.transform.parent = null;
 		RaycastHit hit;
+
 		if (Physics.Raycast (playerTransform.position, Vector3.down, out hit, 10)) {
-			Debug.Log ("Item should be on the floor");
-			currentItem.transform.position = hit.transform.position;
+			dropLocation = hit.point;
+			dropLocation += (transform.forward * 0.5f);
+			currentItem.transform.position = dropLocation;
 		}
+
 		currentItem = null;
+	}
+
+	/// <summary>
+	/// Gets the current transform of the player
+	/// </summary>
+	void SetTransform() {
+		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 	}
 }
