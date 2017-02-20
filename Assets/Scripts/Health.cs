@@ -40,7 +40,9 @@ public class Health : MonoBehaviour {
 	{
 		Animator anim = GetComponentInChildren<Animator>();
 		anim.Play("Death", 0);
-		// Should probably drop weapon
+		// Should have a pool of blood happen to
+
+		// TODO: drop whatever is being held
 		Destroy(GetComponent<Combat>());
 
 		CharacterController cc = GetComponent<CharacterController>();
