@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void CrouchInput()
 	{
-		if(Input.GetButtonDown("Crouch"))
+		if(Input.GetButtonDown("Crouch") && !Input.GetButton("Run"))
 			Crouch(crouchState == 3);	// If player is standing, they will crouch, and vice versa
 		if(crouchState < 3)
 			Crawl();

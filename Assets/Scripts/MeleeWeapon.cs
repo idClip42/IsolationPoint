@@ -8,6 +8,7 @@ public class MeleeWeapon : MonoBehaviour {
 	public AttackAnimation[] attackAnimations;
 	public float damage = 25.0f;
 	public bool drawBlood = true;
+	public float wait = 0.5f;
 
 	Collider col;
 
