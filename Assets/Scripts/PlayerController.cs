@@ -625,7 +625,9 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-
+	public CharacterController Player {
+		get { return player; }
+	}
 
 	/// <summary>
 	/// Removes the player from playerList.

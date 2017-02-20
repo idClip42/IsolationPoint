@@ -81,7 +81,7 @@ public class Footprint : MonoBehaviour {
                     Destroy(footprint, lifetime);
                     break;
                 case "Wood":
-                    //play wood thump sound
+                    //play wood floor sound
                     audSou.clip = woodSteps[Random.Range(0, woodSteps.Length - 1)];
                     audSou.Play();
                     break;
@@ -92,34 +92,6 @@ public class Footprint : MonoBehaviour {
                     break;
                 default:
                     //nothing...
-                    /*
-                    Vector3 printLoc = hit.point + new Vector3(0, 0.01f, 0);
-                    Transform print = foot.transform;
-                    print.Rotate(new Vector3(0, 1, 0), 180);
-                    print.position = printLoc;
-                    print.localScale = new Vector3(0.018f, 0.09f, 0.018f);
-
-                    //random sound
-                    AudioSource audSou = foot.GetComponent<AudioSource>();
-                    audSou.clip = snowSteps[Random.Range(0, snowSteps.Length - 1)];
-                    audSou.Play();
-
-                    //create object for footprint -- make prefab with timer to delete?
-                    GameObject footprint = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                    footprint.transform.position = print.position;
-                    footprint.transform.rotation = print.rotation;
-                    footprint.transform.localScale = print.localScale;
-                    Material mat = footprint.GetComponent<Material>();
-                    if (foot.name == "Toe_L")
-                    {
-                        mat = snowL;
-                    }
-                    else
-                    {
-                        mat = snowR;
-                    }
-                    Destroy(footprint, 20);
-                    */
                     break;
             }
         }
