@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 	Transform headBone;					// The head bone of the character model - used for camera purposes
 	Transform fpsCamTarget;				// An empty object positioned at the eyes of the character model, used as the FPS cam position
 
+	Combat combatScript;				// The combat script for scripting combat
+	Health healthScript;				// Ditto for script
 
 	Vector3 velocity;					// The velocity the Character Controller will move at every frame
 
@@ -113,6 +115,12 @@ public class PlayerController : MonoBehaviour
 		foreach (Transform child in anim.GetComponentsInChildren<Transform>())
 			if(child.name == "FPSCamTarget") fpsCamTarget = child;
 		if(fpsCamTarget == null) Debug.LogError("Must have head bone named 'FPSCamTarget'");
+
+		combatScript = player.GetComponent<Combat>();
+		if(combatScript == null) Debug.LogError("Player needs a Combat script");
+
+		healthScript = player.GetComponent<Health>();
+		if(healthScript == null) Debug.LogError("Player needs a Health script");
 	}
 
 
@@ -141,6 +149,8 @@ public class PlayerController : MonoBehaviour
 		// updates it here in Fixed Update
 		if(!firstPerson) CameraTurn();
 
+		if(healthScript.health <= 0) return;
+
 		MovePlayer();
 		Animate();
 	}
@@ -154,15 +164,20 @@ public class PlayerController : MonoBehaviour
 		// updates it here in Update 
 		if(firstPerson) CameraTurn();
 
+		if(healthScript.health <= 0) return;
+
 		// User input to toggle crouching
 		CrouchInput();
+
+		// User input to attack
+		AttackInput();
 
 		// User input to toggle whether the model always faces the direction of the camera
 		// This is for testing purposes
 		SwapMoveMode();
 
 		// Switch between player characters
-		SwapCharacters();
+		SwapCharactersInput();
 
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
@@ -289,16 +304,12 @@ public class PlayerController : MonoBehaviour
 			return;
 		} else if(crouch == true && crouchState == 3)		// If intending to crouch and currently standing
 		{
-			//player.center = new Vector3(0, -2.0f/3.0f, 0);	// Move the collider center down
-			//player.center -= new Vector3(0, 2.0f/3.0f, 0);	// Move the collider center down
 			player.height /= 3;								// Halve player height and
 			player.center -= new Vector3(0, player.height, 0);	// Move the collider center down
 			crouchState = 2;
 			cameraAxis.transform.position -= Vector3.up * camCrouchOffset;
 		} else if (crouch == false && crouchState != 3)		// If intending to stand and currently crouching
 		{							// Return player height and center to normal
-			//player.center = new Vector3(0, 0, 0);
-			//player.center += new Vector3(0, 2.0f/3.0f, 0);
 			player.center += new Vector3(0, player.height, 0);
 			player.height *= 3;	
 			crouchState = 3;
@@ -325,9 +336,9 @@ public class PlayerController : MonoBehaviour
 		float radius = 0.8f;
 
 		// Keep these Debug lines in case they're needed for fiddling later
-		Debug.DrawLine(top, top + Vector3.up * maxDist, Color.blue);
-		Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
-		Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
+		// Debug.DrawLine(top, top + Vector3.up * maxDist, Color.blue);
+		// Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
+		// Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
 
 		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist))
 		{
@@ -446,6 +457,22 @@ public class PlayerController : MonoBehaviour
 
 
 
+	void AttackInput()
+	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			combatScript.Attack();
+		}
+	}
+
+
+
+
+
+
+
+
+
 
 	/// <summary>
 	/// Turns the player model, corresponding to its motion
@@ -538,25 +565,35 @@ public class PlayerController : MonoBehaviour
 
 
 	/// <summary>
+	/// Swaps the characters via input
+	/// </summary>
+	void SwapCharactersInput()
+	{
+		if(Input.GetKeyDown(KeyCode.Q))
+		{
+			SwapCharacters();
+		}
+	}
+
+	/// <summary>
 	/// Swaps the characters.
 	/// </summary>
 	void SwapCharacters()
 	{
-		if(Input.GetKeyDown(KeyCode.Q))
-		{
-			// Stops character from moving
-			velocity = Vector3.zero;
-			// Sets the animator to stop moving
-			Animate();
+		if(playerList.Length == 0) return;
 
-			// Moves to the next player
-			++playerNum;
-			if(playerNum >= playerList.Length) playerNum = 0;
-			player = playerList[playerNum];
-			SetPlayerVars();
-			// Check animation state for crouch state
-			crouchState = anim.GetInteger("CrouchState");
-		}
+		// Stops character from moving
+		velocity = Vector3.zero;
+		// Sets the animator to stop moving
+		Animate();
+
+		// Moves to the next player
+		++playerNum;
+		if(playerNum >= playerList.Length) playerNum = 0;
+		player = playerList[playerNum];
+		SetPlayerVars();
+		// Check animation state for crouch state
+		crouchState = anim.GetInteger("CrouchState");
 	}
 
 
@@ -588,6 +625,26 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+
+
+	/// <summary>
+	/// Removes the player from playerList.
+	/// </summary>
+	/// <param name="deadPlayer">Dead player.</param>
+	public void RemovePlayerFromList(CharacterController deadPlayer)
+	{
+		CharacterController[] newList = new CharacterController[playerList.Length - 1];
+		int count = 0;
+		for(int n = 0; n < playerList.Length; ++n)
+		{
+			if(playerList[n] != deadPlayer)
+			{
+				newList[count] = playerList[n];
+				++count;
+			}
+		}
+		playerList = newList;
+	}
 
 
 
