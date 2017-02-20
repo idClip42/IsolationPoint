@@ -96,31 +96,31 @@ public class PlayerController : MonoBehaviour
 	{
 		// Finds the Camera Axis
 		cameraAxis = player.transform.FindChild("CameraAxis");
-		if(cameraAxis == null) Debug.LogError("Must have camera axis named 'CameraAxis'");
+		if(cameraAxis == null) Debug.Log("Must have camera axis named 'CameraAxis'");
 
 		// Finds the Camera Target
 		cameraTarget = cameraAxis.FindChild("CameraTarget");
-		if(cameraTarget == null) Debug.LogError("Must have camera target named 'CameraTarget'");
+		if(cameraTarget == null) Debug.Log("Must have camera target named 'CameraTarget'");
 
 		// Finds the Character Model
 		anim = player.GetComponentInChildren<Animator>();
-		if(anim == null) Debug.LogError("Player needs an animator");
+		if(anim == null) Debug.Log("Player needs an animator");
 
 		// Finds the Head Bone
 		foreach (Transform child in anim.GetComponentsInChildren<Transform>())
 			if(child.name == "Head") headBone = child;
-		if(headBone == null) Debug.LogError("Must have head bone named 'Head'");
+		if(headBone == null) Debug.Log("Must have head bone named 'Head'");
 
 		// Finds the FPS Camera Target
 		foreach (Transform child in anim.GetComponentsInChildren<Transform>())
 			if(child.name == "FPSCamTarget") fpsCamTarget = child;
-		if(fpsCamTarget == null) Debug.LogError("Must have head bone named 'FPSCamTarget'");
+		if(fpsCamTarget == null) Debug.Log("Must have head bone named 'FPSCamTarget'");
 
 		combatScript = player.GetComponent<Combat>();
-		if(combatScript == null) Debug.LogError("Player needs a Combat script");
+		if(combatScript == null) Debug.Log("Player needs a Combat script");
 
 		healthScript = player.GetComponent<Health>();
-		if(healthScript == null) Debug.LogError("Player needs a Health script");
+		if(healthScript == null) Debug.Log("Player needs a Health script");
 	}
 
 
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
 		// updates it here in Fixed Update
 		if(!firstPerson) CameraTurn();
 
-		if(healthScript.health <= 0) return;
+		if(healthScript != null && healthScript.health <= 0) return;
 
 		MovePlayer();
 		Animate();
@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
 		// updates it here in Update 
 		if(firstPerson) CameraTurn();
 
-		if(healthScript.health <= 0) return;
+		if(healthScript != null && healthScript.health <= 0) return;
 
 		// User input to toggle crouching
 		CrouchInput();
@@ -461,6 +461,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if(Input.GetMouseButtonDown(0))
 		{
+			if(combatScript == null) return;
 			combatScript.Attack();
 		}
 	}
