@@ -31,9 +31,7 @@ public class Combat : MonoBehaviour {
 	// Call this from PlayerController
 	public void Attack()
 	{
-		// Prevent multiple clicks based on... layer weight maybe?
-		// Or duration I guess.
-		// Yeah. Probably duration.
+		// TODO: Wait before allowing user to click again
 
 		// If the held weapon is melee
 		if(meleeScript != null)
