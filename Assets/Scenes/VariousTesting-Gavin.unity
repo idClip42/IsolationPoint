@@ -2116,6 +2116,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1380501583}
+  - {fileID: 1642026321}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
@@ -12369,6 +12370,77 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b5dfd27942ee4e1988015115212a2b5, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1127057389
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 220136674}
+    m_Modifications:
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 36.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.6123725
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.6123725
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.collisionShape0
+      value: 
+      objectReference: {fileID: 1214726943}
+    - target: {fileID: 1483043928853466, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_Name
+      value: Snow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: randomSeed
+      value: 631212352
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.collisionShape1
+      value: 
+      objectReference: {fileID: 1439021682}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.collisionShape2
+      value: 
+      objectReference: {fileID: 1971270249}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.collisionShape3
+      value: 
+      objectReference: {fileID: 1414321003}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &1127255171 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4197403159271254, guid: 7f8954e2358ff4ae5953b2599a5649ca,
@@ -13503,6 +13575,47 @@ Transform:
   m_PrefabParentObject: {fileID: 4197403159271254, guid: 3cfad89ffec3f41f19d10bec279998cf,
     type: 2}
   m_PrefabInternal: {fileID: 1258784668}
+--- !u!1 &1214726940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1214726943}
+  - component: {fileID: 1214726941}
+  m_Layer: 0
+  m_Name: snow1ParticleCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1214726941
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1214726940}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20.158754, y: 6.2156525, z: 60.49405}
+  m_Center: {x: 2.42626, y: -5.283531, z: -1.5102692}
+--- !u!4 &1214726943
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1214726940}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.199989, z: 186.99998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1217279006
 Prefab:
   m_ObjectHideFlags: 0
@@ -15422,6 +15535,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cfad89ffec3f41f19d10bec279998cf, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1414321001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1414321003}
+  - component: {fileID: 1414321002}
+  m_Layer: 0
+  m_Name: snow1ParticleCollider (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1414321002
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414321001}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 70.940475, y: 16.50319, z: 38.021446}
+  m_Center: {x: 2.1138458, y: -0.13976288, z: -3.9109192}
+--- !u!4 &1414321003
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1414321001}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 45.1, y: 8.199989, z: 268.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1416091681 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4508174636204700, guid: 913f5366f9bc746aaaddb8e2118318ee,
@@ -15555,6 +15709,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 913f5366f9bc746aaaddb8e2118318ee, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1439021680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1439021682}
+  - component: {fileID: 1439021681}
+  m_Layer: 0
+  m_Name: snow1ParticleCollider (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1439021681
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1439021680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20.607128, y: 4.391575, z: 34.987366}
+  m_Center: {x: 2.5584183, y: -3.1683044, z: 2.1493013}
+--- !u!4 &1439021682
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1439021680}
+  m_LocalRotation: {x: 0, y: -0.028523456, z: 0, w: 0.99959314}
+  m_LocalPosition: {x: 82.31, y: 67.7, z: -79.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: -3.269, z: 0}
 --- !u!1001 &1439580529
 Prefab:
   m_ObjectHideFlags: 0
@@ -16563,7 +16758,7 @@ Transform:
   - {fileID: 1500669595}
   - {fileID: 669899765}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1479946268
 Prefab:
@@ -16957,7 +17152,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
       propertyPath: m_LocalScale.x
@@ -16974,7 +17169,7 @@ Prefab:
     - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
         type: 2}
       propertyPath: randomSeed
-      value: 832147975
+      value: -236639990
       objectReference: {fileID: 0}
     - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
         type: 2}
@@ -17011,6 +17206,90 @@ Prefab:
     - target: {fileID: 1483043928853466, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
       propertyPath: m_Name
       value: Snow (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.collidesWithDynamic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.plane0
+      value: 
+      objectReference: {fileID: 1214726943}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.m_Dampen.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.maxKillSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.minKillSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.radiusScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.plane1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.plane2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.collisionShape0
+      value: 
+      objectReference: {fileID: 1214726943}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.enter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: TriggerModule.outside
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198727646186170332, guid: eaf67c9b000ac8141b30814600192db7,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483043928853466, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
@@ -18067,6 +18346,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4810930321208520, guid: 6af199f61e4e44b10b5ab010a73dda9a,
     type: 2}
   m_PrefabInternal: {fileID: 1742758150}
+--- !u!4 &1642026321 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4660705612305900, guid: eaf67c9b000ac8141b30814600192db7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1127057389}
 --- !u!1001 &1646012021
 Prefab:
   m_ObjectHideFlags: 0
@@ -18707,7 +18991,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!4 &1679636977 stripped
 Transform:
@@ -19903,6 +20187,10 @@ Prefab:
         type: 2}
       propertyPath: InitialModule.maxNumParticles
       value: 5500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483043928853466, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaf67c9b000ac8141b30814600192db7, type: 2}
@@ -21690,6 +21978,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 913f5366f9bc746aaaddb8e2118318ee, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1971270247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1971270249}
+  - component: {fileID: 1971270248}
+  m_Layer: 0
+  m_Name: snow1ParticleCollider (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1971270248
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1971270247}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 70.940475, y: 6.2156525, z: 30.71645}
+  m_Center: {x: 2.1138458, y: -5.283531, z: -0.2583313}
+--- !u!4 &1971270249
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1971270247}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 45.1, y: 8.199989, z: 200.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1971931309 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4815759887573474, guid: ffc1e744d26af496bbac961cab02c5e4,
