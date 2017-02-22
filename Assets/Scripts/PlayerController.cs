@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
 	int playerNum;						// The index of the current player character
 
 
+	int bitFieldAllLayers;				// The bitfield used to signify all layers
+
+
 
 
 
@@ -84,6 +87,8 @@ public class PlayerController : MonoBehaviour
 
 		// Camera X Offset is stored for later use
 		camXOffset = cameraTarget.transform.localPosition.x;
+
+		bitFieldAllLayers = 63;
 	}
 
 
@@ -164,6 +169,12 @@ public class PlayerController : MonoBehaviour
 		// updates it here in Update 
 		if(firstPerson) CameraTurn();
 
+		// Switch between player characters
+		SwapCharactersInput();
+
+		if(Input.GetMouseButtonDown(0))
+			LockMouse();
+
 		if(healthScript != null && healthScript.health <= 0) return;
 
 		// User input to toggle crouching
@@ -176,14 +187,8 @@ public class PlayerController : MonoBehaviour
 		// This is for testing purposes
 		SwapMoveMode();
 
-		// Switch between player characters
-		SwapCharactersInput();
-
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
-
-		if(Input.GetMouseButtonDown(0))
-			LockMouse();
 	}
 
 	/// <summary>
@@ -340,7 +345,7 @@ public class PlayerController : MonoBehaviour
 		// Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
 		// Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
 
-		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist))
+		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist, bitFieldAllLayers, QueryTriggerInteraction.Ignore))
 		{
 			crouchState = 1;
 		} else {
@@ -439,13 +444,19 @@ public class PlayerController : MonoBehaviour
 	void CameraAgainstWalls()
 	{
 		RaycastHit hitInfo;
-		if(Physics.Raycast(headBone.position, cam.transform.position - headBone.position, out hitInfo, 100, 63, QueryTriggerInteraction.Collide))
+		if(Physics.Raycast(headBone.position, cam.transform.position - headBone.position, out hitInfo, 100, bitFieldAllLayers, QueryTriggerInteraction.Collide))
 		{
-			// The 63 in the parameters is a bitfield that corresponds to 6 ones.
-			//If we start adding a bunch of layers, this must be updated
 			float offset = 0.04f;
+
+			// This is probably a bad solution to an issue
+			if(hitInfo.collider.gameObject.GetComponent<CharacterController>() != null)
+				return;
+
 			if(hitInfo.collider.gameObject != cam.gameObject)
+			{
+				//Debug.Log("Obstructing object: " + hitInfo.collider.gameObject.name);
 				cam.transform.position = hitInfo.point + hitInfo.normal * offset;
+			}
 		}
 	}
 
