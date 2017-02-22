@@ -9,12 +9,14 @@ public class Combat : MonoBehaviour {
 	Animator anim;
 
 	float timer;
+	float currentMaxTime;
 
 	void Start () 
 	{
 		if(weapon != null) meleeScript = weapon.GetComponent<MeleeWeapon>();
 		anim = GetComponentInChildren<Animator>();
 		timer = 0;
+		currentMaxTime = 0;
 	}
 	
 	void Update () 
@@ -31,17 +33,19 @@ public class Combat : MonoBehaviour {
 	// Call this from PlayerController
 	public void Attack()
 	{
-		// Prevent multiple clicks based on... layer weight maybe?
-		// Or duration I guess.
-		// Yeah. Probably duration.
+		// TODO: Wait before allowing user to click again
 
 		// If the held weapon is melee
 		if(meleeScript != null)
 		{
+			if(timer > 0 && currentMaxTime - timer < meleeScript.wait)
+				return;
+
 			string animName = meleeScript.GetAnim();
 
 			anim.Play(animName, 1);
 			timer = anim.GetCurrentAnimatorClipInfo(1).Length * 0.8f;
+			currentMaxTime = timer;
 			meleeScript.Attack(timer);
 		}
 	}
