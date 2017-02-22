@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour {
 
-	public enum AttackAnimation {Swing1, Swing2};
+	public enum AttackAnimation {Swing1, Swing2, SwingDown};
 	public AttackAnimation[] attackAnimations;
 	public float damage = 25.0f;
 	public bool drawBlood = true;
@@ -19,6 +19,8 @@ public class MeleeWeapon : MonoBehaviour {
 	void Start () 
 	{
 		col = GetComponent<Collider>();
+		col.isTrigger = true;
+
 		timer = 0;
 		currentAnimIndex = 0;
 
@@ -42,27 +44,13 @@ public class MeleeWeapon : MonoBehaviour {
 		++currentAnimIndex;
 		if(currentAnimIndex >= attackAnimations.Length) currentAnimIndex = 0;
 
-		return (getAttackAnimName(choice));
+		return choice.ToString();
 	}
 
 
 	public void Attack(float t)
 	{
 		timer = t;
-	}
-
-
-	string getAttackAnimName(AttackAnimation animEnum)
-	{
-		switch (animEnum)
-		{
-		case AttackAnimation.Swing1:
-			return "Swing1";
-		case AttackAnimation.Swing2:
-			return "Swing2";
-		default:
-			return "None";
-		}
 	}
 
 
@@ -73,6 +61,7 @@ public class MeleeWeapon : MonoBehaviour {
 			rb = gameObject.AddComponent<Rigidbody>();
 		rb.isKinematic = true;
 		rb.useGravity = false;
+		rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 	}
 
 	void OnTriggerEnter(Collider c)

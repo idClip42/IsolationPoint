@@ -6,6 +6,12 @@ public class Health : MonoBehaviour {
 
 	public float health = 100;
 	public GameObject bloodParticles;
+	bool dead;
+
+	void Start()
+	{
+		dead = false;
+	}
 
 
 
@@ -13,7 +19,7 @@ public class Health : MonoBehaviour {
 	{
 		health -= damage;
 
-		if(health <= 0) Die();
+		if(health <= 0 && !dead) Die();
 		if(blood) BloodParticles(hitPoint, hitNormal);
 	}
 
@@ -29,8 +35,9 @@ public class Health : MonoBehaviour {
 			point,
 			Quaternion.identity
 		);
+		newBlood.name = "Blood";
 		newBlood.transform.forward = normal;
-		Destroy(newBlood, 3);
+		Destroy(newBlood, 2);
 	}
 
 
@@ -38,9 +45,11 @@ public class Health : MonoBehaviour {
 
 	void Die()
 	{
+		dead = true;
 		Animator anim = GetComponentInChildren<Animator>();
 		anim.Play("Death", 0);
-		// Should have a pool of blood happen to
+		anim.SetLayerWeight(1, 0);
+		// TODO: pool of blood
 
 		// TODO: drop whatever is being held
 		Destroy(GetComponent<Combat>());
@@ -52,6 +61,6 @@ public class Health : MonoBehaviour {
 
 		GameObject.Find("PlayerController").GetComponent<PlayerController>().RemovePlayerFromList(cc);
 
-		Destroy(this);
+		//Destroy(this);
 	}
 }
