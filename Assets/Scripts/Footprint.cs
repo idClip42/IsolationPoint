@@ -67,14 +67,15 @@ public class Footprint : MonoBehaviour {
                     //create object for footprint
                     GameObject footprint = Instantiate(snowFootprintPrefab);
                     footprint.transform.position = hit.point + new Vector3(0, 0.01f, 0);
-                    footprint.transform.Rotate(0, foot.rotation.eulerAngles.y + 180, 0);
+                    //footprint.transform.Rotate(0, foot.rotation.eulerAngles.y + 180, 0);
+                    footprint.transform.rotation = Quaternion.FromToRotation(footprint.transform.forward, -transform.forward) * footprint.transform.rotation;
                     if (foot.name == "Toe_L")
                     {
                         footprint.GetComponent<Renderer>().material = snowL;
                     }
                     else
                     {
-                        footprint.transform.Rotate(0, 180, 0);
+                        //footprint.transform.Rotate(0, 180, 0);
                         footprint.GetComponent<Renderer>().material = snowR;
                     }
                     footprint.transform.rotation = Quaternion.FromToRotation(footprint.transform.up, hit.normal) * footprint.transform.rotation;
