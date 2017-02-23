@@ -37,17 +37,17 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	bool CheckValidItem() {
 
 		// creates ray at mouse position
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
 		RaycastHit hit;
 
-		// Raycasts onto the mouse position and returns true if the item is within 2 units and has correct tag
-		if (Physics.Raycast (ray, out hit)) {
-			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
+		// Raycasts from main camera forward vector and returns true if the item is within 2 units and has correct tag
+		if (Physics.Raycast (Camera.main.transform.position, forward, out hit, 2)) {
+			if(hit.transform.tag == "CanPickUp") {
 				currentItem = hit.transform.gameObject;
 				return true;
 			}
 		}
-		return false;	
+		return false;
 	}
 
 	/// <summary>
