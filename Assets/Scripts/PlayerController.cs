@@ -49,6 +49,14 @@ public class PlayerController : MonoBehaviour
 
 
 
+	public static PlayerController controller;
+										// The statuc player controller variable with which other
+										// scripts will access it
+
+
+
+
+
 
 
 	/// <summary>
@@ -65,6 +73,9 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void InitializeVariables()
 	{
+		// Initializes the Player Controller
+		controller = this;
+
 		// Initializes the player
 		playerNum = 0;
 		if(playerList.Length == 0) Debug.LogError("Need at least one player in Player List");
@@ -88,6 +99,7 @@ public class PlayerController : MonoBehaviour
 		// Camera X Offset is stored for later use
 		camXOffset = cameraTarget.transform.localPosition.x;
 
+		// A bitfield that translates to 111111. Will likely need to be increased
 		bitFieldAllLayers = 63;
 	}
 
@@ -121,9 +133,11 @@ public class PlayerController : MonoBehaviour
 			if(child.name == "FPSCamTarget") fpsCamTarget = child;
 		if(fpsCamTarget == null) Debug.Log("Must have head bone named 'FPSCamTarget'");
 
+		// Finds the Combat script
 		combatScript = player.GetComponent<Combat>();
 		if(combatScript == null) Debug.Log("Player needs a Combat script");
 
+		// Finds the Health script
 		healthScript = player.GetComponent<Health>();
 		if(healthScript == null) Debug.Log("Player needs a Health script");
 	}
@@ -154,7 +168,9 @@ public class PlayerController : MonoBehaviour
 		// updates it here in Fixed Update
 		if(!firstPerson) CameraTurn();
 
+		// Ends if there is no health or no health script, which means the player is dead
 		if(healthScript != null && healthScript.health <= 0) return;
+		if(healthScript == null) return;
 
 		MovePlayer();
 		Animate();
@@ -175,17 +191,15 @@ public class PlayerController : MonoBehaviour
 		if(Input.GetMouseButtonDown(0))
 			LockMouse();
 
+		// Ends if there is no health or no health script, which means the player is dead
 		if(healthScript != null && healthScript.health <= 0) return;
+		if(healthScript == null) return;
 
 		// User input to toggle crouching
 		CrouchInput();
 
 		// User input to attack
 		AttackInput();
-
-		// User input to toggle whether the model always faces the direction of the camera
-		// This is for testing purposes
-		SwapMoveMode();
 
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
@@ -196,14 +210,10 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void OnGUI()
 	{
-		string eText = alwaysFaceForward ?
-			"Free Run Movement Mode" :
-			"Aim Movement Mode";
-		eText = firstPerson ? "Nuthin'" : eText;
 		string fText = firstPerson ? 
 			"Third Person" :
 			"First Person";
-		GUI.Box(new Rect(0,0,200,80), "E - " + eText + "\nC - Crouch\nF - " + fText + "\nQ - Switch Characters");
+		GUI.Box(new Rect(0,0,200,80), "C - Crouch\nF - " + fText + "\nQ - Switch Characters");
 	}
 
 
@@ -314,7 +324,7 @@ public class PlayerController : MonoBehaviour
 			crouchState = 2;
 			cameraAxis.transform.position -= Vector3.up * camCrouchOffset;
 		} else if (crouch == false && crouchState != 3)		// If intending to stand and currently crouching
-		{							// Return player height and center to normal
+		{													// Return player height and center to normal
 			player.center += new Vector3(0, player.height, 0);
 			player.height *= 3;	
 			crouchState = 3;
@@ -467,10 +477,12 @@ public class PlayerController : MonoBehaviour
 
 
 
-
+	/// <summary>
+	/// Attacks vis user input
+	/// </summary>
 	void AttackInput()
 	{
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetButtonDown("Attack"))
 		{
 			if(combatScript == null) return;
 			combatScript.Attack();
@@ -562,15 +574,14 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
 	/// <summary>
-	/// Switches between always facing forward and always facing the direction of the velocity
+	/// Sets the aim modm
 	/// </summary>
-	void SwapMoveMode()
+	/// <param name="aim">If set to <c>true</c>, character always faces camera direction.</param>
+	public void SetAimMode(bool aim)
 	{
-		if(Input.GetKeyDown(KeyCode.E) && !firstPerson)
-			alwaysFaceForward = !alwaysFaceForward;
+		if(firstPerson) return;
+		alwaysFaceForward = aim;
 	}
 
 
