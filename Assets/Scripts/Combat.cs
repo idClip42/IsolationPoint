@@ -125,7 +125,7 @@ public class Combat : MonoBehaviour {
 
 		// Points gun aim animation in correct vertical direction
 		float animFrame = Vector3.Angle(Vector3.up, cam.transform.forward)/180.0f;
-		anim.Play(gunScript.GetAnim(), 1, animFrame);
+		anim.Play(gunScript.gunAnim.ToString(), 1, animFrame);
 	}
 
 
