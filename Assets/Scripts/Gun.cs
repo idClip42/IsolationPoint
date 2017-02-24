@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour 
 {
+	// TODO:
+	// animations for one handed and rifle
+	// Organize the public variables in the inspector
+
+
 	public enum GunAnimation { TwoHandedPistolAim };
 	public GunAnimation gunAnim;
 	public float damage = 25.0f;
@@ -15,6 +20,8 @@ public class Gun : MonoBehaviour
 	public AudioClip shotSound;
 	public float audioDelay;
 	public Material trailMat;
+	public GameObject bulletHole;
+	public bool debugInfiniteAmmo;
 
 	float timer;
 	Camera cam;
@@ -35,6 +42,8 @@ public class Gun : MonoBehaviour
 	{
 		if(timer > 0) return;
 
+		if(ammo <= 0 && !debugInfiniteAmmo) return;
+
 		for(int n = 0; n < barrels.Length; ++n)
 		{
 			Transform b = barrels[n];
@@ -48,9 +57,12 @@ public class Gun : MonoBehaviour
 				if(h != null)
 				{
 					h.Hit(damage, true, hitInfo.point, hitInfo.normal);
+				} else {
+					MakeBulletHole(hitInfo.point, hitInfo.normal);
 				}
-
 				MakeTrail(b.position, hitInfo.point);
+			} else {
+				MakeTrail(b.position, b.position + forward * range);
 			}
 		}
 
@@ -80,6 +92,18 @@ public class Gun : MonoBehaviour
 		a.Play();
 	}
 
+	void MakeBulletHole(Vector3 point, Vector3 normal)
+	{
+		GameObject b = (GameObject) Instantiate(
+			bulletHole,
+			point + normal * 0.005f,
+			Quaternion.identity
+		);
+		b.transform.forward = normal;
+		b.transform.Rotate(0, 0, Random.Range(0, 360));
+		Destroy(b, 10);
+	}
+
 	void MakeTrail(Vector3 a, Vector3 b)
 	{
 		GameObject line = new GameObject();
@@ -88,7 +112,6 @@ public class Gun : MonoBehaviour
 		LineRenderer lr = line.AddComponent<LineRenderer>();
 		lr.startWidth = 0.02f;
 		lr.endWidth = 0.02f;
-		lr.numCapVertices = 3;
 		lr.SetPosition(0, a);
 		lr.SetPosition(1, b);
 		lr.material = trailMat;
