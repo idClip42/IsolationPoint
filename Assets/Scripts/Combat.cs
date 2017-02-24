@@ -17,13 +17,18 @@ public class Combat : MonoBehaviour {
 	float camTargetZ;				// The Z offset from the player of the camera target
 
 	bool isAiming;					// Whether the player is aiming
+	public bool IsAiming {
+		get { return isAiming; }
+	}
 
 
 
 
 	void Start () 
 	{
+		// Equips any weapon that is already in the public variable in the inspector
 		PickUpWeapon(weapon);
+
 		anim = GetComponentInChildren<Animator>();
 		cam = Camera.main;
 		timer = 0;
@@ -40,6 +45,11 @@ public class Combat : MonoBehaviour {
 		AnimateAiming();
 	}
 
+
+	/// <summary>
+	/// Equips this player with a weapon
+	/// </summary>
+	/// <param name="w">The weapon to be equipped. Set to null if just dropping the weapon.</param>
 	public void PickUpWeapon(GameObject w)
 	{
 		// Drops current weapon
@@ -54,10 +64,18 @@ public class Combat : MonoBehaviour {
 		gunScript = weapon.GetComponent<Gun>();
 	}
 
+
+	/// <summary>
+	/// Animates the melee attacks
+	/// </summary>
 	public void AnimateMelee()
 	{
+		// Does nothing if current weapon is not melee
 		if(meleeScript == null) return;
 
+		// Sets the weight of the upper body layer based on whether attacks are happening
+		// Deals with timer
+		// Sets whether character is aiming based on whether they're attacking
 		if(timer > 0)
 		{
 			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 1, 0.1f));
@@ -69,6 +87,11 @@ public class Combat : MonoBehaviour {
 		}
 	}
 
+
+
+	/// <summary>
+	/// Handles gun aiming
+	/// </summary>
 	public void AnimateAiming()
 	{
 		// Makes sure this is the current player and they have a gun
@@ -105,7 +128,12 @@ public class Combat : MonoBehaviour {
 		anim.Play(gunScript.GetAnim(), 1, animFrame);
 	}
 
-	// Call this from PlayerController
+
+
+	/// <summary>
+	/// Player attacks with current weapon
+	/// Called from the player controller
+	/// </summary>
 	public void Attack()
 	{
 		// If the held weapon is melee

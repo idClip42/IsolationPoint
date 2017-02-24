@@ -5,30 +5,37 @@ using UnityEngine;
 public class MeleeWeapon : MonoBehaviour {
 
 	public enum AttackAnimation {Swing1, Swing2, SwingDown};
-	public AttackAnimation[] attackAnimations;
-	public float damage = 25.0f;
-	public bool drawBlood = true;
-	public float wait = 0.5f;
+												// The options for the attack animation
+	public AttackAnimation[] attackAnimations;	// An array of the animations that will play when attacking, in order
+	public float damage = 25.0f;				// How much damage the weapon does
+	public bool drawBlood = true;				// Whether the weapon draws blood
+	public float wait = 0.5f;					// Minimum time between attacks
 
-	Collider col;
+	Collider col;								// The weapon's collider
 
-	float timer;
-	int currentAnimIndex;
+	float timer;								// used with wait variable
+	int currentAnimIndex;						// The current animation to be played from attackAnimations
 
 
 	void Start () 
 	{
+		// Gets the collider, makes sure it's a trigger
 		col = GetComponent<Collider>();
 		col.isTrigger = true;
 
+		// Initializes values
 		timer = 0;
 		currentAnimIndex = 0;
 
+		// Sets up the rigidbody
 		AddKinematicRigidbody();
 	}
 	
 	void Update () 
 	{
+		// If the timer is going, that means an attack is happening
+		// So the collider is on and the timer is ticking down
+		// Otherwise, they're off
 		if(timer > 0)
 		{
 			col.enabled = true;
@@ -38,6 +45,10 @@ public class MeleeWeapon : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Gets the attack animation to be played next
+	/// </summary>
+	/// <returns>The animation name string.</returns>
 	public string GetAnim()
 	{
 		AttackAnimation choice = attackAnimations[currentAnimIndex];
@@ -48,12 +59,20 @@ public class MeleeWeapon : MonoBehaviour {
 	}
 
 
+	/// <summary>
+	/// Attacks
+	/// </summary>
+	/// <param name="t">Attack animation time</param>
 	public void Attack(float t)
 	{
+		// Starts the timer, which is all the weapon needs for attacking
 		timer = t;
 	}
 
-
+	/// <summary>
+	/// Adds and configures the rigidbody,
+	/// which is needed for weapon collisions to register
+	/// </summary>
 	void AddKinematicRigidbody()
 	{
 		Rigidbody rb = GetComponent<Rigidbody>();
@@ -64,16 +83,20 @@ public class MeleeWeapon : MonoBehaviour {
 		rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 	}
 
+
+	/// <summary>
+	/// Event called when the weapon hits someone
+	/// </summary>
 	void OnTriggerEnter(Collider c)
 	{
-		if(timer <= 0) return;
-
+		// Ends the animation and attacking
 		timer = 0;
-		Health healthScript = c.gameObject.GetComponent<Health>();
 
+		// Gets the health script of the target
+		Health healthScript = c.gameObject.GetComponent<Health>();
 		// If there's no health script, returns
 		if(healthScript == null) return;
-		// If collided with the player holding it, returns
+		// If this collided with the player holding it, returns
 		if(transform.IsChildOf(c.gameObject.transform)) return;
 
 		// If colliding with another character, does damage
