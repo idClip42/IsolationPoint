@@ -24,9 +24,6 @@ public class Enemy : MonoBehaviour {
     Vector3 lastSeen;                   //Last seen location of player
     Vector3 midWander;                  //Used in wander/search
 
-    public float health;                //Enemy health value
-    public float meleeDamage;           //Damage enemy does at close range
-
     public Transform facing;            //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
 
     //bool faceTarget;                   //True when chasing player, false when searching v -> need head node
@@ -54,7 +51,7 @@ public class Enemy : MonoBehaviour {
         searching = true;
         targetingPlayer = false;
 
-        facing = transform;//match to head of model
+        facing = transform;//match to head of model?
         lastSeen = Vector3.zero;
         midWander = Vector3.zero;
 
@@ -87,19 +84,14 @@ public class Enemy : MonoBehaviour {
                     searching = true;
                     agent.speed = searchSpeed;
                     midWander = transform.forward;
-                    if (target == null)
-                    {
-                        lastSeen = transform.position;
-                    }
-                    else {
-                        lastSeen = target.position;
-                    }
+                    lastSeen = target.position;
                 }
             }
             else
             {
-                target = null;
+                if (gm.locations.Length > 0) target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
             }
+
         }
 
         if (searching)
@@ -109,9 +101,11 @@ public class Enemy : MonoBehaviour {
             if(searchTimer >= searchDuration)
             {
                 searching = false;
-                target = null;
+                //target = null;
                 agent.speed = walkSpeed;
                 searchTimer = 0;
+                //new location
+                if (gm.locations.Length > 0) target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
             }
         }
 
@@ -126,12 +120,6 @@ public class Enemy : MonoBehaviour {
         }
         */
 
-        //find new target location
-        if (gm.locations.Length > 0 && target == null)
-        {
-            target = gm.locations[Random.Range(0, gm.locations.Length)].transform;
-        }
-
         if (target != null) agent.SetDestination(target.position);
 	}
 
@@ -140,16 +128,14 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void CheckView()
     {
-        /*
+        
         if (!searching)
         {
-            if (target)
-            {
-                lastSeen = target.position;
-            }
-            target = null;
+            lastSeen = target.position;
         }
-        */
+
+        bool seekingPlayer = false;
+        
 
         foreach (GameObject obj in gm.players)
         {
@@ -191,36 +177,39 @@ public class Enemy : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Vector3 vecTo = parts[i].position - transform.position;
+                    //something weird with distance...
                     Physics.Raycast(transform.position, vecTo, out hit, visionDistance);
                     //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
                     if (hit.transform == obj.transform)
                     {
-                        if (targetingPlayer && target != null)
+                        if (targetingPlayer)
                         {
                             //check for closest distance when chasing a player
                             if ((target.position - transform.position).sqrMagnitude > (obj.transform.position - transform.position).sqrMagnitude)
                             {
-                                target = obj.transform;
+                                target.position = obj.transform.position;
                             }
                         }
                         else {
-                            target = obj.transform;
+                            target.position = obj.transform.position;
                             searching = false;
                             searchTimer = 0;
                             targetingPlayer = true;//now chasing a player
                             agent.speed = runSpeed;
                             agent.autoBraking = false;
                         }//end targeting
-                        break;//break for loop
+                        seekingPlayer = true;//sees player currently
+                        break;//break bone check for loop
                     }//end hit
                 }//end for loop
             }//end if within view
 
         }//end foreach
 
-        if(target == null)
+        //if no player in sight and saw player recently
+        if (!seekingPlayer && targetingPlayer)
         {
-            //go to last seen
+            target.position = lastSeen;
         }
     }
 
@@ -297,6 +286,6 @@ public class Enemy : MonoBehaviour {
         midWander += farWander;
         //wanderTarget.position = Vector3.ClampMagnitude(midWander, one) + transform.position;
         wanderTarget.position = midWander + transform.position + (transform.forward * one);
-        target = wanderTarget;
+        target.position = wanderTarget.position;
     }
 }

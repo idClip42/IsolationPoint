@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
 	Combat combatScript;				// The combat script for scripting combat
 	Health healthScript;				// Ditto for script
+	Pickup_Drop_Items pickupScript; 	// Script for picking up/ putting down items
 
 	Vector3 velocity;					// The velocity the Character Controller will move at every frame
 
@@ -140,6 +141,13 @@ public class PlayerController : MonoBehaviour
 		// Finds the Health script
 		healthScript = player.GetComponent<Health>();
 		if(healthScript == null) Debug.Log("Player needs a Health script");
+
+		pickupScript = player.GetComponent<Pickup_Drop_Items> ();
+		if (pickupScript == null) Debug.Log ("Player needs a Pickup script");
+
+		// Gets the current transform of the player model
+		if (pickupScript != null)
+			pickupScript.PlayerTransform = player.GetComponent<Transform> ();
 	}
 
 

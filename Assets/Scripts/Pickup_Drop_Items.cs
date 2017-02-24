@@ -11,8 +11,11 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	Vector3 dropLocation;
 
+	PlayerController playerController;
+
 	void Start () {
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
+		playerController = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 	}
 	
 	void Update () {
@@ -28,6 +31,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				SetCurrentItem ();
 			}
 		}
+
+		Debug.DrawRay (Camera.main.transform.position, Camera.main.transform.forward * 2, Color.green);
 	}
 
 	/// <summary>
@@ -37,17 +42,17 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	bool CheckValidItem() {
 
 		// creates ray at mouse position
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
 		RaycastHit hit;
 
-		// Raycasts onto the mouse position and returns true if the item is within 2 units and has correct tag
-		if (Physics.Raycast (ray, out hit)) {
+		// Raycasts from main camera forward vector and returns true if the item is within 2 units and has correct tag
+		if (Physics.Raycast (Camera.main.transform.position, forward, out hit, 5)) {
 			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
 				currentItem = hit.transform.gameObject;
 				return true;
 			}
 		}
-		return false;	
+		return false;
 	}
 
 	/// <summary>
@@ -90,6 +95,11 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// Gets the current transform of the player
 	/// </summary>
 	void SetTransform() {
-		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
+		playerTransform = playerController.Player.GetComponent<Transform> ();
+	}
+
+	public Transform PlayerTransform{
+		get { return playerTransform;}
+		set { playerTransform = value;}
 	}
 }
