@@ -102,6 +102,10 @@ public class PlayerController : MonoBehaviour
 
 		// A bitfield that translates to 111111. Will likely need to be increased
 		bitFieldAllLayers = 63;
+
+		// Makes it so everyone doesn't wipe their nose in sync
+		for(int n = 0; n < playerList.Length; ++n)
+			playerList[n].GetComponentInChildren<Animator>().SetFloat("NoseWipeOffset", Random.value);
 	}
 
 
@@ -140,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
 		// Finds the Health script
 		healthScript = player.GetComponent<Health>();
-		if(healthScript == null) Debug.Log("Player needs a Health script");
+		if(healthScript == null) Debug.Log("Player needs a Health script (otherwise they are considered dead and cannot move)");
 
 		pickupScript = player.GetComponent<Pickup_Drop_Items> ();
 		if (pickupScript == null) Debug.Log ("Player needs a Pickup script");

@@ -118,6 +118,12 @@ public class Gun : MonoBehaviour
 		Destroy(line, 1.0f);
 	}
 
+	public Vector2 WhereAmIAiming()
+	{
+		// Where oh where?
+		return Vector2.zero;
+	}
+
 	public string GetAnim()
 	{
 		return gunAnim.ToString();

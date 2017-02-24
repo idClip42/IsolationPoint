@@ -7,16 +7,19 @@ public class Combat : MonoBehaviour {
 	public GameObject weapon;		// Weapon that is currently held
 	MeleeWeapon meleeScript;		// The melee script for the weapon, if it is a melee weapon
 	Gun gunScript;					// The gun script for the weapon, if it is a gun
-	Animator anim;
-	Camera cam;
+	Animator anim;					// The player animator
+	Camera cam;						// The player camera
 
-	float timer;
-	float currentMaxTime;
+	float timer;					// A timer that determines when player is attacking, or when they can attack, or whatever
+	float currentMaxTime;			// Used for determining how much time has passed since melee animation has started
 
-	Transform cameraTarget;
-	float camTargetZ;
+	Transform cameraTarget;			// The location the camera moves to
+	float camTargetZ;				// The Z offset from the player of the camera target
 
-	bool isAiming;
+	bool isAiming;					// Whether the player is aiming
+
+
+
 
 	void Start () 
 	{
@@ -34,14 +37,19 @@ public class Combat : MonoBehaviour {
 	void Update () 
 	{
 		AnimateMelee();
-
 		AnimateAiming();
 	}
 
 	public void PickUpWeapon(GameObject w)
 	{
-		if(weapon == null) return;
+		// Drops current weapon
+		weapon = null;
+		meleeScript = null;
+		gunScript = null;
+
+		// Equips new weapon
 		weapon = w;
+		if(weapon == null) return;
 		meleeScript = weapon.GetComponent<MeleeWeapon>();
 		gunScript = weapon.GetComponent<Gun>();
 	}
@@ -103,6 +111,7 @@ public class Combat : MonoBehaviour {
 		// If the held weapon is melee
 		if(meleeScript != null)
 		{
+			// Perhaps move this stuff into the melee weapon script
 			if(timer > 0 && currentMaxTime - timer < meleeScript.wait)
 				return;
 
