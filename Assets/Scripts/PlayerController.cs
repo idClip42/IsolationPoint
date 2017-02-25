@@ -104,8 +104,12 @@ public class PlayerController : MonoBehaviour
 		bitFieldAllLayers = 63;
 
 		// Makes it so everyone doesn't wipe their nose in sync
+		// Also prevents the character controller itself from registering on raycast
+		//  (In favor of actual body colliders)
 		for(int n = 0; n < playerList.Length; ++n)
+		{
 			playerList[n].GetComponentInChildren<Animator>().SetFloat("NoseWipeOffset", Random.value);
+		}
 	}
 
 

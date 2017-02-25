@@ -6,7 +6,18 @@ public class Health : MonoBehaviour {
 
 	public float health = 100;				// The health of the character
 	public GameObject bloodParticles;		// The blood that will spill from their body as it is cleaved in two like the Red Sea. Or shot or stabbed or whatever.
+	public bool bloodStains = true;			// Whether there are blood stains
 	public GameObject bloodStainProjector;	// Projectors that project bloodstains on characters
+
+
+
+
+
+	void Start()
+	{
+		AssignBodyParts();
+	}
+
 
 
 
@@ -18,15 +29,16 @@ public class Health : MonoBehaviour {
 	/// <param name="blood">Whether the weapon draws blood.</param>
 	/// <param name="hitPoint">The point in world space at which the weapon hit the player</param>
 	/// <param name="hitNormal">The normal of the spot that was hit</param>
-	public void Hit(float damage, bool blood, Vector3 hitPoint, Vector3 hitNormal)
+	public void Hit(float damage, bool blood, Vector3 hitPoint, Vector3 hitNormal, Transform bodyPart)
 	{
 		health -= damage;
 
 		if(health <= 0) Die();
 		if(blood) 
 		{
-			BloodParticles(hitPoint, hitNormal);
-			MakeBloodStain(hitPoint, hitNormal, transform);
+			BloodParticles(hitPoint, hitNormal, (bodyPart == null) ? transform : bodyPart);
+			if(bloodStains)
+				MakeBloodStain(hitPoint, hitNormal, (bodyPart == null) ? transform : bodyPart);
 		}
 	}
 
@@ -37,7 +49,7 @@ public class Health : MonoBehaviour {
 	/// </summary>
 	/// <param name="point">The point in world space where the player was hit</param>
 	/// <param name="normal">The normal of the spot that was hit</param>
-	void BloodParticles(Vector3 point, Vector3 normal)
+	void BloodParticles(Vector3 point, Vector3 normal, Transform bodyPart)
 	{
 		if(bloodParticles == null) return;
 
@@ -48,6 +60,7 @@ public class Health : MonoBehaviour {
 		);
 		newBlood.name = "Blood";
 		newBlood.transform.forward = normal;
+		newBlood.transform.SetParent(bodyPart);
 		Destroy(newBlood, 2);
 	}
 
@@ -92,6 +105,10 @@ public class Health : MonoBehaviour {
 
 		// TODO: angle body with floor normal
 
+		// Disables all colliders
+		// DROP ANYTHING HELD BEFORE CALLING THIS
+		DisableColliders();
+
 		// Removes character controller from player list and destroys it
 		CharacterController cc = GetComponent<CharacterController>();
 		PlayerController.controller.RemovePlayerFromList(cc);
@@ -99,4 +116,116 @@ public class Health : MonoBehaviour {
 
 		Destroy(this);
 	}
+
+
+
+	/// <summary>
+	/// Finds all body part colliders and assigns them Health_Part scripts
+	/// with damage multipliers
+	/// Tells the character collider to ignore raycasts (used for bullets)
+	/// only if body part colliders were found
+	/// </summary>
+	void AssignBodyParts()
+	{
+		Collider[] bodyParts = GetComponentsInChildren<Collider>();
+
+		bool foundColliders = false;
+
+		for(int n = 0; n < bodyParts.Length; ++n)
+		{
+			switch (bodyParts[n].name)
+			{
+			case "HeadCollider":
+				foundColliders = AddHealthPartScript(bodyParts[n], 4.0f);
+				break;
+			case "NeckCollider":
+				foundColliders = AddHealthPartScript(bodyParts[n], 3.0f);
+				break;
+			case "ChestCollider":
+				foundColliders = AddHealthPartScript(bodyParts[n], 2.0f);
+				break;
+			case "SpineCollider":
+				foundColliders = AddHealthPartScript(bodyParts[n], 2.0f);
+				break;
+
+			case "ShoulderCollider_L":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "ForearmCollider_L":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "HandCollider_L":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "ShoulderCollider_R":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "ForearmCollider_R":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "HandCollider_R":
+				foundColliders = AddHealthPartScript(bodyParts[n], 0.5f);
+				break;
+
+			case "ThighCollider_L":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "LowerLegCollider_L":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "FootCollider_L":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "ThighCollider_R":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "LowerLegCollider_R":
+				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
+				break;
+			case "FootCollider_R":
+				foundColliders = AddHealthPartScript(bodyParts[n], 0.5f);
+				break;
+			}
+		}
+
+		if(foundColliders)
+			gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+	}
+
+	/// <summary>
+	/// Adds Health_Part script to given collider object
+	/// </summary>
+	/// <returns><c>true</c>, for use in simplifying above method</returns>
+	/// <param name="c">The collider object</param>
+	/// <param name="damageMult">Damage multiplier for attacks</param>
+	bool AddHealthPartScript(Collider c, float damageMult)
+	{
+		c.isTrigger = true;
+
+		// Adds Health_Part script
+		GameObject obj = c.gameObject;
+		Health_Part script = obj.AddComponent<Health_Part>();
+		script.MainHealth = this;
+		script.DamageMultiplier = damageMult;
+
+		// Turns off mesh renderers
+		MeshRenderer mr = obj.GetComponent<MeshRenderer>();
+		if(mr != null) mr.enabled = false;
+
+		// Prevents character controller from colliding with own parts
+		//Physics.IgnoreCollision(GetComponent<Collider>(), c);
+
+		return true;
+	}
+
+	/// <summary>
+	/// Disables all child colliders upon death
+	/// </summary>
+	void DisableColliders()
+	{
+		Collider[] bodyParts = GetComponentsInChildren<Collider>();
+		for(int n = 0; n < bodyParts.Length; ++n)
+			bodyParts[n].enabled = false;
+	}
+		
 }

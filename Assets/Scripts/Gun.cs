@@ -80,9 +80,12 @@ public class Gun : MonoBehaviour
 				// If the target has a health script, they are damaged
 				// Otherwise, a simple bullet hole is made
 				Health h = hitInfo.collider.GetComponent<Health>();
+				Health_Part hp = hitInfo.collider.GetComponent<Health_Part>();
 				if(h != null)
 				{
-					h.Hit(damage, true, hitInfo.point, hitInfo.normal);
+					h.Hit(damage, true, hitInfo.point, hitInfo.normal, null);
+				} else if(hp != null) {
+					hp.Hit(damage, true, hitInfo.point, hitInfo.normal);
 				} else {
 					MakeBulletHole(hitInfo.point, hitInfo.normal);
 				}

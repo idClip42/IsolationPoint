@@ -29,6 +29,9 @@ public class MeleeWeapon : MonoBehaviour {
 
 		// Sets up the rigidbody
 		AddKinematicRigidbody();
+
+		// Will need to ignore character controller colliders
+		// https://docs.unity3d.com/ScriptReference/Physics.IgnoreCollision.html
 	}
 	
 	void Update () 
@@ -102,6 +105,6 @@ public class MeleeWeapon : MonoBehaviour {
 		// If colliding with another character, does damage
 		Vector3 point = c.ClosestPointOnBounds(transform.position);
 		Vector3 normal = Vector3.up;	// Perhaps this should be the dif between the closest point and the transform from above
-		healthScript.Hit(damage, drawBlood, point, normal);
+		healthScript.Hit(damage, drawBlood, point, normal, null);
 	}
 }
