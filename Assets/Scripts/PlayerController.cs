@@ -284,6 +284,10 @@ public class PlayerController : MonoBehaviour
 		float fwdInput = Input.GetAxisRaw("Vertical");		// Corresponds to the forward direction of the camera
 		float rightInput = Input.GetAxisRaw("Horizontal");	// Corresponds to the right direction of the camera
 
+		// Adds in controller input. Not a great way to do this but whatever.
+		fwdInput += Input.GetAxisRaw("Joy Vertical");
+		rightInput += Input.GetAxisRaw("Joy Horizontal");
+
 		// Adds input movement to the velocity
 		if(player.isGrounded)
 			velocity += (forward * fwdInput + right * rightInput) * acceleration * Time.fixedDeltaTime;
@@ -391,6 +395,9 @@ public class PlayerController : MonoBehaviour
 		// Gets the user mouse input
 		float horiz = Input.GetAxis("Mouse X") * camXSpeed;
 		float vert = Input.GetAxis("Mouse Y") * -camYSpeed;
+
+		horiz += Input.GetAxis("Joy Look X") * camXSpeed;
+		vert += Input.GetAxis("Joy Look Y") * -camYSpeed;
 
 		// Gets a Vector3 from the Camera Axis' rotation quaternion, for modification
 		Vector3 rotVector = cameraAxis.rotation.eulerAngles;
