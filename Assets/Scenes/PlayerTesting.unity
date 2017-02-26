@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1325,6 +1325,10 @@ Prefab:
     - target: {fileID: 4000626621129424, guid: 00a35919eb9894d1aba4e618b4f1a2ff, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178519691459592, guid: 00a35919eb9894d1aba4e618b4f1a2ff, type: 2}
+      propertyPath: m_TagString
+      value: Wood
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00a35919eb9894d1aba4e618b4f1a2ff, type: 2}
@@ -4476,7 +4480,7 @@ GameObject:
   - component: {fileID: 987819955}
   m_Layer: 0
   m_Name: WoodWallBox
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6447,6 +6451,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1018756686898318, guid: 5c7b2197b14a44305bf72e0467364283, type: 2}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c7b2197b14a44305bf72e0467364283, type: 2}
   m_IsPrefabParent: 0
@@ -6950,6 +6958,10 @@ Prefab:
       value: Wood
       objectReference: {fileID: 0}
     - target: {fileID: 1628610469279178, guid: ac77ffc5a88854b5db282cd091664c84, type: 2}
+      propertyPath: m_TagString
+      value: Wood
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274858676338198, guid: ac77ffc5a88854b5db282cd091664c84, type: 2}
       propertyPath: m_TagString
       value: Wood
       objectReference: {fileID: 0}
