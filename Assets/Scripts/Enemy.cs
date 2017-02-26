@@ -31,6 +31,9 @@ public class Enemy : MonoBehaviour {
     bool targetingPlayer;               //True if the target is the player -> run
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
+    Animator anim;                      //Animates model
+    Combat combatScript;                // The combat script for scripting combat
+    Health healthScript;				// Ditto for script
 
     int numRayChecks;                   //number of body parts to check with rays for sight
 
@@ -56,13 +59,43 @@ public class Enemy : MonoBehaviour {
         midWander = Vector3.zero;
 
         agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+        {
+            Debug.LogError("Need NavMeshAgent component");
+        }
+        anim = GetComponent<Animator>();
+        if(anim == null)
+        {
+            Debug.LogError("Need Animator component");
+        }
         agent.speed = walkSpeed;
         numRayChecks = 6;   //~heeeead, shoulders, knees, and toes(center) ~knees and toes(center)
         searchTimer = 0;
+
+        // Finds the Combat script
+        combatScript = GetComponent<Combat>();
+        if (combatScript == null) Debug.Log("Enemy needs a Combat script");
+
+        // Finds the Health script
+        healthScript = GetComponent<Health>();
+        if (healthScript == null) Debug.Log("Enemy needs a Health script");
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    /// <summary>
+	/// Updates at a fixed rate based on Physics
+	/// </summary>
+	void FixedUpdate()
+    {
+        // Ends game if there is no health
+        if (healthScript != null && healthScript.health <= 0) return;
+        if (healthScript == null) return;
+
+        Animate();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (agent.remainingDistance < agent.radius * 2 && !searching)
         {
             if (targetingPlayer)
@@ -97,7 +130,7 @@ public class Enemy : MonoBehaviour {
         if (searching)
         {
             searchTimer += Time.deltaTime;
-            Search();
+            Wander();
             if(searchTimer >= searchDuration)
             {
                 searching = false;
@@ -268,7 +301,7 @@ public class Enemy : MonoBehaviour {
     /// Rotate facing transform to sim turning head.(Not implemented yet)
     /// Wander strangely.
     /// </summary>
-    void Search()
+    void Wander()
     {
         float one = 3;//length in front to search
         float two = one / 2;
@@ -287,5 +320,35 @@ public class Enemy : MonoBehaviour {
         //wanderTarget.position = Vector3.ClampMagnitude(midWander, one) + transform.position;
         wanderTarget.position = midWander + transform.position + (transform.forward * one);
         target.position = wanderTarget.position;
+    }
+
+
+    void TurnModel()
+    {
+        anim.transform.forward = Vector3.Lerp(
+                anim.transform.forward,
+                agent.velocity,
+                0.1f
+            );
+    }
+
+    /// <summary>
+	/// Animate the player model.
+	/// </summary>
+	void Animate()
+    {
+        // Turns the model in the correct direction
+        TurnModel();
+
+        // Sends necessary values to the Animator
+        // Speed
+        float speed = agent.velocity.magnitude;
+        anim.SetFloat("Speed", speed);
+        // Angle Between forward facing direction and velocity direction
+        float angleBetween = Vector3.Angle(anim.transform.forward, agent.velocity);
+        anim.SetFloat("Angle", angleBetween);
+        // Right Vector Dot Product (determines whether velocity is moving to right)
+        float rightDot = Vector3.Dot(anim.transform.right, agent.velocity);
+        anim.SetFloat("RightDot", rightDot);
     }
 }
