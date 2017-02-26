@@ -9,13 +9,15 @@ public class Health : MonoBehaviour {
 	public bool bloodStains = true;			// Whether there are blood stains
 	public GameObject bloodStainProjector;	// Projectors that project bloodstains on characters
 
-
+	UI_Manager gameUI;
 
 
 
 	void Start()
 	{
 		AssignBodyParts();
+
+		gameUI = GameObject.Find ("UI").GetComponent<UI_Manager> ();
 	}
 
 
@@ -40,6 +42,8 @@ public class Health : MonoBehaviour {
 			if(bloodStains)
 				MakeBloodStain(hitPoint, hitNormal, (bodyPart == null) ? transform : bodyPart);
 		}
+
+		gameUI.UpdateHealthBars ();
 	}
 
 
