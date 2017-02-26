@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4423642712975734}
   - component: {fileID: 33561320601508408}
   - component: {fileID: 23713786306600508}
-  - component: {fileID: 65179888372158914}
+  - component: {fileID: 64633192550044704}
   m_Layer: 0
   m_Name: StoneWall_LOD1
   m_TagString: Untagged
@@ -94,8 +94,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1956625806304046}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.412112, y: -0.82555056, z: -8.350638}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4040236039458892}
@@ -179,8 +179,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593624291246630}
   m_Mesh: {fileID: 4300000, guid: 0255dd2a3b4c24936908699029814ec2, type: 3}
---- !u!65 &65179888372158914
-BoxCollider:
+--- !u!64 &64633192550044704
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -189,8 +189,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.049999997, y: 0.0075000008, z: 0.024996663}
-  m_Center: {x: 9.313226e-10, y: -0.02124999, z: 0.012498337}
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 0255dd2a3b4c24936908699029814ec2, type: 3}
 --- !u!205 &205484848520938710
 LODGroup:
   m_ObjectHideFlags: 1

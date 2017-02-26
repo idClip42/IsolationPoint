@@ -170,13 +170,13 @@ public class Gun : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Finds the point on the screen where the character is aiming their weapon
-	/// Not written yet
+	/// Finds the point on the screen (as a percentage) where the character is aiming their weapon
+	/// Only returns center of screen right now
 	/// </summary>
-	/// <returns>The point on the screen</returns>
+	/// <returns>The point on the screen (as a percentage)</returns>
 	public Vector2 WhereAmIAiming()
 	{
 		// Where oh where?
-		return Vector2.zero;
+		return new Vector2(0.5f, 0.5f);
 	}
 }
