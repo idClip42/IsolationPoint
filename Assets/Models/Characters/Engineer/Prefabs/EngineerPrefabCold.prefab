@@ -97,6 +97,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4113535083585810}
+  - component: {fileID: 136848490390205816}
   m_Layer: 0
   m_Name: Hip_L
   m_TagString: Untagged
@@ -127,6 +128,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4415894838172740}
+  - component: {fileID: 136197145744847474}
   m_Layer: 0
   m_Name: Forearm_R
   m_TagString: Untagged
@@ -405,6 +407,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4828236219241282}
+  - component: {fileID: 136755787613536930}
   m_Layer: 0
   m_Name: LowerLeg_R
   m_TagString: Untagged
@@ -650,6 +653,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4393615999585760}
+  - component: {fileID: 136897512097688508}
   m_Layer: 0
   m_Name: UpperArm_L
   m_TagString: Untagged
@@ -725,6 +729,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4655820368048044}
+  - component: {fileID: 136557860291170828}
   m_Layer: 0
   m_Name: Hip_R
   m_TagString: Untagged
@@ -894,6 +899,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4669445860957600}
+  - component: {fileID: 136159536862333248}
   m_Layer: 0
   m_Name: Spine
   m_TagString: Untagged
@@ -971,6 +977,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4289138536432142}
+  - component: {fileID: 136561978443245276}
   m_Layer: 0
   m_Name: Head_end
   m_TagString: Untagged
@@ -1153,6 +1160,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4097176135668222}
+  - component: {fileID: 136138001420589512}
   m_Layer: 0
   m_Name: LowerLeg_L
   m_TagString: Untagged
@@ -1168,6 +1176,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4518680724989370}
+  - component: {fileID: 136724054302190154}
   m_Layer: 0
   m_Name: UpperArm_R
   m_TagString: Untagged
@@ -1230,6 +1239,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4565447918299054}
+  - component: {fileID: 136680308285946964}
   m_Layer: 0
   m_Name: Forearm_L
   m_TagString: Untagged
@@ -1646,7 +1656,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1784115284568688}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 5.2454286, y: 0, z: 43.5661}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4652222093504012}
@@ -2983,6 +2993,136 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 934d61e07f4af424b8afa04cc1ec44ae, type: 3}
   crunchSteps: []
   lifetime: 20
+--- !u!136 &136138001420589512
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1924342040103668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0007
+  m_Height: 0.005
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.0025, z: 0}
+--- !u!136 &136159536862333248
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718704971712338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0017
+  m_Height: 0.0065
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.0013, z: 0}
+--- !u!136 &136197145744847474
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1087530512880322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0007
+  m_Height: 0.0027
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.0015, z: 0}
+--- !u!136 &136557860291170828
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595575739232980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0008
+  m_Height: 0.005
+  m_Direction: 1
+  m_Center: {x: -0.0002, y: 0.0025, z: 0}
+--- !u!136 &136561978443245276
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814148652768202}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0011
+  m_Height: 0.0029
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.00059, z: -0.0001}
+--- !u!136 &136680308285946964
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1964696437291316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0007
+  m_Height: 0.0027
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.0015, z: 0}
+--- !u!136 &136724054302190154
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1927706654626708}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0007
+  m_Height: 0.0035
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.001, z: 0}
+--- !u!136 &136755787613536930
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340463729228222}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0007
+  m_Height: 0.005
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.0025, z: 0}
+--- !u!136 &136848490390205816
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067017943069668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0008
+  m_Height: 0.005
+  m_Direction: 1
+  m_Center: {x: -0.0002, y: 0.0025, z: 0}
+--- !u!136 &136897512097688508
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552031910677800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0007
+  m_Height: 0.0035
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.001, z: 0}
 --- !u!137 &137174431347636418
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
