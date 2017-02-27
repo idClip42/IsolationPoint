@@ -105,6 +105,7 @@ public class MeleeWeapon : MonoBehaviour {
 		if(healthScript == null && healthPartScript == null) return;
 		// If this collided with the player holding it, returns
 		if(transform.IsChildOf(c.gameObject.transform)) return;
+		if(healthPartScript != null && transform.IsChildOf(healthPartScript.MainHealth.transform)) return;
 
 		// If colliding with another character, does damage
 		Vector3 point = c.ClosestPointOnBounds(transform.position);

@@ -699,15 +699,12 @@ public class PlayerController : MonoBehaviour
 			{
 				newList[count] = playerList[n];
 				++count;
+			} else {
+				if(n < playerNum)
+					--playerNum;
 			}
 		}
 		playerList = newList;
 	}
-
-
-
-
-
-
 
 }

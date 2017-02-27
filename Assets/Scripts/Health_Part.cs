@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health_Part : MonoBehaviour 
 {
 	Health mainHealthScript;
-	public Health MainHealth{ set { mainHealthScript = value; } }
+	public Health MainHealth{ get { return mainHealthScript; } set { mainHealthScript = value; } }
 
 	float damageMultiplier;
 	public float DamageMultiplier{ set { damageMultiplier = value; } }
