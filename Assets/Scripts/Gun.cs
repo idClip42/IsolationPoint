@@ -176,7 +176,13 @@ public class Gun : MonoBehaviour
 	/// <returns>The point on the screen (as a percentage)</returns>
 	public Vector2 WhereAmIAiming()
 	{
-		// Where oh where?
-		return new Vector2(0.5f, 0.5f);
+		Vector2 screenSpacePos = new Vector2(0.5f, 0.5f);
+		RaycastHit hitInfo;
+		if(Physics.Raycast(barrels[0].position, cam.transform.forward, out hitInfo, range))
+		{
+			Vector3 screenPos = cam.WorldToViewportPoint(hitInfo.point);
+			screenSpacePos = new Vector2(screenPos.x, screenPos.y);
+		}
+		return screenSpacePos;
 	}
 }
