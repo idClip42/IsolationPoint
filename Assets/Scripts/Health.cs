@@ -139,55 +139,38 @@ public class Health : MonoBehaviour {
 		{
 			switch (bodyParts[n].name)
 			{
-			case "HeadCollider":
+			case "Head":
 				foundColliders = AddHealthPartScript(bodyParts[n], 4.0f);
 				break;
-			case "NeckCollider":
-				foundColliders = AddHealthPartScript(bodyParts[n], 3.0f);
+			case "Head_end":
+				foundColliders = AddHealthPartScript(bodyParts[n], 4.0f);
 				break;
-			case "ChestCollider":
+			case "Spine":
 				foundColliders = AddHealthPartScript(bodyParts[n], 2.0f);
 				break;
-			case "SpineCollider":
-				foundColliders = AddHealthPartScript(bodyParts[n], 2.0f);
-				break;
-
-			case "ShoulderCollider_L":
+			case "Hip_L":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
 				break;
-			case "ForearmCollider_L":
+			case "LowerLeg_L":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
 				break;
-			case "HandCollider_L":
+			case "Hip_R":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
 				break;
-			case "ShoulderCollider_R":
+			case "LowerLeg_R":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
 				break;
-			case "ForearmCollider_R":
+			case "UpperArm_L":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
 				break;
-			case "HandCollider_R":
+			case "Forearm_L":
 				foundColliders = AddHealthPartScript(bodyParts[n], 0.5f);
 				break;
-
-			case "ThighCollider_L":
+			case "UpperArm_R":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
 				break;
-			case "LowerLegCollider_L":
+			case "Forearm_R":
 				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
-				break;
-			case "FootCollider_L":
-				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
-				break;
-			case "ThighCollider_R":
-				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
-				break;
-			case "LowerLegCollider_R":
-				foundColliders = AddHealthPartScript(bodyParts[n], 1.0f);
-				break;
-			case "FootCollider_R":
-				foundColliders = AddHealthPartScript(bodyParts[n], 0.5f);
 				break;
 			}
 		}
@@ -216,8 +199,8 @@ public class Health : MonoBehaviour {
 		MeshRenderer mr = obj.GetComponent<MeshRenderer>();
 		if(mr != null) mr.enabled = false;
 
-		// Prevents character controller from colliding with own parts
-		//Physics.IgnoreCollision(GetComponent<Collider>(), c);
+		// Prevent character controller from colliding with own parts
+		Physics.IgnoreCollision(c, GetComponent<Collider>());
 
 		return true;
 	}
