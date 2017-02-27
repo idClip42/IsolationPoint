@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour {
     public float attackSpeed;           //How long does it take for attack sequence to play
 
     public Transform target;            //Destination
-    public Transform wanderTarget;      //Target to be used for wandering
+    //public Transform wanderTarget;      //Target to be used for wandering
     Vector3 lastSeen;                   //Last seen location of player
     Vector3 midWander;                  //Used in wander/search
 
@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour {
     Health healthScript;				// Ditto for script
 
     int numRayChecks;                   //number of body parts to check with rays for sight
+    public int locSet;                         //current location set
+    public int locInd;                         //current index within set
 
     public float searchTimer;           //Current time spent searching
 
@@ -80,6 +82,8 @@ public class Enemy : MonoBehaviour {
         healthScript = GetComponent<Health>();
         if (healthScript == null) Debug.Log("Enemy needs a Health script");
 
+        locSet = 0;
+        locInd = 0;
     }
 
     /// <summary>
@@ -118,11 +122,12 @@ public class Enemy : MonoBehaviour {
                     agent.speed = searchSpeed;
                     midWander = transform.forward;
                     lastSeen = target.position;
+                    locInd = -1;
                 }
             }
             else
             {
-                if (gm.locations.Length > 0) target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
+                NewLocation();
             }
 
         }
@@ -138,7 +143,8 @@ public class Enemy : MonoBehaviour {
                 agent.speed = walkSpeed;
                 searchTimer = 0;
                 //new location
-                if (gm.locations.Length > 0) target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
+                //if (gm.locations.Length > 0) target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
+                NewLocation();
             }
         }
 
@@ -155,6 +161,32 @@ public class Enemy : MonoBehaviour {
 
         if (target != null) agent.SetDestination(target.position);
 	}
+
+    /// <summary>
+    /// Find a new location to go to, within the subset if any left.
+    /// </summary>
+    void NewLocation()
+    {
+        //if locations exist
+        if (gm.locations.Length > 0)
+        {
+            //if finished with locations in set --> switch set
+            if (gm.locations[locSet].GetComponent<LocationList>().locations.Length-1 <= locInd || locInd < 0)
+            {
+                int loc;
+                do
+                {
+                    loc = Random.Range(0, gm.locations.Length);
+                } while (loc == locSet);
+                locSet = loc;
+                locInd = -1;
+            }
+            locInd++;
+            //target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
+            target.position = gm.locations[locSet].GetComponent<LocationList>().locations[locInd].transform.position;
+        }
+    }
+
 
     /// <summary>
     /// Checks whether a player is going to be the target. If so, make it the nearest player.
@@ -305,21 +337,21 @@ public class Enemy : MonoBehaviour {
     {
         float one = 3;//length in front to search
         float two = one / 2;
-        float three = two / 3;
+        float three = one / 3;
 
         float randomAngle = Mathf.Deg2Rad * Random.Range(0, 360);
         Vector3 farWander = new Vector3(Mathf.Cos(randomAngle), 0, Mathf.Sin(randomAngle));
-        //farWander = Vector3.ClampMagnitude(farWander,three);
+        farWander = Vector3.ClampMagnitude(farWander,three);
         //farWander.Normalize();
         //farWander = farWander * three;
         //midWander += farWander;
-        //midWander = Vector3.ClampMagnitude(midWander, two);
         //midWander.Normalize();
         //midWander = midWander * two;
         midWander += farWander;
+        midWander = Vector3.ClampMagnitude(midWander, two);
         //wanderTarget.position = Vector3.ClampMagnitude(midWander, one) + transform.position;
-        wanderTarget.position = midWander + transform.position + (transform.forward * one);
-        target.position = wanderTarget.position;
+        target.position = midWander + transform.position + (transform.forward * one);
+        //target.position = wanderTarget.position;
     }
 
 

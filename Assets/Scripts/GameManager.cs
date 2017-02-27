@@ -6,14 +6,15 @@ public class GameManager : MonoBehaviour {
 
     public GameObject[] players;        //list of players -> access positions and alive status
     public int activePlayers;           //score at the end
-    public GameObject[] locations;      //locations the enemy can wander to -> nodes for AI
-                                        //2nd layer that holds nodes within a location to wander between?
+    public GameObject[] locations;      //lists of locations the enemy can wander to -> nodes for AI
+                                        //2nd layer that holds nodes within a location to wander between
 
     public float daylightLeft;
     bool night;
 
 	// Use this for initialization
 	void Start () {
+        Random.InitState((int)Time.time);
         InitializeVariables();
 	}
 
