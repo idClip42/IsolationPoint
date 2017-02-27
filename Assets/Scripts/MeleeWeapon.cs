@@ -23,6 +23,9 @@ public class MeleeWeapon : MonoBehaviour {
 		col = GetComponent<Collider>();
 		col.isTrigger = true;
 
+		// Will only collide with character hit boxes
+		gameObject.layer = 9;
+
 		// Initializes values
 		timer = 0;
 		currentAnimIndex = 0;
@@ -97,14 +100,18 @@ public class MeleeWeapon : MonoBehaviour {
 
 		// Gets the health script of the target
 		Health healthScript = c.gameObject.GetComponent<Health>();
-		// If there's no health script, returns
-		if(healthScript == null) return;
+		Health_Part healthPartScript = c.gameObject.GetComponent<Health_Part>();
+		// If there's no health scripts, returns
+		if(healthScript == null && healthPartScript == null) return;
 		// If this collided with the player holding it, returns
 		if(transform.IsChildOf(c.gameObject.transform)) return;
 
 		// If colliding with another character, does damage
 		Vector3 point = c.ClosestPointOnBounds(transform.position);
 		Vector3 normal = Vector3.up;	// Perhaps this should be the dif between the closest point and the transform from above
-		healthScript.Hit(damage, drawBlood, point, normal, null);
+		if(healthScript != null)
+			healthScript.Hit(damage, drawBlood, point, normal, null);
+		else if(healthPartScript != null)
+			healthPartScript.Hit(damage, drawBlood, point, normal);
 	}
 }

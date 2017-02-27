@@ -200,7 +200,8 @@ public class Health : MonoBehaviour {
 		if(mr != null) mr.enabled = false;
 
 		// Prevent character controller from colliding with own parts
-		Physics.IgnoreCollision(c, GetComponent<Collider>());
+		//Physics.IgnoreCollision(c, GetComponent<CharacterController>());
+		c.gameObject.layer = 8;
 
 		return true;
 	}

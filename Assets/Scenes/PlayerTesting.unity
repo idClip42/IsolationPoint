@@ -609,23 +609,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
---- !u!114 &119180571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 119180568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7755cfe79514eb79e34d3f3949f61b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  bloodParticles: {fileID: 1948670129999554, guid: 8c8d4f32d94cb40b0ab1a9847fd96df5,
-    type: 2}
-  bloodStains: 1
-  bloodStainProjector: {fileID: 1548569733569724, guid: df2f11aa9a4e043269cbe355c008f81f,
-    type: 2}
 --- !u!143 &119180572 stripped
 CharacterController:
   m_PrefabParentObject: {fileID: 143227530025947140, guid: 5e3c67c1b2ddf49aabe210b955d89396,
@@ -5122,6 +5105,10 @@ Prefab:
     - target: {fileID: 1266285669470792, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1333868727834128, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}
+      propertyPath: m_TagString
+      value: Snow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}

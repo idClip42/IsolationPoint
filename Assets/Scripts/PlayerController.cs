@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
 
 	int bitFieldAllLayers;				// The bitfield used to signify all layers
+	int bitFieldNoHitbox;
+	public int NoHitboxBit { get { return bitFieldNoHitbox; } }
 
 
 
@@ -102,6 +104,14 @@ public class PlayerController : MonoBehaviour
 
 		// A bitfield that translates to 111111. Will likely need to be increased
 		bitFieldAllLayers = 63;
+
+		// Calcs bitfield for ignoring hitbox layer
+		bitFieldNoHitbox = 1;
+		bitFieldNoHitbox = bitFieldNoHitbox << 8;
+		bitFieldNoHitbox = ~bitFieldNoHitbox;
+
+
+
 
 		// Makes it so everyone doesn't wipe their nose in sync
 		// Also prevents the character controller itself from registering on raycast
@@ -261,7 +271,7 @@ public class PlayerController : MonoBehaviour
 		// Gets a new velocity value based on the ground the player is on and with gravity.
 		Vector3 newVelocity = velocity;
 		RaycastHit hitinfo;
-		if(Physics.SphereCast(player.transform.position, player.radius, Vector3.down, out hitinfo, player.height/2))
+		if(Physics.SphereCast(player.transform.position, player.radius, Vector3.down, out hitinfo, player.height/2, bitFieldNoHitbox))
 		{
 			// Makes sure ground incline isn't too steep
 			float angle = Vector3.Angle(Vector3.up, hitinfo.normal);
@@ -375,7 +385,7 @@ public class PlayerController : MonoBehaviour
 		// Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
 		// Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
 
-		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist, bitFieldAllLayers, QueryTriggerInteraction.Ignore))
+		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist, bitFieldNoHitbox, QueryTriggerInteraction.Ignore))
 		{
 			crouchState = 1;
 		} else {
