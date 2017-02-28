@@ -625,7 +625,7 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void SwapCharactersInput()
 	{
-		if(Input.GetKeyDown(KeyCode.Q))
+		if(Input.GetButtonDown("SwapChar"))
 		{
 			SwapCharacters();
 		}
@@ -665,7 +665,7 @@ public class PlayerController : MonoBehaviour
 	{
 		// TODO: Make this a Button in the Input Menu, rather than a KeyCode
 
-		if(Input.GetKeyDown(KeyCode.F))
+		if(Input.GetButtonDown("SwapView"))
 		{
 			firstPerson = !firstPerson;
 			if(firstPerson)
