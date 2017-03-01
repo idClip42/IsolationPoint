@@ -99,8 +99,10 @@ public class Combat : MonoBehaviour {
 		if(gunScript == null) 
 			return;
 		else if(PlayerController.controller.Player.gameObject != this.gameObject)
+		{
+			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0, 0.1f));
 			return;
-		else if(!Input.GetButton("AimWeapon"))
+		} else if(!Input.GetButton("AimWeapon"))
 			isAiming = false;
 		else
 			isAiming = true;
