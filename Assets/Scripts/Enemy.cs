@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour {
     Vector3 lastSeen;                   //Last seen location of player
     Vector3 midWander;                  //Used in wander/search
 
-    public Transform facing;            //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
+    Transform facing;                     //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
 
     //bool faceTarget;                   //True when chasing player, false when searching v -> need head node
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
@@ -105,12 +105,29 @@ public class Enemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (agent.remainingDistance < agent.radius * 2 && !searching)
+        agent.Resume();
+        if (searching)
+        {
+            searchTimer += Time.deltaTime;
+            Wander();
+            if (searchTimer >= searchDuration)
+            {
+                searching = false;
+                agent.speed = walkSpeed;
+                searchTimer = 0;
+
+                //new location
+                NewLocation();
+            }
+        }
+
+        if (agent.remainingDistance < agent.radius * 2.5 && !searching)
         {
             if (targetingPlayer)
             {
+                //facing.rotation = Quaternion.FromToRotation(facing.position, target.position - facing.position);
                 targetingPlayer = false;
-                agent.autoBraking = true;
+                //agent.autoBraking = true;
 
                 //check if player is still in view
                 CheckView();
@@ -119,8 +136,10 @@ public class Enemy : MonoBehaviour {
                 if (targetingPlayer)
                 {
                     //attack
-                    //TODO: follow player and stop in front of?
-                    return;//dont move?
+                    //combatScript.Attack();
+                    //Debug.Log("Attack");
+                    //stops by player...sort of
+                    agent.Stop();
                 }
                 else
                 {
@@ -139,20 +158,6 @@ public class Enemy : MonoBehaviour {
 
         }
 
-        if (searching)
-        {
-            searchTimer += Time.deltaTime;
-            Wander();
-            if(searchTimer >= searchDuration)
-            {
-                searching = false;
-                agent.speed = walkSpeed;
-                searchTimer = 0;
-                //new location
-                //if (gm.locations.Length > 0) target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
-                NewLocation();
-            }
-        }
 
         //check for players in view -> set to target
         CheckView();
