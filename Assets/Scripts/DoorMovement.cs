@@ -1,25 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DoorMovement : MonoBehaviour {
 
     float openRot;
     bool isOpen;
-    Collider box;
     bool moving;
     float timeLeft;
     float speed;
 
     public float openTime = 5.0f;
     public float fastOpenTime = 1.5f;
-    public KeyCode key = KeyCode.E;
 
     // Use this for initialization
     void Start () {
         openRot = 90.0f;
         isOpen = false;
-        box = GetComponent<Collider>();
         moving = false;
         timeLeft = 0;
         speed = 0;
@@ -27,35 +25,37 @@ public class DoorMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(key))
-        {
-            Open();
-            GameObject door = CheckForDoor();
-            if (door != null)
-            {
-                //door.GetComponent<DoorMovement>().Open();
-            }
-        }
-
         if (moving)
         {
             timeLeft -= Time.deltaTime;
-            transform.Rotate(0, speed, 0);
             if (timeLeft <= 0)
             {
                 speed = 0;
                 moving = false;
+                timeLeft = 0;
+            }
+            else
+            {
+                transform.Rotate(0, speed, 0);
             }
         }
+
+        CheckEnemyCollision();
     }
+
     /// <summary>
-    /// What to do when colliding
+    /// What to do when 'colliding' with an enemy
     /// </summary>
-    void OnCollisionEnter(Collision collision)
+    void CheckEnemyCollision()
     {
-        if(collision.gameObject.tag == "Enemy")
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            SmashOpen();
+            RaycastHit hit;
+            Physics.Raycast(g.transform.position, Vector3.Normalize(transform.position - g.transform.position), out hit, g.GetComponent<NavMeshAgent>().radius);
+            if (hit.transform == this.transform)
+            {
+                SmashOpen();
+            }
         }
     }
 
@@ -64,22 +64,22 @@ public class DoorMovement : MonoBehaviour {
     /// </summary>
     void SmashOpen()
     {
-        timeLeft = fastOpenTime;
         if (!isOpen)
         {
+            timeLeft = fastOpenTime - timeLeft;
             moving = true;
             speed = GetRotSpeed(fastOpenTime);
+            isOpen = true;
         }
-        isOpen = true;
     }
 
     /// <summary>
     /// Open door
     /// </summary>
-    void Open()
+    public void Open()
     {
         moving = true;
-        timeLeft = openTime;
+        timeLeft = openTime - timeLeft;
         if (!isOpen)
         {
             speed = GetRotSpeed(openTime);
@@ -99,22 +99,5 @@ public class DoorMovement : MonoBehaviour {
     float GetRotSpeed(float timeToOpen)
     {
         return openRot / timeToOpen * Time.deltaTime;
-    }
-
-    GameObject CheckForDoor()
-    {
-        // creates ray at mouse position
-        Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-        RaycastHit hit;
-
-        // Raycasts from main camera forward vector and returns true if the item is within 2 units and has correct tag
-        if (Physics.Raycast(Camera.main.transform.position, forward, out hit, 5))
-        {
-            if (hit.transform.tag == "Door")
-            {
-                return hit.transform.gameObject;
-            }
-        }
-        return null;
     }
 }

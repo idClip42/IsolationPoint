@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4783171753868636}
   - component: {fileID: 114885787463823290}
+  - component: {fileID: 114614407809954310}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114614407809954310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132395745621190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5c58d77f29b8044bf8aa8b77b81573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114885787463823290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbad487d758e4361a24e82544c437b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  playerList: []
   camXSpeed: 5
   camYSpeed: 3
   walkSpeed: 3

@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour {
     public float walkSpeed;             // The speed at which the enemy walks/wanders,
     public float runSpeed;              // runs/sprints/chases,
     public float searchSpeed;           // and searches,
-    //public float acceleration;          // as well as their rate of acceleration -> redundant if never changes b/c agent has same field
 
     public float angleOfVision;         //Cone representing field of view
     public float visionDistance;        //Distance the enemy can see at
@@ -20,7 +19,6 @@ public class Enemy : MonoBehaviour {
     public float attackSpeed;           //How long does it take for attack sequence to play
 
     public Transform target;            //Destination
-    //public Transform wanderTarget;      //Target to be used for wandering
     Vector3 lastSeen;                   //Last seen location of player
     Vector3 midWander;                  //Used in wander/search
 
@@ -56,7 +54,14 @@ public class Enemy : MonoBehaviour {
         searching = true;
         targetingPlayer = false;
 
-        facing = transform;//match to head of model?
+        facing = transform;//match to head of model
+        foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+        {
+            if(child.name == "Head_end")
+            {
+                facing = child.transform;
+            }
+        }
         lastSeen = Vector3.zero;
         midWander = Vector3.zero;
 
@@ -114,6 +119,8 @@ public class Enemy : MonoBehaviour {
                 if (targetingPlayer)
                 {
                     //attack
+                    //TODO: follow player and stop in front of?
+                    return;//dont move?
                 }
                 else
                 {
@@ -139,7 +146,6 @@ public class Enemy : MonoBehaviour {
             if(searchTimer >= searchDuration)
             {
                 searching = false;
-                //target = null;
                 agent.speed = walkSpeed;
                 searchTimer = 0;
                 //new location
@@ -150,14 +156,6 @@ public class Enemy : MonoBehaviour {
 
         //check for players in view -> set to target
         CheckView();
-
-        //go to last seen location
-        /*
-        if(target == null && lastSeen != transform.position)
-        {
-            target.position = lastSeen;
-        }
-        */
 
         if (target != null) agent.SetDestination(target.position);
 	}
@@ -182,18 +180,15 @@ public class Enemy : MonoBehaviour {
                 locInd = -1;
             }
             locInd++;
-            //target.position = gm.locations[Random.Range(0, gm.locations.Length)].transform.position;
             target.position = gm.locations[locSet].GetComponent<LocationList>().locations[locInd].transform.position;
         }
     }
-
 
     /// <summary>
     /// Checks whether a player is going to be the target. If so, make it the nearest player.
     /// </summary>
     void CheckView()
     {
-        
         if (!searching)
         {
             lastSeen = target.position;
@@ -242,12 +237,11 @@ public class Enemy : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Vector3 vecTo = parts[i].position - transform.position;
-                    //something weird with distance...
                     Physics.Raycast(transform.position, vecTo, out hit, visionDistance);
                     //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
-                    if (hit.transform == obj.transform)
+                    if (hit.transform == parts[i])
                     {
-                        if (targetingPlayer)
+                        if (targetingPlayer && seekingPlayer)
                         {
                             //check for closest distance when chasing a player
                             if ((target.position - transform.position).sqrMagnitude > (obj.transform.position - transform.position).sqrMagnitude)
@@ -261,7 +255,7 @@ public class Enemy : MonoBehaviour {
                             searchTimer = 0;
                             targetingPlayer = true;//now chasing a player
                             agent.speed = runSpeed;
-                            agent.autoBraking = false;
+                            //agent.autoBraking = false;
                         }//end targeting
                         seekingPlayer = true;//sees player currently
                         break;//break bone check for loop
@@ -277,39 +271,6 @@ public class Enemy : MonoBehaviour {
             target.position = lastSeen;
         }
     }
-
-    /*
-    see below for shorter version, this one uses dot products for 
-    bool WithinFieldOfView(Vector3 toObj)
-    {
-        toObj.Normalize();
-        float rad = Mathf.Deg2Rad * angleOfVision;
-        //check within up most field
-        facing.Rotate(rad, 0, 0);
-        if (Vector3.Dot(toObj, transform.right) < Vector3.Dot(facing.forward, transform.right))
-        {
-            //check within down most 
-            facing.Rotate(-2 * rad, 0, 0);
-            if(Vector3.Dot(toObj, -transform.right) > Vector3.Dot(facing.forward, -transform.right))
-            {
-                facing.Rotate(rad, 0, 0);
-                //check right
-                facing.Rotate(0, rad, 0);
-                if(Vector3.Dot(toObj, transform.up) < Vector3.Dot(facing.forward, transform.up))
-                {
-                    //check left
-                    facing.Rotate(0, -2 * rad, 0);
-                    if(Vector3.Dot(toObj, -transform.up) < Vector3.Dot(facing.forward, -transform.up))
-                    {
-                        facing.Rotate(0, rad, 0);//sets back in center
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    */
 
 
     /// <summary>
