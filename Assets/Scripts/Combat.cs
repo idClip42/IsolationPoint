@@ -53,6 +53,8 @@ public class Combat : MonoBehaviour {
 	public void PickUpWeapon(GameObject w)
 	{
 		// Drops current weapon
+		if(meleeScript != null)
+			meleeScript.IsHeld(false);
 		weapon = null;
 		meleeScript = null;
 		gunScript = null;
@@ -60,6 +62,8 @@ public class Combat : MonoBehaviour {
 		// Equips new weapon
 		weapon = w;
 		if(weapon == null) return;
+		if(meleeScript != null)
+			meleeScript.IsHeld(true);
 		meleeScript = weapon.GetComponent<MeleeWeapon>();
 		gunScript = weapon.GetComponent<Gun>();
 	}

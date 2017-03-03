@@ -19,9 +19,10 @@ public class MeleeWeapon : MonoBehaviour {
 
 	void Start () 
 	{
-		// Gets the collider, makes sure it's a trigger
+		// Gets the collider, makes sure it's NOT a trigger
 		col = GetComponent<Collider>();
-		col.isTrigger = true;
+		//col.isTrigger = true;
+		col.isTrigger = false;
 
 		// Will only collide with character hit boxes
 		gameObject.layer = 9;
@@ -39,6 +40,14 @@ public class MeleeWeapon : MonoBehaviour {
 	
 	void Update () 
 	{
+		// Don't do nothin if this here collider ain't a trigger
+		// Jus don't do nothin cept 'nable that collider
+		if(col.isTrigger == false)
+		{
+			col.enabled = true;
+			return;
+		}
+
 		// If the timer is going, that means an attack is happening
 		// So the collider is on and the timer is ticking down
 		// Otherwise, they're off
@@ -63,6 +72,15 @@ public class MeleeWeapon : MonoBehaviour {
 
 		return choice.ToString();
 	}
+
+
+
+
+	public void IsHeld(bool value)
+	{
+		col.isTrigger = value;
+	}
+
 
 
 	/// <summary>
