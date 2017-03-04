@@ -16,6 +16,7 @@ public class SunSetting : MonoBehaviour {
 	void Start () {
         rotationStep = rotationDegrees / timeToTurn;
         lt = GetComponent<Light>();
+		ResetSun();
 	}
 	
 	// Update is called once per frame
@@ -42,4 +43,16 @@ public class SunSetting : MonoBehaviour {
     //divide degrees by seconds to rotate 
 
     //rotate every second by that many degrees
+
+
+
+	/// <summary>
+	/// Moves the sun into the proper daylight position and state
+	/// This way, it can be off and in the night rotation so that no daylight is baked into the lighting
+	/// </summary>
+	void ResetSun()
+	{
+		lt.enabled = true;
+		transform.Rotate(new Vector3(-rotationDegrees,0,0));
+	}
 }
