@@ -11,11 +11,14 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	Vector3 dropLocation;
 
+	Combat combatScript;
+
 	PlayerController playerController;
 
 	void Start () {
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 		playerController = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
+		combatScript = GetComponent<Combat> ();
 	}
 	
 	void Update () {
@@ -47,8 +50,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 		// Raycasts from main camera forward vector and returns true if the item is within 2 units and has correct tag
 		if (Physics.Raycast (Camera.main.transform.position, forward, out hit, 5)) {
-			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "CanPickUp") {
+			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "Weapon") {
 				currentItem = hit.transform.gameObject;
+				combatScript.PickUpWeapon (currentItem);
 				return true;
 			}
 		}
