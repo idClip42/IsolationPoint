@@ -19,12 +19,16 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	void Start () {
 		bladeRotation = new Quaternion (0, 45f, 0, 0);
-		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
+		//playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
+		playerTransform = transform;
 		playerController = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		combatScript = GetComponent<Combat> ();
 	}
 	
 	void Update () {
+
+		if(playerController.Player.gameObject != this.gameObject) return;
+
 		if (Input.GetKeyDown (KeyCode.R) && currentItem != null) {
 			SetTransform ();
 			DropItem ();
@@ -91,6 +95,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// </summary>
 	void DropItem(){
 		currentItem.transform.parent = null;
+
+		combatScript.PickUpWeapon (null);
+
 		RaycastHit hit;
 
 		if (Physics.Raycast (playerTransform.position, Vector3.down, out hit, 10)) {
