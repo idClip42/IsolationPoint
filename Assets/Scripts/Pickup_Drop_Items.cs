@@ -13,9 +13,12 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	Combat combatScript;
 
+	Quaternion bladeRotation;
+
 	PlayerController playerController;
 
 	void Start () {
+		bladeRotation = new Quaternion (0, 45f, 0, 0);
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 		playerController = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		combatScript = GetComponent<Combat> ();
@@ -65,6 +68,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	void SetCurrentItem() {
 		currentItem.transform.position = playerHand.position;
 		currentItem.transform.parent = playerHand;
+		currentItem.transform.localPosition = Vector3.zero;
+		currentItem.transform.localRotation = Quaternion.identity;
+		if (currentItem.name.Contains("WoodSword"))
+			currentItem.transform.Rotate(0, -90, 0);
 	}
 
 	/// <summary>
