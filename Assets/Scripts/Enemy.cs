@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        if (agent.remainingDistance < agent.radius * 2.5 && !searching)
+        if (agent.remainingDistance < agent.radius * 3 && !searching)
         {
             if (targetingPlayer)
             {
@@ -140,6 +140,7 @@ public class Enemy : MonoBehaviour {
                     //Debug.Log("Attack");
                     //stops by player...sort of
                     agent.Stop();
+                    FaceTarget();
                 }
                 else
                 {
@@ -162,6 +163,7 @@ public class Enemy : MonoBehaviour {
         //check for players in view -> set to target
         CheckView();
 
+        FaceTarget();     //turn on for enemies to slide past but still face character, much harder to lose sight
         if (target != null) agent.SetDestination(target.position);
 	}
 
@@ -243,6 +245,14 @@ public class Enemy : MonoBehaviour {
                     RaycastHit hit;
                     Vector3 vecTo = parts[i].position - transform.position;
                     Physics.Raycast(transform.position, vecTo, out hit, visionDistance);
+
+                    //to see through one layer of glass..(needs testing)
+                    if(hit.transform.tag == "Glass")
+                    {
+                        //start from where ray hit the glass, same direction as previous, with distance to glass subtracted from vision distance
+                        Physics.Raycast(hit.transform.position, vecTo, out hit, visionDistance - hit.distance);
+                    }
+
                     //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
                     if (hit.transform == parts[i])
                     {
@@ -318,6 +328,16 @@ public class Enemy : MonoBehaviour {
         //wanderTarget.position = Vector3.ClampMagnitude(midWander, one) + transform.position;
         target.position = midWander + transform.position + (transform.forward * one);
         //target.position = wanderTarget.position;
+    }
+
+    /// <summary>
+    /// Turn to face the target.
+    /// </summary>
+    void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
     }
 
 
