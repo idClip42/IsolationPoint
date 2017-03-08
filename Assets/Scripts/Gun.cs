@@ -185,4 +185,12 @@ public class Gun : MonoBehaviour
 		}
 		return screenSpacePos;
 	}
+
+
+
+
+	public void IsHeld(bool value)
+	{
+		GetComponent<Collider>().enabled = !value;
+	}
 }

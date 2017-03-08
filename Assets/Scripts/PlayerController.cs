@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
 
 	public static PlayerController controller;
-										// The statuc player controller variable with which other
+										// The static player controller variable with which other
 										// scripts will access it
 
 
