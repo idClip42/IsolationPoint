@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
     public float daylightLeft;
     bool night;
+    public bool gameover;
 
 	// Use this for initialization
 	void Start () {
@@ -23,10 +24,17 @@ public class GameManager : MonoBehaviour {
         players = GameObject.FindGameObjectsWithTag("Player");
         activePlayers = players.Length;
         night = false;
+        gameover = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (gameover)
+        {
+            //end game screen
+            return;
+        }
+
         if (!night)
         {
             daylightLeft -= Time.deltaTime;
@@ -36,4 +44,13 @@ public class GameManager : MonoBehaviour {
             }
         }
 	}
+
+    /// <summary>
+    /// Get the bool night value.
+    /// </summary>
+    /// <returns>True when night has fallen.</returns>
+    public bool GetNight()
+    {
+        return night;
+    }
 }

@@ -105,6 +105,14 @@ public class Enemy : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //gameover / cannot move
+        if (healthScript.health <= 0)
+        {
+            gm.gameover = true;
+            return;
+        }
+
+        //move
         agent.Resume();
         if (searching)
         {
@@ -247,10 +255,13 @@ public class Enemy : MonoBehaviour {
                     Physics.Raycast(transform.position, vecTo, out hit, visionDistance);
 
                     //to see through one layer of glass..(needs testing)
-                    if(hit.transform.tag == "Glass")
+                    if (hit.transform)
                     {
-                        //start from where ray hit the glass, same direction as previous, with distance to glass subtracted from vision distance
-                        Physics.Raycast(hit.transform.position, vecTo, out hit, visionDistance - hit.distance);
+                        if (hit.transform.tag == "Glass")
+                        {
+                            //start from where ray hit the glass, same direction as previous, with distance to glass subtracted from vision distance
+                            Physics.Raycast(hit.transform.position, vecTo, out hit, visionDistance - hit.distance);
+                        }
                     }
 
                     //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
@@ -335,6 +346,7 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void FaceTarget()
     {
+        if (target.position == transform.position) return;
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
