@@ -18,6 +18,10 @@ public class Gun : MonoBehaviour
 	public float range = 50.0f;							// The range on the gun
 	public float wait = 0.5f;							// The minimum time between shots
 	[Space(10)]
+	public float kickDist = 0;							// The distance the gun moves back when it kicks
+	public float kickAngle = 0;							// The angle it rotates upwards when it kicks
+	public float kickReturnLerp = 0.5f;					// The lerp value for the gun returning to normal position and rotation
+	[Space(10)]
 	public Transform[] barrels;							// Empty GameObjects that each will fire one bullet
 														// from their position along their forward vector
 														// when the gun is fired
@@ -48,6 +52,19 @@ public class Gun : MonoBehaviour
 	{
 		if(timer > 0)
 			timer -= Time.deltaTime;
+
+		// Returns gun to normal position after kick
+		if(GetComponent<Collider>().enabled == false)
+		{
+			transform.localPosition = Vector3.Lerp(
+				transform.localPosition,
+				Vector3.zero,
+				kickReturnLerp);
+			transform.localRotation = Quaternion.Lerp(
+				transform.localRotation,
+				Quaternion.identity,
+				kickReturnLerp);
+		}
 	}
 
 
@@ -72,6 +89,7 @@ public class Gun : MonoBehaviour
 			Vector3 forward = accurate ? cam.transform.forward : b.forward;
 
 			MuzzleFlash(b);
+			Kick();
 
 			// Uses raycasting to determine where the bullet hits
 			RaycastHit hitInfo;
@@ -168,6 +186,18 @@ public class Gun : MonoBehaviour
 		lr.material = trailMat;
 		Destroy(line, 1.0f);
 	}
+
+
+	/// <summary>
+	/// Makes the gun kick when fired
+	/// </summary>
+	void Kick()
+	{
+		transform.Translate(Vector3.up * -kickDist);
+		transform.Rotate(Vector3.forward * kickAngle);
+	}
+
+
 
 	/// <summary>
 	/// Finds the point on the screen (as a percentage) where the character is aiming their weapon
