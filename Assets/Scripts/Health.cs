@@ -97,10 +97,12 @@ public class Health : MonoBehaviour {
 	{
 		// Plays death animation
 		Animator anim = GetComponentInChildren<Animator>();
-		anim.Play("Death", 0);
-
-		// Stops animation on higher layers
-		anim.SetLayerWeight(1, 0);
+		if(anim != null)
+		{
+			anim.Play("Death", 0);
+			// Stops animation on higher layers
+			anim.SetLayerWeight(1, 0);
+		}
 
 		// TODO: pool of blood
 
@@ -115,8 +117,11 @@ public class Health : MonoBehaviour {
 
 		// Removes character controller from player list and destroys it
 		CharacterController cc = GetComponent<CharacterController>();
-		PlayerController.controller.RemovePlayerFromList(cc);
-		Destroy(cc);
+		if(cc != null)
+		{
+			PlayerController.controller.RemovePlayerFromList(cc);
+			Destroy(cc);
+		}
 
 		Destroy(this);
 	}
