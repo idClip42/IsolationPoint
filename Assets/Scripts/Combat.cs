@@ -43,6 +43,16 @@ public class Combat : MonoBehaviour {
 	{
 		AnimateMelee();
 		AnimateAiming();
+
+		if(weapon == null)
+		{
+			// If no new weapon, ensures that no weapon anims continue
+			isAiming = false;
+			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0, 0.1f));
+			Vector3 c = cameraTarget.localPosition;
+			c.z = camTargetZ;
+			cameraTarget.localPosition = c;
+		}
 	}
 
 
@@ -63,7 +73,9 @@ public class Combat : MonoBehaviour {
 
 		// Equips new weapon
 		weapon = w;
-		if(weapon == null) return;
+		if(weapon == null)
+			return;
+
 		meleeScript = weapon.GetComponent<MeleeWeapon>();
 		gunScript = weapon.GetComponent<Gun>();
 		if(meleeScript != null)

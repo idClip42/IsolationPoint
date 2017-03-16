@@ -148,6 +148,7 @@ ModelImporter:
     4300004: LoPoly-CLOTHES
     7400000: Armature|TwoHandedPistol
     7400002: Armature|TwoHandedPistolIdle
+    7400004: Armature|LongGun
     9500000: //RootNode
     13700000: LoPoly-CLOTHES
     13700002: LoPoly-HANDS
@@ -163,12 +164,14 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 'Avatar Rig Configuration mis-match. Bone length in configuration
-      does not match position in animation file
-
-      AlexAnims'
+    animationImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
+      does not match position in animation file\nAlexAnims\nClip 'Armature|LongGun'
+      has import animation warnings that might lower retargeting quality:\nNote: Activate
+      translation DOF on avatar to improve retargeting quality.\n\t'UpperArm_L' has
+      translation animation that will be discarded.\n\t'UpperArm_R' has translation
+      animation that will be discarded.\n"
     animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
+    animationDoRetargetingWarnings: 1
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5

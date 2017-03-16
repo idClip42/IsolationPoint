@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
 	// kick?
 
 
-	public enum GunAnimation { TwoHandedPistolAim };	// The set of animations for aiming 
+	public enum GunAnimation { TwoHandedPistolAim, LongGunAim };	// The set of animations for aiming 
 	[Space(10)]
 	public GunAnimation gunAnim;						// The selected aiming animation
 	[Space(10)]
