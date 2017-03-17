@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DoorMovement : MonoBehaviour {
+public class DoorMovement : MonoBehaviour, IInteractable {
 
     float openRot;
     bool isOpen;
@@ -36,7 +37,7 @@ public class DoorMovement : MonoBehaviour {
             }
             else
             {
-                transform.Rotate(0, speed, 0);
+                transform.Rotate(0, speed * Time.deltaTime, 0);
             }
         }
 
@@ -52,7 +53,7 @@ public class DoorMovement : MonoBehaviour {
         {
             RaycastHit hit;
             Physics.Raycast(g.transform.position, Vector3.Normalize(transform.position - g.transform.position), out hit, g.GetComponent<NavMeshAgent>().radius);
-            if (hit.transform == this.transform)
+            if (hit.transform == transform)
             {
                 SmashOpen();
             }
@@ -66,7 +67,7 @@ public class DoorMovement : MonoBehaviour {
     {
         if (!isOpen)
         {
-            timeLeft = fastOpenTime - timeLeft;
+            timeLeft = fastOpenTime - (timeLeft / openTime) * fastOpenTime;
             moving = true;
             speed = GetRotSpeed(fastOpenTime);
             isOpen = true;
@@ -74,9 +75,9 @@ public class DoorMovement : MonoBehaviour {
     }
 
     /// <summary>
-    /// Open door
+    /// Open the door
     /// </summary>
-    public void Open()
+    void Open()
     {
         moving = true;
         timeLeft = openTime - timeLeft;
@@ -98,6 +99,14 @@ public class DoorMovement : MonoBehaviour {
     /// <returns>Speed of rotation</returns>
     float GetRotSpeed(float timeToOpen)
     {
-        return openRot / timeToOpen * Time.deltaTime;
+        return openRot / timeToOpen;
+    }
+
+    /// <summary>
+    /// Called when the player interacts with this object
+    /// </summary>
+    public void Action()
+    {
+        Open();
     }
 }
