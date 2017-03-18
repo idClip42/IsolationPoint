@@ -55,4 +55,22 @@ public class SunSetting : MonoBehaviour {
 		lt.enabled = true;
 		transform.Rotate(new Vector3(-rotationDegrees,0,0));
 	}
+
+
+    /// <summary>
+    /// Speed up night fall
+    /// </summary>
+    public void NightFalls()
+    {
+        float timeLeft = timeToTurn - timer;
+        //check that it is still day
+        if (timeLeft >= 0)
+        {
+            //reduce time
+            timer /= 5;
+            timeToTurn /= 5;
+            //speed up rotation
+            rotationStep = rotationDegrees / timeToTurn;
+        }
+    }
 }

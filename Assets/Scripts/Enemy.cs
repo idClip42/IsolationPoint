@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour {
                 if (targetingPlayer)
                 {
                     //attack
-                    //combatScript.Attack();
+                    combatScript.Attack();
                     //Debug.Log("Attack");
                     //stops by player...sort of
                     agent.Stop();

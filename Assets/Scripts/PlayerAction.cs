@@ -14,6 +14,7 @@ public class PlayerAction : MonoBehaviour {
 	void Start () {
         //add tag and associated script type to dictionary
         componentDict.Add("Door", typeof(DoorMovement));
+        componentDict.Add("Timeskipper", typeof(DaySkip));
     }
 	
 	// Update is called once per frame
