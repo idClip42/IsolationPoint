@@ -21,11 +21,12 @@ public class Combat : MonoBehaviour {
 		get { return isAiming; }
 	}
 
-
+	UI_Manager UIScript;
 
 
 	void Start () 
 	{
+		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager> ();
 		// Equips any weapon that is already in the public variable in the inspector
 		PickUpWeapon(weapon);
 
@@ -44,14 +45,20 @@ public class Combat : MonoBehaviour {
 		AnimateMelee();
 		AnimateAiming();
 
-		if(weapon == null)
-		{
+		if (weapon == null) {
 			// If no new weapon, ensures that no weapon anims continue
 			isAiming = false;
-			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0, 0.1f));
+			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
 			Vector3 c = cameraTarget.localPosition;
 			c.z = camTargetZ;
 			cameraTarget.localPosition = c;
+		}
+
+		if (gunScript != null) {
+			gunScript.UpdateCrosshair ();
+		} 
+		else {
+			UIScript.ResetCrosshair ();
 		}
 	}
 

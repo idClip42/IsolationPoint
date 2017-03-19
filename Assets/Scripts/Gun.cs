@@ -40,15 +40,11 @@ public class Gun : MonoBehaviour
 
 	UI_Manager UIScript;
 
-	GameObject UI;
-
-
 	void Start () 
 	{
 		timer = 0;
 		cam = Camera.main;
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager> ();
-		UI = GameObject.Find ("UI");
 	}
 	
 	void Update () 
@@ -68,16 +64,6 @@ public class Gun : MonoBehaviour
 				Quaternion.identity,
 				kickReturnLerp);
 		}
-		Vector2 screenPos = WhereAmIAiming ();
-
-	//	UIScript.crosshair.rectTransform.po = screenPos;
-	//	tempVec = WhereAmIAiming ();
-	//	aimVector.x = tempVec.x;
-	//	aimVector.y = tempVec.y;
-	//	aimVector.z = 0f;
-	//	aimVector *= 10f;
-	//	UIScript.crosshair.rectTransform.localPosition = aimVector;
-	//	Debug.Log (UIScript.crosshair.rectTransform.localPosition); 
 	}
 
 
@@ -229,8 +215,14 @@ public class Gun : MonoBehaviour
 		return screenSpacePos;
 	}
 
-
-
+	/// <summary>
+	/// Put the crosshair where the player is aiming
+	/// </summary>
+	public void UpdateCrosshair(){
+		Vector2 screenPos = WhereAmIAiming ();
+		UIScript.crosshair.rectTransform.anchorMin = screenPos;
+		UIScript.crosshair.rectTransform.anchorMax = screenPos;
+	}
 
 	public void IsHeld(bool value)
 	{

@@ -12,7 +12,10 @@ public class UI_Manager : MonoBehaviour {
 
 	public Image crosshair;
 
+	Vector2 crosshairDefault;
+
 	void Start () {
+		crosshairDefault = new Vector2 (0.5f, 0.5f);
 		healthList = new List<Health> ();
 		healthBarList = new List<Image> ();
 
@@ -60,5 +63,10 @@ public class UI_Manager : MonoBehaviour {
 			if (item.name == "Crosshair")
 				crosshair = item;
 		}
+	}
+
+	public void ResetCrosshair(){
+		crosshair.rectTransform.anchorMax = crosshairDefault;
+		crosshair.rectTransform.anchorMin = crosshairDefault;
 	}
 }
