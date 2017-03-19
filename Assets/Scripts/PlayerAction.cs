@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Put other actions for other objects here?
@@ -10,23 +11,36 @@ public class PlayerAction : MonoBehaviour {
     //contains the tag and associated script that holds the interaction action for the object
     Dictionary<string, System.Type> componentDict = new Dictionary<string, System.Type>();
 
+    Text text;
+
 	// Use this for initialization
 	void Start () {
         //add tag and associated script type to dictionary
         componentDict.Add("Door", typeof(DoorMovement));
         componentDict.Add("Timeskipper", typeof(DaySkip));
+
+        text = GameObject.Find("Object Interaction Text").GetComponent<Text>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Action"))
+        //reset ui text
+        text.text = " ";
+
+        //find the game object in front of current character
+        GameObject obj = CheckForTag();
+        if (obj != null)
         {
-            GameObject obj = CheckForTag();
-            if (obj != null)
+            //get script type
+            System.Type t = componentDict[obj.tag];
+            //check if interactable --> should always be but just in case
+            if (obj.GetComponent(t) is IInteractable)
             {
-                //door.GetComponent<DoorMovement>().Action();
-                System.Type t = componentDict[obj.tag];
-                if(obj.GetComponent(t) is IInteractable)
+                //set interaction text
+                text.text = (obj.GetComponent(t) as IInteractable).ActionDescription();
+
+                //check for button press
+                if (Input.GetButtonDown("Action"))
                 {
                     (obj.GetComponent(t) as IInteractable).Action();
                 }

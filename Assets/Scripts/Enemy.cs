@@ -129,7 +129,7 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        if (agent.remainingDistance < agent.radius * 3 && !searching)
+        if (agent.remainingDistance <= agent.stoppingDistance && !searching)
         {
             if (targetingPlayer)
             {

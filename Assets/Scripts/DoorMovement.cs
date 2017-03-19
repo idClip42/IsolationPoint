@@ -109,4 +109,13 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     {
         Open();
     }
+
+    public string ActionDescription()
+    {
+        if (isOpen)
+        {
+            return "Close";
+        }
+        return "Open";
+    }
 }
