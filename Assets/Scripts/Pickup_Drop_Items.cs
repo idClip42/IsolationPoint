@@ -27,6 +27,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	
 	void Update () {
 
+		if(playerController.Player == null) return;
 		if(playerController.Player.gameObject != this.gameObject) return;
 
 		if (Input.GetKeyDown (KeyCode.R) && currentItem != null) {

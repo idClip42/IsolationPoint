@@ -89,7 +89,6 @@ public class Gun : MonoBehaviour
 			Vector3 forward = accurate ? cam.transform.forward : b.forward;
 
 			MuzzleFlash(b);
-			Kick();
 
 			// Uses raycasting to determine where the bullet hits
 			RaycastHit hitInfo;
@@ -113,6 +112,7 @@ public class Gun : MonoBehaviour
 				MakeTrail(b.position, b.position + forward * range);
 			}
 		}
+		Kick();
 		--ammo;
 		timer = wait;
 	}

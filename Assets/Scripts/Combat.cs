@@ -172,7 +172,7 @@ public class Combat : MonoBehaviour {
 			currentMaxTime = timer;
 			meleeScript.Attack(timer);
 		} else if(gunScript != null && isAiming) {
-			gunScript.Shoot(true);
+			gunScript.Shoot(false);
 		}
 	}
 }
