@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour 
 {
@@ -37,15 +38,17 @@ public class Gun : MonoBehaviour
 	float timer;										// Used for timing purposes
 	Camera cam;											// The main camera
 
+	UI_Manager UIScript;
 
-
-
+	GameObject UI;
 
 
 	void Start () 
 	{
 		timer = 0;
 		cam = Camera.main;
+		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager> ();
+		UI = GameObject.Find ("UI");
 	}
 	
 	void Update () 
@@ -65,6 +68,16 @@ public class Gun : MonoBehaviour
 				Quaternion.identity,
 				kickReturnLerp);
 		}
+		Vector2 screenPos = WhereAmIAiming ();
+
+	//	UIScript.crosshair.rectTransform.po = screenPos;
+	//	tempVec = WhereAmIAiming ();
+	//	aimVector.x = tempVec.x;
+	//	aimVector.y = tempVec.y;
+	//	aimVector.z = 0f;
+	//	aimVector *= 10f;
+	//	UIScript.crosshair.rectTransform.localPosition = aimVector;
+	//	Debug.Log (UIScript.crosshair.rectTransform.localPosition); 
 	}
 
 
