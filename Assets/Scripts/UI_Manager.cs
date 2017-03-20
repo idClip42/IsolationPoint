@@ -20,6 +20,8 @@ public class UI_Manager : MonoBehaviour {
 		healthBarList = new List<Image> ();
 
 		UI = GameObject.Find ("UI");
+		//if(UI == null) UI = GameObject.Find("UI 1");
+		//if(UI == null) Debug.Log("Didn't find UI object");
 		GetCrosshair ();
 
 		GetHealthScripts ();

@@ -120,7 +120,8 @@ public class Health : MonoBehaviour {
 		if(cc != null)
 		{
 			PlayerController.controller.RemovePlayerFromList(cc);
-			Destroy(cc);
+			//Destroy(cc);
+			cc.enabled = false;
 		}
 
 		Destroy(this);
