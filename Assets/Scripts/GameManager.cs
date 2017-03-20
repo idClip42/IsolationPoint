@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour {
 
@@ -8,9 +9,13 @@ public class GameManager : MonoBehaviour {
     public int activePlayers;           //score at the end
     public GameObject[] locations;      //lists of locations the enemy can wander to -> nodes for AI
                                         //2nd layer that holds nodes within a location to wander between
+    public Transform[] enemyStart;
+    GameObject[] enemies;
 
-    public float daylightLeft;
+    SunSetting sunset;
+
     bool night;
+    public bool Night { get { return night; } }
     public bool gameover;
 
 	// Use this for initialization
@@ -25,6 +30,9 @@ public class GameManager : MonoBehaviour {
         activePlayers = players.Length;
         night = false;
         gameover = false;
+
+        sunset = GameObject.Find("Sun").GetComponent<SunSetting>();
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 	
 	// Update is called once per frame
@@ -35,22 +43,15 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        if (!night)
+        //night starts --> spawn or warp enemies --> warp for now
+        if(!night && sunset.Night)
         {
-            daylightLeft -= Time.deltaTime;
-            if (daylightLeft < 0)
+            foreach(GameObject enemy in enemies)
             {
-                night = true;
+                //warp enemy to start location --> held off level in the meantime
+                enemy.GetComponent<NavMeshAgent>().Warp(enemyStart[Random.Range(0, enemyStart.Length - 1)].position);
             }
+            night = true;
         }
 	}
-
-    /// <summary>
-    /// Get the bool night value.
-    /// </summary>
-    /// <returns>True when night has fallen.</returns>
-    public bool GetNight()
-    {
-        return night;
-    }
 }

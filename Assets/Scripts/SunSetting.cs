@@ -9,6 +9,8 @@ public class SunSetting : MonoBehaviour {
 
     float rotationStep;
     float timer = 0;
+    bool night = false;
+    public bool Night { get { return night; } }
 
     Light lt;
 
@@ -34,6 +36,7 @@ public class SunSetting : MonoBehaviour {
         else
         {
             lt.intensity = 0;
+            night = true;
         }
 	}
 
