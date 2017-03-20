@@ -5,6 +5,9 @@ using UnityEngine;
 public class Combat : MonoBehaviour {
 
 	public GameObject weapon;		// Weapon that is currently held
+
+	public bool accurateWithGun = false;
+
 	MeleeWeapon meleeScript;		// The melee script for the weapon, if it is a melee weapon
 	Gun gunScript;					// The gun script for the weapon, if it is a gun
 	Animator anim;					// The player animator
@@ -48,13 +51,16 @@ public class Combat : MonoBehaviour {
 		if (weapon == null) {
 			// If no new weapon, ensures that no weapon anims continue
 			isAiming = false;
+			if(PlayerController.controller.Player.gameObject == this.gameObject)
+				PlayerController.controller.SetAimMode(false);
 			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
 			Vector3 c = cameraTarget.localPosition;
 			c.z = camTargetZ;
 			cameraTarget.localPosition = c;
 		}
 
-		if (gunScript != null) {
+		if(PlayerController.controller.Player.gameObject != this.gameObject) return;
+		if (gunScript != null && isAiming == true) {
 			gunScript.UpdateCrosshair ();
 		} 
 		else {
@@ -76,6 +82,7 @@ public class Combat : MonoBehaviour {
 			gunScript.IsHeld(false);
 		weapon = null;
 		meleeScript = null;
+		if(gunScript != null) gunScript.CombatScript = null;
 		gunScript = null;
 
 		// Equips new weapon
@@ -88,7 +95,10 @@ public class Combat : MonoBehaviour {
 		if(meleeScript != null)
 			meleeScript.IsHeld(true);
 		if(gunScript != null)
+		{
 			gunScript.IsHeld(true);
+			gunScript.CombatScript = this;
+		}
 	}
 
 
@@ -179,7 +189,7 @@ public class Combat : MonoBehaviour {
 			currentMaxTime = timer;
 			meleeScript.Attack(timer);
 		} else if(gunScript != null && isAiming) {
-			gunScript.Shoot(false);
+			gunScript.Shoot(accurateWithGun);
 		}
 	}
 }

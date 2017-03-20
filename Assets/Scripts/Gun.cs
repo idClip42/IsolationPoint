@@ -35,6 +35,9 @@ public class Gun : MonoBehaviour
 	[Space(10)]
 	public bool debugInfiniteAmmo;						// Whether the gun has infinite ammo
 
+	Combat combatScript;
+	public Combat CombatScript { set { combatScript = value; } }
+
 	float timer;										// Used for timing purposes
 	Camera cam;											// The main camera
 
@@ -206,8 +209,9 @@ public class Gun : MonoBehaviour
 	public Vector2 WhereAmIAiming()
 	{
 		Vector2 screenSpacePos = new Vector2(0.5f, 0.5f);
+		Vector3 fwdVector = (combatScript == null || combatScript.accurateWithGun == true) ? cam.transform.forward : barrels[0].transform.forward;
 		RaycastHit hitInfo;
-		if(Physics.Raycast(barrels[0].position, cam.transform.forward, out hitInfo, range))
+		if(Physics.Raycast(barrels[0].position, fwdVector, out hitInfo, range))
 		{
 			Vector3 screenPos = cam.WorldToViewportPoint(hitInfo.point);
 			screenSpacePos = new Vector2(screenPos.x, screenPos.y);
