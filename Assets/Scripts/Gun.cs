@@ -43,11 +43,24 @@ public class Gun : MonoBehaviour
 
 	UI_Manager UIScript;
 
+
+
+	Rigidbody rb;
+
+
+
 	void Start () 
 	{
 		timer = 0;
 		cam = Camera.main;
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager> ();
+
+		rb = GetComponent<Rigidbody>();
+		if(rb == null)
+		{
+			rb = gameObject.AddComponent<Rigidbody>();
+			rb.isKinematic = true;
+		}
 	}
 	
 	void Update () 
@@ -247,5 +260,6 @@ public class Gun : MonoBehaviour
 	public void IsHeld(bool value)
 	{
 		GetComponent<Collider>().enabled = !value;
+		rb.isKinematic = value;
 	}
 }

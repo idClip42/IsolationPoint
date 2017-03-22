@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 33176164782771332}
   - component: {fileID: 23947283724955140}
   - component: {fileID: 95478186907929284}
+  - component: {fileID: 64669050010975460}
   m_Layer: 0
   m_Name: shotgun2
   m_TagString: Untagged
@@ -144,6 +145,7 @@ GameObject:
   - component: {fileID: 4839316157360986}
   - component: {fileID: 65952642708191356}
   - component: {fileID: 114058496194059716}
+  - component: {fileID: 54168887608135808}
   m_Layer: 0
   m_Name: Weapon_Shotgun2
   m_TagString: Weapon
@@ -254,8 +256,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905597267360898}
-  m_LocalRotation: {x: -0.107604936, y: -0.6608133, z: -0.0912462, w: 0.7371711}
-  m_LocalPosition: {x: 3.909, y: 0.7, z: 205.669}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.33599997, y: 0.24549961, z: -0.784}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617616252203946}
@@ -313,6 +315,35 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570882794575524}
+  m_Mesh: {fileID: 4300000, guid: cac40af3b48d21849b45fbbc51396ef8, type: 3}
+--- !u!54 &54168887608135808
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1905597267360898}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &64669050010975460
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570882794575524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: cac40af3b48d21849b45fbbc51396ef8, type: 3}
 --- !u!65 &65952642708191356
 BoxCollider:

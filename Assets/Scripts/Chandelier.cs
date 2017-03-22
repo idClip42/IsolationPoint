@@ -23,6 +23,7 @@ public class Chandelier : MonoBehaviour
 		{
 			down = true;
 			rb = gameObject.AddComponent<Rigidbody>();
+			rb.mass = 100;
 			GetComponent<Collider>().enabled = true;
 		}
 	}

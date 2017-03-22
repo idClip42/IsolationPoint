@@ -16,7 +16,6 @@ public class MeleeWeapon : MonoBehaviour {
 	float timer;								// used with wait variable
 	int currentAnimIndex;						// The current animation to be played from attackAnimations
 
-
 	void Start () 
 	{
 		// Gets the collider, makes sure it's NOT a trigger
@@ -33,7 +32,7 @@ public class MeleeWeapon : MonoBehaviour {
 
 		// Sets up the rigidbody
 		AddKinematicRigidbody();
-
+		
 		// Will need to ignore character controller colliders
 		// https://docs.unity3d.com/ScriptReference/Physics.IgnoreCollision.html
 	}
@@ -79,6 +78,7 @@ public class MeleeWeapon : MonoBehaviour {
 	public void IsHeld(bool value)
 	{
 		col.isTrigger = value;
+		GetComponent<Rigidbody>().isKinematic = value;
 	}
 
 
@@ -102,8 +102,6 @@ public class MeleeWeapon : MonoBehaviour {
 		Rigidbody rb = GetComponent<Rigidbody>();
 		if(rb == null)
 			rb = gameObject.AddComponent<Rigidbody>();
-		rb.isKinematic = true;
-		rb.useGravity = false;
 		rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 	}
 
@@ -113,6 +111,8 @@ public class MeleeWeapon : MonoBehaviour {
 	/// </summary>
 	void OnTriggerEnter(Collider c)
 	{
+		if(timer <= 0) return;
+
 		// Ends the animation and attacking
 		timer = 0;
 

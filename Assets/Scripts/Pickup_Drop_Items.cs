@@ -102,6 +102,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 		combatScript.PickUpWeapon (null);
 
+		/*
 		RaycastHit hit;
 
 		if (Physics.Raycast (playerTransform.position, Vector3.down, out hit, 10)) {
@@ -109,6 +110,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 			dropLocation += (transform.forward * 0.5f);
 			currentItem.transform.position = dropLocation;
 		}
+		*/
 
 		currentItem = null;
 	}
