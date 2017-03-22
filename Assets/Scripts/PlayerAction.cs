@@ -19,13 +19,18 @@ public class PlayerAction : MonoBehaviour {
         componentDict.Add("Door", typeof(DoorMovement));
         componentDict.Add("Timeskipper", typeof(DaySkip));
 
-        text = GameObject.Find("Object Interaction Text").GetComponent<Text>();
+		GameObject ObjIntText = GameObject.Find("Object Interaction Text");
+		if(ObjIntText != null)
+			text = ObjIntText.GetComponent<Text>();
+		else
+			Debug.Log("Need 'Object Interaction Text' Object");
     }
 	
 	// Update is called once per frame
 	void Update () {
         //reset ui text
-        text.text = " ";
+		if(text != null)
+        	text.text = " ";
 
         //find the game object in front of current character
         GameObject obj = CheckForTag();

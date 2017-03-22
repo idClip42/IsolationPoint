@@ -108,6 +108,8 @@ public class Gun : MonoBehaviour
 				} else {
 					MakeBulletHole(hitInfo.point, hitInfo.normal);
 				}
+				if(hitInfo.rigidbody != null)
+					ForceToRigidBody(hitInfo.rigidbody, hitInfo.point, forward);
 				// A trail shows where the bullet went
 				MakeTrail(b.position, hitInfo.point);
 			} else {
@@ -197,6 +199,20 @@ public class Gun : MonoBehaviour
 	{
 		transform.Translate(Vector3.up * -kickDist);
 		transform.Rotate(Vector3.forward * kickAngle);
+	}
+
+
+	/// <summary>
+	/// If a bullet hits a rigidbody, physics happen
+	/// </summary>
+	/// <param name="rb">The hit rigidbody</param>
+	/// <param name="point">The point where the rigidbody was hit</param>
+	/// <param name="direction">The bullet direction</param>
+	void ForceToRigidBody(Rigidbody rb, Vector3 point, Vector3 direction)
+	{
+		if(rb == null) return;
+		float forceValue = 500.0f;
+		rb.AddForceAtPosition(direction * forceValue, point);
 	}
 
 

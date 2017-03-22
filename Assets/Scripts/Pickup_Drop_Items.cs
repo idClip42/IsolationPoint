@@ -17,12 +17,15 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	PlayerController playerController;
 
+	CharacterController cc;
+
 	void Start () {
 		bladeRotation = new Quaternion (0, 45f, 0, 0);
 		//playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 		playerTransform = transform;
 		playerController = GameObject.Find ("PlayerController").GetComponent<PlayerController> ();
 		combatScript = GetComponent<Combat> ();
+		cc = GetComponent<CharacterController>();
 	}
 	
 	void Update () {
@@ -121,4 +124,27 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		get { return playerTransform;}
 		set { playerTransform = value;}
 	}
+
+
+
+
+	void OnControllerColliderHit(ControllerColliderHit hit)
+	{
+		// Character collisions with rigidbodies
+		float characterWeight = 25.0f;
+		if(hit.rigidbody != null && hit.rigidbody.isKinematic == false)
+		{
+			// Gets the velocity direction of the hit
+			Vector3 velInDir = Vector3.Project(cc.velocity, -hit.normal);
+
+			// Makes sure we're not pushing the object down through the floor
+			if(Vector3.Angle(velInDir, Vector3.down) < 45)
+				return;
+
+			// Adds a force to the object
+			hit.rigidbody.AddForceAtPosition(velInDir * characterWeight, hit.point);
+		}
+	}
+
+
 }
