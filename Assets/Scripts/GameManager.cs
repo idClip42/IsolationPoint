@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour {
     public Transform[] enemyStart;
     GameObject[] enemies;
 
+    public GameObject[] objectives;     //list of objectives, in order, for the player to complete
+    public int currentObjective;
+
     SunSetting sunset;
 
     bool night;
@@ -54,4 +57,19 @@ public class GameManager : MonoBehaviour {
             night = true;
         }
 	}
+
+    /// <summary>
+    /// Show completed objective and get new objective. No new objectives = win.
+    /// </summary>
+    public void NextObjective()
+    {
+        if(currentObjective < objectives.Length)
+        {
+            currentObjective++;
+            //scratch out prev objective
+            //display new objective
+            return;
+        }
+        gameover = true;
+    }
 }
