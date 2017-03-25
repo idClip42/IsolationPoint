@@ -5,8 +5,10 @@ using UnityEngine;
 public class Pickup_Drop_Items : MonoBehaviour {
 
 	GameObject currentItem;
+	GameObject leftHandItem;
 
-	Transform playerHand;
+	Transform playerHandL;
+	Transform playerHandR;
 	Transform playerTransform;
 
 	Vector3 dropLocation;
@@ -41,7 +43,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.R)) {
 			SetTransform ();
 			if (CheckValidItem ()) {
-				GetPlayerHand ();
+				GetPlayerLHand ();
+				GetPlayerRHand ();
 				SetCurrentItem ();
 			}
 		}
@@ -66,6 +69,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				combatScript.PickUpWeapon (currentItem);
 				return true;
 			}
+			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "Left_Object") {
+				leftHandItem = hit.transform.gameObject;
+				return true;
+			}
 		}
 		return false;
 	}
@@ -74,22 +81,44 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// Sets the current item to the hand transform and parents it to the hand
 	/// </summary>
 	void SetCurrentItem() {
-		currentItem.transform.position = playerHand.position;
-		currentItem.transform.parent = playerHand;
-		currentItem.transform.localPosition = Vector3.zero;
-		currentItem.transform.localRotation = Quaternion.identity;
-		if (currentItem.name.Contains("WoodSword"))
-			currentItem.transform.Rotate(0, -90, 0);
+		
+		if (currentItem != null) {
+			currentItem.transform.position = playerHandR.position;
+			currentItem.transform.parent = playerHandR;
+			currentItem.transform.localPosition = Vector3.zero;
+			currentItem.transform.localRotation = Quaternion.identity;
+			if (currentItem.name.Contains("WoodSword"))
+				currentItem.transform.Rotate(0, -90, 0);
+		}
+
+		if (leftHandItem != null) {
+			leftHandItem.transform.position = playerHandL.position;
+			leftHandItem.transform.parent = playerHandL;
+			leftHandItem.transform.localPosition = Vector3.zero;
+			leftHandItem.transform.localRotation = Quaternion.identity;
+		}
 	}
 
 	/// <summary>
-	/// Gets the player's hand
+	/// Gets the player's right hand
 	/// </summary>
-	void GetPlayerHand() {
+	void GetPlayerRHand() {
 		Transform[] transforms = playerTransform.GetComponentsInChildren<Transform> ();
 		foreach (Transform t in transforms) {
 			if (t.gameObject.name == "Hand_R") {
-				playerHand = t;
+				playerHandR = t;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Gets the player's left hand.
+	/// </summary>
+	void GetPlayerLHand() {
+		Transform[] transforms = playerTransform.GetComponentsInChildren<Transform> ();
+		foreach (Transform t in transforms) {
+			if (t.gameObject.name == "Hand_L") {
+				playerHandL = t;
 			}
 		}
 	}
