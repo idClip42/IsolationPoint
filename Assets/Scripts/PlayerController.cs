@@ -626,15 +626,22 @@ public class PlayerController : MonoBehaviour
 	void SwapCharactersInput()
 	{
 		if(Input.GetButtonDown("SwapChar"))
-		{
-			SwapCharacters();
-		}
+			SwapCharacters(-1);
+
+		else if(Input.GetKeyDown(KeyCode.Alpha1))
+			SwapCharacters(0);
+		else if(Input.GetKeyDown(KeyCode.Alpha2))
+			SwapCharacters(1);
+		else if(Input.GetKeyDown(KeyCode.Alpha3))
+			SwapCharacters(2);
+		else if(Input.GetKeyDown(KeyCode.Alpha4))
+			SwapCharacters(3);
 	}
 
 	/// <summary>
 	/// Swaps the characters.
 	/// </summary>
-	void SwapCharacters()
+	void SwapCharacters(int whichChar)
 	{
 		if(playerList.Length == 0) return;
 
@@ -643,9 +650,16 @@ public class PlayerController : MonoBehaviour
 		// Sets the animator to stop moving
 		Animate();
 
-		// Moves to the next player
-		++playerNum;
-		if(playerNum >= playerList.Length) playerNum = 0;
+		if(whichChar == -1)
+		{
+			// Moves to the next player
+			++playerNum;
+			if(playerNum >= playerList.Length) playerNum = 0;
+		} else {
+			// Or selects one
+			playerNum = whichChar;
+		}
+
 		player = playerList[playerNum];
 		SetPlayerVars();
 		// Check animation state for crouch state
