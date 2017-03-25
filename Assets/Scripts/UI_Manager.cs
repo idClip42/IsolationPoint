@@ -12,13 +12,17 @@ public class UI_Manager : MonoBehaviour {
 
 	public Image crosshair;
 
+	Text pauseMenu;
+
 	Vector2 crosshairDefault;
+
+	bool pauseGame;
 
 	void Start () {
 		crosshairDefault = new Vector2 (0.5f, 0.5f);
 		healthList = new List<Health> ();
 		healthBarList = new List<Image> ();
-
+		pauseGame = false;
 		UI = GameObject.Find ("UI");
 		//if(UI == null) UI = GameObject.Find("UI 1");
 		//if(UI == null) Debug.Log("Didn't find UI object");
@@ -26,10 +30,22 @@ public class UI_Manager : MonoBehaviour {
 
 		GetHealthScripts ();
 		GetHealthBars ();
+		GetPauseMenu ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown (KeyCode.P)) {
+			pauseGame = !pauseGame;
+		}
+
+		if (pauseGame) {
+			pauseMenu.enabled = true;
+			Time.timeScale = 0.0f;
+		} else {
+			pauseMenu.enabled = false;
+			Time.timeScale = 1.0f;
+		}
 		
 	}
 
@@ -64,6 +80,14 @@ public class UI_Manager : MonoBehaviour {
 		foreach (Image item in temp) {
 			if (item.name == "Crosshair")
 				crosshair = item;
+		}
+	}
+
+	void GetPauseMenu(){
+		Text[] texts = UI.GetComponentsInChildren<Text> ();
+		foreach (Text text in texts) {
+			if (text.name == "PauseMenu")
+				pauseMenu = text;
 		}
 	}
 
