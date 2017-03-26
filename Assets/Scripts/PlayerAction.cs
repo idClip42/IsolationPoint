@@ -63,10 +63,12 @@ public class PlayerAction : MonoBehaviour {
     {
         // creates ray at mouse position
         Vector3 forward = Camera.main.transform.TransformDirection(Vector3.forward);
-        RaycastHit hit;
+		RaycastHit hit;
+		float aimRadius = 0.05f;	// radius of sphere cast - margin of error for aiming at objects
 
         // Raycasts from main camera forward vector and returns true if the item is within 2 units and has correct tag
-        if (Physics.Raycast(Camera.main.transform.position, forward, out hit, 5))
+		//if (Physics.Raycast(Camera.main.transform.position, forward, out hit, 5))
+		if(Physics.SphereCast (Camera.main.transform.position, aimRadius, forward, out hit, 5))
         {
             /*
             if (hit.transform.tag == "Door")
