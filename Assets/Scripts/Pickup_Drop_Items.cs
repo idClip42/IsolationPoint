@@ -96,6 +96,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 			leftHandItem.transform.parent = playerHandL;
 			leftHandItem.transform.localPosition = Vector3.zero;
 			leftHandItem.transform.localRotation = Quaternion.identity;
+
+			Flashlight flashlight = leftHandItem.GetComponent<Flashlight>();
+			if(flashlight != null) flashlight.PickUpPutDown(true);
 		}
 	}
 

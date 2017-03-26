@@ -6,16 +6,19 @@ public class Flashlight : MonoBehaviour
 {
 	Light light;
 	Collider col;
+	Rigidbody rb;
 
 	void Start () 
 	{
 		light = GetComponentInChildren<Light>();
-		col = GetComponent<Collider>();
+		col = GetComponentInChildren<Collider>();
+		rb = GetComponent<Rigidbody>();
 	}
 
 	public void PickUpPutDown(bool pickUp)
 	{
 		col.isTrigger = pickUp;
 		light.enabled = pickUp;
+		rb.isKinematic = pickUp;
 	}
 }
