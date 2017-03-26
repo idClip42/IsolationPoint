@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 791684495}
-  m_IndirectSpecularColor: {r: 0.008422364, g: 0.003388069, b: 0.00015602166, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -990,7 +990,7 @@ Transform:
   - {fileID: 1151784679}
   - {fileID: 385029973}
   m_Father: {fileID: 1453828244}
-  m_RootOrder: 408
+  m_RootOrder: 399
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &33142118
 Prefab:
@@ -3156,7 +3156,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.01
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -3890,7 +3890,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4920945672733004, guid: 045fa525987894986801f6a2643c162d, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4371157113002046, guid: 045fa525987894986801f6a2643c162d, type: 2}
       propertyPath: m_LocalScale.x
@@ -6103,7 +6103,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.01
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -7335,7 +7335,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4777842117042878, guid: 3dd1a535280d4479997b88ebcce94737, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3dd1a535280d4479997b88ebcce94737, type: 2}
@@ -20354,15 +20354,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1333868727834128, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1422193136314608, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1138087520692368, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1749ce1f837f2417888394afd9543a0f, type: 2}
@@ -28537,7 +28537,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.01
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -33261,7 +33261,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.01
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -45165,7 +45165,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.01
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -46225,7 +46225,7 @@ Transform:
   - {fileID: 109468868}
   - {fileID: 410244184}
   m_Father: {fileID: 1453828244}
-  m_RootOrder: 348
+  m_RootOrder: 295
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1242212644
 GameObject:
@@ -53648,6 +53648,7 @@ Transform:
   - {fileID: 838283393}
   - {fileID: 1105456804}
   - {fileID: 112869883}
+  - {fileID: 2117672756}
   - {fileID: 2876719}
   - {fileID: 1513445934}
   - {fileID: 2102872384}
@@ -53697,7 +53698,6 @@ Transform:
   - {fileID: 1217279007}
   - {fileID: 55846760}
   - {fileID: 1437239233}
-  - {fileID: 2117672756}
   - {fileID: 1152631610}
   - {fileID: 562677502}
   - {fileID: 1290866974}
@@ -53823,6 +53823,7 @@ Transform:
   - {fileID: 1656559774}
   - {fileID: 1781853663}
   - {fileID: 746798516}
+  - {fileID: 1240914223}
   - {fileID: 217372222}
   - {fileID: 1548392829}
   - {fileID: 2039999706}
@@ -53876,7 +53877,6 @@ Transform:
   - {fileID: 1818298762}
   - {fileID: 886190528}
   - {fileID: 1027721515}
-  - {fileID: 1240914223}
   - {fileID: 1292698265}
   - {fileID: 1962426157}
   - {fileID: 634215408}
@@ -53927,6 +53927,7 @@ Transform:
   - {fileID: 1432791613}
   - {fileID: 647192866}
   - {fileID: 621193472}
+  - {fileID: 33052309}
   - {fileID: 524741406}
   - {fileID: 617277847}
   - {fileID: 2089804598}
@@ -53936,7 +53937,6 @@ Transform:
   - {fileID: 1204489743}
   - {fileID: 1145939515}
   - {fileID: 1551209703}
-  - {fileID: 33052309}
   m_Father: {fileID: 0}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -62039,7 +62039,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.001
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -67513,15 +67513,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
       propertyPath: m_ScaleInLightmap
-      value: 0.1
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
       propertyPath: m_ScaleInLightmap
-      value: 0.01
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
@@ -70923,7 +70927,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 0.01
+  m_ScaleInLightmap: 0.005
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -77121,7 +77125,7 @@ Transform:
   - {fileID: 927692594}
   - {fileID: 384318057}
   m_Father: {fileID: 1453828244}
-  m_RootOrder: 169
+  m_RootOrder: 120
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2118834619
 Prefab:
