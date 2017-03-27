@@ -50,6 +50,9 @@ public class Flashlight : MonoBehaviour
 				flashlightOrigPos,
 				lerpVal
 			);
+
+        //Check if an enemy is within the light
+        CheckEnemyInLight();
 	}
 
 	public void PickUpPutDown(bool pickUp, CharacterController c)
@@ -66,4 +69,76 @@ public class Flashlight : MonoBehaviour
 			currentModel = null;
 		}
 	}
+
+    /// <summary>
+    /// Cast 9 spheres within the cone of light and send enemy to this location if hit.
+    /// </summary>
+    void CheckEnemyInLight()
+    {
+        GameManager gm = GameObject.Find("GM").GetComponent<GameManager>();
+        Vector3 forward = light.transform.forward;
+        RaycastHit hit;
+        
+        Physics.SphereCast(transform.position, 0.2f, forward, out hit);
+        if(hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        Vector3 aim = Vector3.RotateTowards(forward, transform.up, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, transform.up + transform.right, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, transform.right, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, transform.right - transform.up, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, -transform.up, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, -transform.right - transform.up, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, -transform.right, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+
+        aim = Vector3.RotateTowards(forward, transform.up - transform.right, light.spotAngle * Mathf.PI / 180, 0);
+        Physics.SphereCast(transform.position, 0.2f, aim, out hit);
+        if (hit.transform.tag == "Enemy")
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position);
+        }
+    }
 }
