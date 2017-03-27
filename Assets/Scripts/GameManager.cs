@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,10 +13,11 @@ public class GameManager : MonoBehaviour {
     public Transform[] enemyStart;
     GameObject[] enemies;
 
-    public GameObject[] objectives;     //list of objectives, in order, for the player to complete
+    public Objective[] objectives;     //list of objectives, in order, for the player to complete
     public int currentObjective;
 
     SunSetting sunset;
+    Text objText;
 
     bool night;
     public bool Night { get { return night; } }
@@ -34,8 +36,30 @@ public class GameManager : MonoBehaviour {
         night = false;
         gameover = false;
 
-        sunset = GameObject.Find("Sun").GetComponent<SunSetting>();
+        //sunset = GameObject.Find("Sun").GetComponent<SunSetting>();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        objText = GameObject.Find("Objective Text").GetComponent<Text>();
+
+        //disable objectives and enable the first
+        for(int i = 0; i < objectives.Length; i++)
+        {
+            objectives[i].enabled = false;
+            foreach (Objective sub in objectives[i].subObjectives)
+            {
+                sub.parent = objectives[i];
+                sub.enabled = false;
+            }
+
+            if (i == 0) {
+                objectives[i].enabled = true;
+                foreach (Objective sub in objectives[i].subObjectives)
+                {
+                    sub.enabled = true;
+                }
+            }
+        }
+        currentObjective = 0;
+        if (objectives.Length > 0) DisplayObjective();
     }
 	
 	// Update is called once per frame
@@ -46,6 +70,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
+        /*
         //night starts --> spawn or warp enemies --> warp for now
         if(!night && sunset.Night)
         {
@@ -56,6 +81,7 @@ public class GameManager : MonoBehaviour {
             }
             night = true;
         }
+        */
 	}
 
     /// <summary>
@@ -63,13 +89,26 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void NextObjective()
     {
-        if(currentObjective < objectives.Length)
+        if(currentObjective+1 < objectives.Length)
         {
+            objectives[currentObjective].enabled = false;
             currentObjective++;
             //scratch out prev objective
             //display new objective
+            objectives[currentObjective].enabled = true;
+            foreach(Objective sub in objectives[currentObjective].subObjectives)
+            {
+                sub.enabled = true;
+            }
+            DisplayObjective();
             return;
         }
+        objectives[currentObjective].enabled = false;
         gameover = true;
+    }
+
+    void DisplayObjective()
+    {
+        objText.text = objectives[currentObjective].UIText;
     }
 }

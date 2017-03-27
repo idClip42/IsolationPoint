@@ -10,23 +10,25 @@ public class Objective : MonoBehaviour {
     //public bool isInteractable; //can be completed by interaction
     public string[] triggerTags;    //tags that will trigger completion
 
-    public GameObject parent;   //main objective parent = gm
+    public Objective parent;   //main objective parent, if null find gm
                                 //could be another objective -> subobjectives
-    public GameObject[] subObjectives;  //objects containing subobjectives -> act like objectives
+    public Objective[] subObjectives;  //subobjectives -> act like objectives
 
-    //objectives completed by interaction must be set complete in the interaction script and then call NextObjective()?
-    bool isCompleted = false;
+    public bool isCompleted = false;
     public bool IsCompleted {
         get { return isCompleted; }
-        set { isCompleted = value; }
+        set {
+            isCompleted = value;
+            if (IsCompleted)
+            {
+                NextObjective();
+            }
+        }
     }
 
 	// Use this for initialization
 	void Start () {
-        if(!parent.GetComponent<Objective>() && parent.name != "GM")
-        {
-            Debug.LogError("Invalid parent on objective");
-        }
+        
 	}
 	
 	// Update is called once per frame
@@ -36,7 +38,7 @@ public class Objective : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if (isTriggered && onEnter)
+        if (isTriggered && onEnter && isActiveAndEnabled)
         {
             bool tagged = false;    //correct tag to trigger?
             foreach (string tag in triggerTags)
@@ -63,13 +65,13 @@ public class Objective : MonoBehaviour {
             }
 
             //check for completed subobjectives
-            CheckSubobjectives(gameObject);
+            CheckSubobjectives(this);
         }
     }
 
     void OnTriggerExit(Collider c)
     {
-        if (isTriggered && !onEnter)
+        if (isTriggered && !onEnter && isActiveAndEnabled)
         {
             bool tagged = false;    //correct tag to trigger?
             foreach(string tag in triggerTags)
@@ -96,7 +98,7 @@ public class Objective : MonoBehaviour {
             }
 
             //check for completed subobjectives
-            CheckSubobjectives(gameObject);
+            CheckSubobjectives(this);
         }
     }
 
@@ -105,10 +107,13 @@ public class Objective : MonoBehaviour {
     /// </summary>
     void NextObjective()
     {
+        if (!isActiveAndEnabled) return;
+
         //next objective in gm list
-        if (parent.name == "GM" && IsCompleted)
+        if (parent == null && IsCompleted)
         {
-            parent.GetComponent<GameManager>().NextObjective();
+            GameObject gm = GameObject.Find("GM");
+            gm.GetComponent<GameManager>().NextObjective();
             return;
         }
 
@@ -120,29 +125,24 @@ public class Objective : MonoBehaviour {
     /// <summary>
     /// Check if the parent of this has completed all its subobjectives. If so, get the next objective.
     /// </summary>
-    void CheckSubobjectives(GameObject parent)
+    void CheckSubobjectives(Objective parent)
     {
-        if (parent.GetComponent<Objective>().subObjectives.Length > 0)
+        if (!isActiveAndEnabled) return;
+
+        if (parent.subObjectives.Length > 0)
         {
             int subsCompleted = 0;  //number of subobjectives completed
-            foreach (GameObject g in parent.GetComponent<Objective>().subObjectives)
+            foreach (Objective g in parent.subObjectives)
             {
                 //check each sub in parent for completion
-                if (g.GetComponent<Objective>().IsCompleted) subsCompleted++;
+                if (g.IsCompleted) subsCompleted++;
             }
 
             //if all subs are completed
-            if (subsCompleted == parent.GetComponent<Objective>().subObjectives.Length)
+            if (subsCompleted == parent.subObjectives.Length)
             {
-                //triggered ones must be completed by a trigger, not subs
-                if (isTriggered)
-                {
-                    return;
-                }
-
-                //if not triggered
-                parent.GetComponent<Objective>().IsCompleted = true;
-                parent.GetComponent<Objective>().NextObjective();
+                parent.IsCompleted = true;
+                parent.NextObjective();
             }
         }
     }

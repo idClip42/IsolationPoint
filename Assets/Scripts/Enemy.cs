@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Combat))]
 public class Enemy : MonoBehaviour {
 
     public GameManager gm;              //for general game info such as players and their locations
@@ -15,8 +17,6 @@ public class Enemy : MonoBehaviour {
     public float angleOfVision;         //Cone representing field of view
     public float visionDistance;        //Distance the enemy can see at
     public float searchDuration;        //How long the enemy searches for players near the last seen location
-    public float timeBetweenAttacks;    //Delay between attack sequences
-    public float attackSpeed;           //How long does it take for attack sequence to play
 
     public Transform target;            //Destination
     Vector3 lastSeen;                   //Last seen location of player
@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour {
 
     Transform facing;                     //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
 
-    //bool faceTarget;                   //True when chasing player, false when searching v -> need head node
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
     bool targetingPlayer;               //True if the target is the player -> run
 
@@ -37,7 +36,7 @@ public class Enemy : MonoBehaviour {
     public int locSet;                         //current location set
     public int locInd;                         //current index within set
 
-    public float searchTimer;           //Current time spent searching
+    float searchTimer;           //Current time spent searching
 
 
     // Use this for initialization
@@ -380,5 +379,13 @@ public class Enemy : MonoBehaviour {
         // Right Vector Dot Product (determines whether velocity is moving to right)
         float rightDot = Vector3.Dot(anim.transform.right, agent.velocity);
         anim.SetFloat("RightDot", rightDot);
+    }
+
+
+    public void SetTarget(Vector3 pos)
+    {
+        targetingPlayer = true;
+        searching = false;
+        target.position = pos;
     }
 }
