@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
 	public float kickAngle = 0;							// The angle it rotates upwards when it kicks
 	public float kickReturnLerp = 0.5f;					// The lerp value for the gun returning to normal position and rotation
 	[Space(10)]
-	public Transform[] barrels;							// Empty GameObjects that each will fire one bullet
+	public Transform barrels;							// Empty GameObjects that each will fire one bullet
 														// from their position along their forward vector
 														// when the gun is fired
 	[Space(10)]
@@ -41,6 +41,9 @@ public class Gun : MonoBehaviour
 	float timer;										// Used for timing purposes
 	Camera cam;											// The main camera
 
+	Quaternion barrelsLocRot;									// Forward vector of barrels object
+	Transform[] barrelsArray;
+
 	UI_Manager UIScript;
 
 
@@ -53,6 +56,13 @@ public class Gun : MonoBehaviour
 	{
 		timer = 0;
 		cam = Camera.main;
+
+		barrelsLocRot = barrels.localRotation;
+		if(barrels.GetComponentsInChildren<Transform>().Length == 0)
+			barrelsArray = new Transform[]{barrels};
+		else
+			barrelsArray = barrels.GetComponentsInChildren<Transform>();
+		
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager> ();
 
 		rb = GetComponent<Rigidbody>();
@@ -97,11 +107,17 @@ public class Gun : MonoBehaviour
 		// If no ammo left (and infinite ammo is off), no shooting for you
 		if(ammo <= 0 && !debugInfiniteAmmo) return;
 
+		if(accurate == true)
+			barrels.rotation = cam.transform.rotation;
+		else
+			barrels.localRotation = barrelsLocRot;
+
 		// Goes through each of the gun's barrels
-		for(int n = 0; n < barrels.Length; ++n)
+		for(int n = 0; n < barrelsArray.Length; ++n)
 		{
-			Transform b = barrels[n];
-			Vector3 forward = accurate ? cam.transform.forward : b.forward;
+			Transform b = barrelsArray[n];
+			//Vector3 forward = accurate ? cam.transform.forward : b.forward;
+			Vector3 forward = b.forward;
 
 			MuzzleFlash(b);
 
@@ -238,9 +254,9 @@ public class Gun : MonoBehaviour
 	public Vector2 WhereAmIAiming()
 	{
 		Vector2 screenSpacePos = new Vector2(0.5f, 0.5f);
-		Vector3 fwdVector = (combatScript == null || combatScript.accurateWithGun == true) ? cam.transform.forward : barrels[0].transform.forward;
+		Vector3 fwdVector = (combatScript == null || combatScript.accurateWithGun == true) ? cam.transform.forward : barrels.transform.forward;
 		RaycastHit hitInfo;
-		if(Physics.Raycast(barrels[0].position, fwdVector, out hitInfo, range))
+		if(Physics.Raycast(barrels.position, fwdVector, out hitInfo, range))
 		{
 			Vector3 screenPos = cam.WorldToViewportPoint(hitInfo.point);
 			screenSpacePos = new Vector2(screenPos.x, screenPos.y);

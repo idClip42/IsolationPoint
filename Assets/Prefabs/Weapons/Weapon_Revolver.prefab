@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589918896128608}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.00072, y: 0.00278, z: 0.0002}
+  m_LocalPosition: {x: -0.00106, y: 0.00361, z: 0.0002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4777842117042878}
@@ -201,8 +201,7 @@ MonoBehaviour:
   kickDist: 0.05
   kickAngle: 25
   kickReturnLerp: 0.2
-  barrels:
-  - {fileID: 4425342340298594}
+  barrels: {fileID: 4425342340298594}
   muzzleFlash: {fileID: 1586343470492256, guid: 0682ce587964d42fb84f8ce0da9840dc,
     type: 2}
   shotSound: {fileID: 8300000, guid: d9d623edaca8543bfb70080193611202, type: 3}
