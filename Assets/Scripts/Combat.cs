@@ -114,8 +114,6 @@ public class Combat : MonoBehaviour {
 		// Does nothing if current weapon is not melee
 		if(meleeScript == null) return;
 
-		Debug.Log("meleeScript is not null");
-
 		// Sets the weight of the upper body layer based on whether attacks are happening
 		// Deals with timer
 		// Sets whether character is aiming based on whether they're attacking

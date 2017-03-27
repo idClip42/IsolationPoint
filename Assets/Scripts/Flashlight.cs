@@ -13,6 +13,8 @@ public class Flashlight : MonoBehaviour
 	GameObject flashightObj;
 	Quaternion flashlightOrigPos;
 
+	GameManager gm;
+
 
 	void Start () 
 	{
@@ -24,6 +26,8 @@ public class Flashlight : MonoBehaviour
 		currentModel = null;
 		flashightObj = col.gameObject;
 		flashlightOrigPos = flashightObj.transform.rotation;
+
+		gm = GameObject.Find("GM").GetComponent<GameManager>();
 	}
 
 	void Update()
@@ -74,8 +78,9 @@ public class Flashlight : MonoBehaviour
     /// Cast 9 spheres within the cone of light and send enemy to this location if hit.
     /// </summary>
     void CheckEnemyInLight()
-    {
-        GameManager gm = GameObject.Find("GM").GetComponent<GameManager>();
+	{
+		if(gm == null) return;
+
         Vector3 forward = light.transform.forward;
         RaycastHit hit;
         
