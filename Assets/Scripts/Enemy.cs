@@ -112,7 +112,7 @@ public class Enemy : MonoBehaviour {
         }
 
         //move
-        agent.Resume();
+        //agent.Resume();
         if (searching)
         {
             searchTimer += Time.deltaTime;
@@ -146,7 +146,7 @@ public class Enemy : MonoBehaviour {
                     combatScript.Attack();
                     //Debug.Log("Attack");
                     //stops by player...sort of
-                    agent.Stop();
+                    //agent.Stop();
                     FaceTarget();
                 }
                 else
@@ -384,7 +384,9 @@ public class Enemy : MonoBehaviour {
 
     public void SetTarget(Vector3 pos)
     {
-        targetingPlayer = true;
+        //if (targetingPlayer) return;
+
+        //if not already targeting player...
         searching = false;
         target.position = pos;
     }

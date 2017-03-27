@@ -14,7 +14,7 @@ public class Objective : MonoBehaviour {
                                 //could be another objective -> subobjectives
     public Objective[] subObjectives;  //subobjectives -> act like objectives
 
-    public bool isCompleted = false;
+    bool isCompleted = false;
     public bool IsCompleted {
         get { return isCompleted; }
         set {

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     public GameObject[] locations;      //lists of locations the enemy can wander to -> nodes for AI
                                         //2nd layer that holds nodes within a location to wander between
     public Transform[] enemyStart;
-    GameObject[] enemies;
+    public GameObject[] enemies;
 
     public Objective[] objectives;     //list of objectives, in order, for the player to complete
     public int currentObjective;
