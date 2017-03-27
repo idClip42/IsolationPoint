@@ -45,21 +45,25 @@ public class Combat : MonoBehaviour {
 	
 	void Update () 
 	{
-		AnimateMelee();
-		AnimateAiming();
+		if(PlayerController.controller.Player.gameObject != this.gameObject)
+		{
+			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
+			return;
+		}
 
 		if (weapon == null) {
 			// If no new weapon, ensures that no weapon anims continue
 			isAiming = false;
-			if(PlayerController.controller.Player.gameObject == this.gameObject)
-				PlayerController.controller.SetAimMode(false);
+			PlayerController.controller.SetAimMode(false);
 			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
 			Vector3 c = cameraTarget.localPosition;
 			c.z = camTargetZ;
 			cameraTarget.localPosition = c;
 		}
 
-		if(PlayerController.controller.Player.gameObject != this.gameObject) return;
+		AnimateMelee();
+		AnimateAiming();
+
 		if (gunScript != null && isAiming == true) {
 			gunScript.UpdateCrosshair ();
 		} 
@@ -110,6 +114,8 @@ public class Combat : MonoBehaviour {
 		// Does nothing if current weapon is not melee
 		if(meleeScript == null) return;
 
+		Debug.Log("meleeScript is not null");
+
 		// Sets the weight of the upper body layer based on whether attacks are happening
 		// Deals with timer
 		// Sets whether character is aiming based on whether they're attacking
@@ -135,14 +141,10 @@ public class Combat : MonoBehaviour {
 		// Then checks if they're aiming
 		if(gunScript == null) 
 			return;
-		else if(PlayerController.controller.Player.gameObject != this.gameObject)
-		{
-			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0, 0.1f));
-			return;
-		} else if(!Input.GetButton("AimWeapon"))
-			isAiming = false;
-		else
+		if(Input.GetButton("AimWeapon"))
 			isAiming = true;
+		else
+			isAiming = false;
 
 		// If aiming,
 		// Top half of body aims gun
