@@ -13,7 +13,7 @@ public class SoundBubble : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         src = GetComponent<AudioSource>();
-        GetMaxScale();
+        //GetMaxScale();
         gm = GameObject.Find("GM").GetComponent<GameManager>();
     }
 	
@@ -21,7 +21,6 @@ public class SoundBubble : MonoBehaviour {
 	void Update () {
         if (src.isPlaying)
         {
-            float size = maxSize;
             for(int i = 0; i < gm.enemies.Length; i++)
             {
                 if((gm.enemies[i].transform.position - transform.position).sqrMagnitude <= Mathf.Pow(maxSize, 2))

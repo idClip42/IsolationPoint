@@ -384,7 +384,7 @@ public class Enemy : MonoBehaviour {
 
     public void SetTarget(Vector3 pos)
     {
-        //if (targetingPlayer) return;
+        if (targetingPlayer) return;
 
         //if not already targeting player...
         searching = false;
