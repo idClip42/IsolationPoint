@@ -625,8 +625,18 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void SwapCharactersInput()
 	{
+		//*
 		if(Input.GetButtonDown("SwapChar"))
 			SwapCharacters(-1);
+		//*/
+
+		float scrollBuffer = 0.1f;
+		if(Input.GetAxis("Mouse ScrollWheel") > scrollBuffer)
+			SwapCharacters(-1);
+		else if(Input.GetAxis("Mouse ScrollWheel") < -scrollBuffer)
+			SwapCharacters(-2);
+
+
 
 		else if(Input.GetKeyDown(KeyCode.Alpha1))
 			SwapCharacters(0);
@@ -650,11 +660,13 @@ public class PlayerController : MonoBehaviour
 		// Sets the animator to stop moving
 		Animate();
 
-		if(whichChar == -1)
+		if(whichChar < 0)
 		{
 			// Moves to the next player
-			++playerNum;
+			//++playerNum;
+			playerNum += (whichChar == -1) ? 1 : -1;
 			if(playerNum >= playerList.Length) playerNum = 0;
+			if(playerNum < 0) playerNum = playerList.Length - 1;
 		} else {
 			// Or selects one
 			playerNum = whichChar;
