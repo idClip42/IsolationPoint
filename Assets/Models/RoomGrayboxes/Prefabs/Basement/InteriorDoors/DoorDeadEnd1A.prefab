@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 4327623663179750}
   - component: {fileID: 33963091778437480}
   - component: {fileID: 23967092361795970}
+  - component: {fileID: 64658920260954782}
   m_Layer: 0
   m_Name: WoodWall_LOD1
   m_TagString: Untagged
@@ -175,6 +176,7 @@ GameObject:
   - component: {fileID: 4770323113131744}
   - component: {fileID: 33145877998118130}
   - component: {fileID: 23982424957739230}
+  - component: {fileID: 64905141640956938}
   m_Layer: 0
   m_Name: WoodWall_LOD1
   m_TagString: Untagged
@@ -650,6 +652,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999297922428986}
   m_Mesh: {fileID: 4300006, guid: 9eaba1a9fe27046b3a99467d43f68c91, type: 3}
+--- !u!64 &64658920260954782
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1596723188058370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: bc39bc4e5c6d8448c954bf401a6bcd6b, type: 3}
+--- !u!64 &64905141640956938
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1814088124298012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: bc39bc4e5c6d8448c954bf401a6bcd6b, type: 3}
 --- !u!65 &65191551431274190
 BoxCollider:
   m_ObjectHideFlags: 1
