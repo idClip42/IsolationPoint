@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour 
 {
@@ -83,7 +84,9 @@ public class PlayerController : MonoBehaviour
 		playerNum = 0;
 		if(playerList.Length == 0) Debug.LogError("Need at least one player in Player List");
 		player = playerList[playerNum];
-        player.gameObject.GetComponent<Follower>().Agent.enabled = false;
+        // player.gameObject.GetComponent<Follower>().Agent.enabled = false;
+		// Changed because the Follower script, at least in PlayerTesting scene, doesn't seem to have found the agent before this runs
+		player.gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
 		// Finds the Main Camera
 		cam = Camera.main;

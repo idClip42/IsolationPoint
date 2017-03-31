@@ -31,7 +31,7 @@ public class Follower : MonoBehaviour {
         goTo = false;
 
         anim = GetComponentInChildren<Animator>();
-        if (agent == null)
+        if (anim == null)
             Debug.LogError("Player needs an Animator");
 
         // Finds the Health script
@@ -44,7 +44,9 @@ public class Follower : MonoBehaviour {
 	/// Updates at a fixed rate based on Physics
 	/// </summary>
 	void FixedUpdate()
-    {
+	{
+		if (!agent.enabled) return;	// Added to prevent this animation from overwriting controller animation
+
         // Ends game if there is no health
         if (healthScript != null && healthScript.health <= 0) return;
         if (healthScript == null) return;
@@ -90,6 +92,7 @@ public class Follower : MonoBehaviour {
     {
         following = false;
         //set target to self to stop movement
+		if(agent.isOnNavMesh != true) return;	// Prevents an error
         agent.SetDestination(transform.position);
     }
 
