@@ -632,9 +632,9 @@ public class PlayerController : MonoBehaviour
 
 		float scrollBuffer = 0.01f;
 		if(Input.GetAxis("Mouse ScrollWheel") > scrollBuffer)
-			SwapCharacters(-1);
-		else if(Input.GetAxis("Mouse ScrollWheel") < -scrollBuffer)
 			SwapCharacters(-2);
+		else if(Input.GetAxis("Mouse ScrollWheel") < -scrollBuffer)
+			SwapCharacters(-1);
 
 
 
