@@ -349,6 +349,8 @@ GameObject:
   - component: {fileID: 114604420541950558}
   - component: {fileID: 114758789307418956}
   - component: {fileID: 114847950086859674}
+  - component: {fileID: 114821312930848844}
+  - component: {fileID: 195420746349678196}
   m_Layer: 0
   m_Name: Player-EngineerCold
   m_TagString: Player
@@ -2858,7 +2860,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2938,7 +2940,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3016,6 +3018,17 @@ MonoBehaviour:
   bloodStains: 1
   bloodStainProjector: {fileID: 1548569733569724, guid: df2f11aa9a4e043269cbe355c008f81f,
     type: 2}
+--- !u!114 &114821312930848844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318372221962426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114821621618521592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56743,6 +56756,26 @@ Cloth:
     collisionSphereDistance: 3.4028235e+38
   m_CapsuleColliders: []
   m_SphereColliders: []
+--- !u!195 &195420746349678196
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318372221962426}
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.85
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!259 &259722221323711514
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

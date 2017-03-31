@@ -1086,6 +1086,8 @@ GameObject:
   - component: {fileID: 114026036011206976}
   - component: {fileID: 114286016021964810}
   - component: {fileID: 114863765394484390}
+  - component: {fileID: 114653263815083010}
+  - component: {fileID: 195036918971269068}
   m_Layer: 0
   m_Name: Player-RunnerCold
   m_TagString: Player
@@ -2327,7 +2329,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1897821199183556}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.02, y: 0.85, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2335,7 +2337,7 @@ Transform:
   - {fileID: 4382675847623154}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -6.8640003, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23220766816228118
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2613,7 +2615,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2693,7 +2695,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2810,6 +2812,17 @@ MonoBehaviour:
   bloodStains: 1
   bloodStainProjector: {fileID: 1548569733569724, guid: df2f11aa9a4e043269cbe355c008f81f,
     type: 2}
+--- !u!114 &114653263815083010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897821199183556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114863765394484390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3250,6 +3263,26 @@ CharacterController:
   m_SkinWidth: 0.03
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &195036918971269068
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897821199183556}
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.85
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!259 &259202347660969582
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

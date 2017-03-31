@@ -688,6 +688,8 @@ GameObject:
   - component: {fileID: 114811427180281484}
   - component: {fileID: 114637413696913216}
   - component: {fileID: 114318938274108536}
+  - component: {fileID: 114089088156557240}
+  - component: {fileID: 195617689134924604}
   m_Layer: 0
   m_Name: Player-EngineerWarm
   m_TagString: Player
@@ -2444,7 +2446,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2524,7 +2526,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2572,6 +2574,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114089088156557240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521409540251756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114318938274108536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3117,7 +3130,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.7
+  m_Height: 1.75
   m_Radius: 0.25
   m_SlopeLimit: 60
   m_StepOffset: 0.3
@@ -36986,6 +36999,26 @@ Cloth:
   m_CapsuleColliders:
   - {fileID: 136808212481337382}
   m_SphereColliders: []
+--- !u!195 &195617689134924604
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521409540251756}
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0.85
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!259 &259360355138230706
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1
