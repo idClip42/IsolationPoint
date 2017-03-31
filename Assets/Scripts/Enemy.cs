@@ -33,10 +33,12 @@ public class Enemy : MonoBehaviour {
     Health healthScript;				// Ditto for script
 
     int numRayChecks;                   //number of body parts to check with rays for sight
-    public int locSet;                         //current location set
-    public int locInd;                         //current index within set
+    int locSet;                         //current location set
+    int locInd;                         //current index within set
 
     float searchTimer;           //Current time spent searching
+
+    public float startAttackDistance = 0.5f;   //Distance from player at which the enemy will start its attack
 
 
     // Use this for initialization
@@ -128,13 +130,11 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        if (agent.remainingDistance <= agent.stoppingDistance && !searching)
+        if (agent.remainingDistance <= agent.stoppingDistance + startAttackDistance && !searching)
         {
             if (targetingPlayer)
             {
-                //facing.rotation = Quaternion.FromToRotation(facing.position, target.position - facing.position);
                 targetingPlayer = false;
-                //agent.autoBraking = true;
 
                 //check if player is still in view
                 CheckView();
@@ -144,9 +144,6 @@ public class Enemy : MonoBehaviour {
                 {
                     //attack
                     combatScript.Attack();
-                    //Debug.Log("Attack");
-                    //stops by player...sort of
-                    //agent.Stop();
                     FaceTarget();
                 }
                 else
@@ -154,7 +151,7 @@ public class Enemy : MonoBehaviour {
                     //search
                     searching = true;
                     agent.speed = searchSpeed;
-                    midWander = transform.forward;
+                    midWander = transform.forward * 3;
                     lastSeen = target.position;
                     locInd = -1;
                 }
@@ -322,22 +319,30 @@ public class Enemy : MonoBehaviour {
     void Wander()
     {
         float one = 3;//length in front to search
-        float two = one / 2;
-        float three = one / 3;
+        float three = one / 9;
 
         float randomAngle = Mathf.Deg2Rad * Random.Range(0, 360);
         Vector3 farWander = new Vector3(Mathf.Cos(randomAngle), 0, Mathf.Sin(randomAngle));
         farWander = Vector3.ClampMagnitude(farWander,three);
-        //farWander.Normalize();
-        //farWander = farWander * three;
-        //midWander += farWander;
-        //midWander.Normalize();
-        //midWander = midWander * two;
+
         midWander += farWander;
-        midWander = Vector3.ClampMagnitude(midWander, two);
-        //wanderTarget.position = Vector3.ClampMagnitude(midWander, one) + transform.position;
-        target.position = midWander + transform.position + (transform.forward * one);
-        //target.position = wanderTarget.position;
+        midWander *= 10;
+        midWander = Vector3.ClampMagnitude(midWander, one);
+
+        target.position = midWander + transform.position;
+
+        //i dunno if this actually works
+        RaycastHit hit;
+        Physics.Raycast(transform.position, target.position - transform.position, out hit, one);
+        //if it hit something
+        if (hit.transform)
+        {
+            //choose new loc away
+            Vector3 norm = Vector3.Normalize(hit.normal);
+            midWander += norm;
+            //reset midWander
+            midWander = transform.forward * 3;
+        }
     }
 
     /// <summary>

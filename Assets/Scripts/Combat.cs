@@ -45,7 +45,7 @@ public class Combat : MonoBehaviour {
 	
 	void Update () 
 	{
-		if(PlayerController.controller.Player.gameObject != this.gameObject)
+		if(PlayerController.controller.Player.gameObject != this.gameObject && this.gameObject.tag != "Enemy")
 		{
 			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
 			return;

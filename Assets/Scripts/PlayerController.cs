@@ -676,6 +676,7 @@ public class PlayerController : MonoBehaviour
 			playerNum = whichChar;
 		}
 
+        if (playerNum >= playerList.Length) return;
         player.gameObject.GetComponent<Follower>().EnableAgent();
         player = playerList[playerNum];
         player.gameObject.GetComponent<Follower>().Stay();
