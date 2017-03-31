@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
 		playerNum = 0;
 		if(playerList.Length == 0) Debug.LogError("Need at least one player in Player List");
 		player = playerList[playerNum];
+        player.gameObject.GetComponent<Follower>().Agent.enabled = false;
 
 		// Finds the Main Camera
 		cam = Camera.main;
@@ -672,8 +673,11 @@ public class PlayerController : MonoBehaviour
 			playerNum = whichChar;
 		}
 
-		player = playerList[playerNum];
-		SetPlayerVars();
+        player.gameObject.GetComponent<Follower>().EnableAgent();
+        player = playerList[playerNum];
+        player.gameObject.GetComponent<Follower>().Stay();
+        player.gameObject.GetComponent<Follower>().Agent.enabled = false;
+        SetPlayerVars();
 		// Check animation state for crouch state
 		crouchState = anim.GetInteger("CrouchState");
 	}

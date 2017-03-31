@@ -11,13 +11,19 @@ public class PlayerAction : MonoBehaviour {
     //contains the tag and associated script that holds the interaction action for the object
     Dictionary<string, System.Type> componentDict = new Dictionary<string, System.Type>();
 
+    GameManager gm;
     Text text;
+
+    public float callDistance = 5;
+    //public float goToDistance = 15;
 
 	// Use this for initialization
 	void Start () {
         //add tag and associated script type to dictionary
         componentDict.Add("Door", typeof(DoorMovement));
         componentDict.Add("Timeskipper", typeof(DaySkip));
+
+        gm = GameObject.Find("GM").GetComponent<GameManager>();
 
 		GameObject ObjIntText = GameObject.Find("Object Interaction Text");
 		if(ObjIntText != null)
@@ -50,6 +56,33 @@ public class PlayerAction : MonoBehaviour {
                     (obj.GetComponent(t) as IInteractable).Action();
                 }
             }
+        }
+
+        //check for group key press --> place in PlayerController?
+        if (Input.GetButtonDown("Group"))
+        {
+            GameObject currentPlayer = GetComponent<PlayerController>().Player.gameObject;
+            foreach (GameObject player in gm.players)
+            {
+                if (player == currentPlayer) continue;
+                if((player.transform.position - currentPlayer.transform.position).sqrMagnitude <= Mathf.Pow(callDistance, 2))
+                {
+                    //set navagent destination to current player
+                    Follower f = player.GetComponent<Follower>();
+                    f.SetLeader(currentPlayer);
+                }
+            }
+        }
+
+        //check for go to key press
+        if (Input.GetButtonDown("GoTo"))
+        {
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out hit);
+            if (hit.transform == null) return;
+            GameObject currentPlayer = GetComponent<PlayerController>().Player.gameObject;
+            Follower f = currentPlayer.GetComponent<Follower>();
+            f.SetDestination(hit.point);
         }
     }
 
