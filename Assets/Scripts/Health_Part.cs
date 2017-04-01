@@ -15,4 +15,10 @@ public class Health_Part : MonoBehaviour
 		if(mainHealthScript == null) return;
 		mainHealthScript.Hit(damage * damageMultiplier, blood, hitPoint, hitNormal, transform);
 	}
+
+	public void Hit(float damage, bool blood)
+	{
+		if(mainHealthScript == null) return;
+		mainHealthScript.Hit(damage * damageMultiplier, blood);
+	}
 }
