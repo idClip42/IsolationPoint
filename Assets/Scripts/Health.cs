@@ -46,6 +46,20 @@ public class Health : MonoBehaviour {
 		gameUI.UpdateHealthBars ();
 	}
 
+	/// <summary>
+	/// A more basic version of the hit function where the parts don't matter
+	/// </summary>
+	/// <param name="damage">Damage.</param>
+	/// <param name="blood">If set to <c>true</c> blood.</param>
+	public void Hit(float damage, bool blood)
+	{
+		health -= damage;
+
+		if(health <= 0) Die();
+
+		gameUI.UpdateHealthBars ();
+	}
+
 
 
 	/// <summary>
@@ -106,7 +120,11 @@ public class Health : MonoBehaviour {
 
 		// TODO: pool of blood
 
-		GetComponent<Pickup_Drop_Items>().DropItem();
+		if(GetComponent<Pickup_Drop_Items>() != null)
+		{
+			GetComponent<Pickup_Drop_Items>().DropItem();
+			Destroy(GetComponent<Pickup_Drop_Items>());
+		}
 		Destroy(GetComponent<Combat>());
 
 		// TODO: angle body with floor normal

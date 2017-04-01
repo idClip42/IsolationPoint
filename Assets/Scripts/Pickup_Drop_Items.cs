@@ -103,6 +103,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 			Flashlight flashlight = leftHandItem.GetComponent<Flashlight>();
 			if(flashlight != null) flashlight.PickUpPutDown(true, cc);
+
+			GasCan gasCan = leftHandItem.GetComponent<GasCan>();
+			if(gasCan != null) gasCan.PickUpPutDown(true, cc);
 		}
 	}
 
@@ -134,7 +137,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// Raycasts below the player and drops the object slightly in front of him
 	/// </summary>
 	public void DropItem(){
-
+		
 		if (currentItem != null) {
 			currentItem.transform.parent = null;
 			currentItem = null;
