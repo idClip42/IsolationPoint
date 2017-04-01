@@ -21,6 +21,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	CharacterController cc;
 
+	Flashlight flashScript;
+
 	void Start () {
 		bladeRotation = new Quaternion (0, 45f, 0, 0);
 		//playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
@@ -35,7 +37,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		if(playerController.Player == null) return;
 		if(playerController.Player.gameObject != this.gameObject) return;
 
-		if (Input.GetKeyDown (KeyCode.R) && currentItem != null) {
+		if (Input.GetKeyDown (KeyCode.Q)) {
 			SetTransform ();
 			DropItem ();
 		}
@@ -132,21 +134,20 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// Raycasts below the player and drops the object slightly in front of him
 	/// </summary>
 	public void DropItem(){
-		currentItem.transform.parent = null;
+
+		if (currentItem != null) {
+			currentItem.transform.parent = null;
+			currentItem = null;
+		}
+
+		if (leftHandItem != null) {
+			Flashlight flashlight = leftHandItem.GetComponent<Flashlight>();
+			if(flashlight != null) flashlight.PickUpPutDown(false, cc);
+			leftHandItem.transform.parent = null;
+			leftHandItem = null;
+		}
 
 		combatScript.PickUpWeapon (null);
-
-		/*
-		RaycastHit hit;
-
-		if (Physics.Raycast (playerTransform.position, Vector3.down, out hit, 10)) {
-			dropLocation = hit.point;
-			dropLocation += (transform.forward * 0.5f);
-			currentItem.transform.position = dropLocation;
-		}
-		*/
-
-		currentItem = null;
 	}
 
 	/// <summary>

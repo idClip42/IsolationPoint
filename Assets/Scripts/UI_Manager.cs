@@ -7,6 +7,9 @@ public class UI_Manager : MonoBehaviour {
 
 	GameObject UI;
 
+	public Sprite redDot;
+	public Sprite redCross;
+
 	List<Health> healthList;
 	List<Image> healthBarList;
 
@@ -37,6 +40,14 @@ public class UI_Manager : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.P)) {
 			pauseGame = !pauseGame;
+		}
+
+		if (Input.GetMouseButtonDown(1)) {
+			crosshair.sprite = redCross;
+		}
+
+		if (Input.GetMouseButtonUp (1)) {
+			crosshair.sprite = redDot;
 		}
 
 		if (pauseGame) {

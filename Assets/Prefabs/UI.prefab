@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -447,6 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc6e172ceaa53e48a9dd4194f133d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redDot: {fileID: 0}
+  redCross: {fileID: 0}
   crosshair: {fileID: 0}
 --- !u!114 &114948267961686766
 MonoBehaviour:
