@@ -42,7 +42,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 			DropItem ();
 		}
 
-		if (Input.GetKeyDown (KeyCode.R)) {
+		if (Input.GetKeyDown (KeyCode.E)) {
 			SetTransform ();
 			if (CheckValidItem ()) {
 				GetPlayerLHand ();

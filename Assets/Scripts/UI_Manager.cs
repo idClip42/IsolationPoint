@@ -42,11 +42,11 @@ public class UI_Manager : MonoBehaviour {
 			pauseGame = !pauseGame;
 		}
 
-		if (Input.GetMouseButtonDown(1)) {
+		if (Input.GetButtonDown("AimWeapon")) {
 			crosshair.sprite = redCross;
 		}
 
-		if (Input.GetMouseButtonUp (1)) {
+		if (Input.GetButtonUp("AimWeapon")) {
 			crosshair.sprite = redDot;
 		}
 

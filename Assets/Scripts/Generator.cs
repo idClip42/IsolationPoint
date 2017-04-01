@@ -10,6 +10,10 @@ public class Generator : MonoBehaviour {
 	GameObject[] allLights;
 	bool lightsOn;
 
+	float timer;
+
+	const float MAX_TIME = 5.0f;
+
 	void Start () 
 	{
 		allLights = GameObject.FindGameObjectsWithTag("ElectricLight");
