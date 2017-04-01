@@ -106,13 +106,12 @@ public class Health : MonoBehaviour {
 
 		// TODO: pool of blood
 
-		// TODO: drop whatever is being held
+		GetComponent<Pickup_Drop_Items>().DropItem();
 		Destroy(GetComponent<Combat>());
 
 		// TODO: angle body with floor normal
 
 		// Disables all colliders
-		// DROP ANYTHING HELD BEFORE CALLING THIS
 		DisableColliders();
 
 		// Removes character controller from player list and destroys it

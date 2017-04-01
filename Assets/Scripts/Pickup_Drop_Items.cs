@@ -131,7 +131,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// <summary>
 	/// Raycasts below the player and drops the object slightly in front of him
 	/// </summary>
-	void DropItem(){
+	public void DropItem(){
 		currentItem.transform.parent = null;
 
 		combatScript.PickUpWeapon (null);
