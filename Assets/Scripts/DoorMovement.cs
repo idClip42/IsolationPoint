@@ -11,13 +11,21 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     bool moving;
     float timeLeft;
     float speed;
+    Quaternion startRot;
 
     public float openTime = 5.0f;
     public float fastOpenTime = 1.5f;
 
     // Use this for initialization
     void Start () {
-        openRot = 90.0f;
+        startRot = transform.rotation;
+        if (transform.localScale.x < 0)
+        {
+            openRot = -90.0f;
+        }
+        else {
+            openRot = 90.0f;
+        }
         isOpen = false;
         moving = false;
         timeLeft = 0;
@@ -34,6 +42,10 @@ public class DoorMovement : MonoBehaviour, IInteractable {
                 speed = 0;
                 moving = false;
                 timeLeft = 0;
+                if (!isOpen)
+                {
+                    transform.rotation = startRot;
+                }
             }
             else
             {
