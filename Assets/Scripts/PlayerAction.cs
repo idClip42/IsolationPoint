@@ -85,7 +85,7 @@ public class PlayerAction : MonoBehaviour {
                 {
                     f.GoTo = false;
                 }
-                else if ((player.transform.position - currentPlayer.transform.position).sqrMagnitude <= Mathf.Pow(callDistance, 2))
+                else
                 {
                     //set navagent destination to current player
                     f.Stay();
