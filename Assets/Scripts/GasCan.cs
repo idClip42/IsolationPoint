@@ -24,7 +24,8 @@ public class GasCan : MonoBehaviour
 	
 	void Update () 
 	{
-		Debug.DrawLine(transform.position, transform.position + transform.forward * explosionRange, Color.red);
+		// Debug shows explosion radius
+		// Debug.DrawLine(transform.position, transform.position + transform.forward * explosionRange, Color.red);
 
 		if(healthScript.health <= 0)
 		{
@@ -47,8 +48,6 @@ public class GasCan : MonoBehaviour
 
 	void Explode()
 	{
-		Debug.Log("Ka-BOOM!");
-
 		Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, explosionRange);
 		for(int n = 0; n < nearbyColliders.Length; ++n)
 		{
