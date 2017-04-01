@@ -16,6 +16,10 @@ public class Follower : MonoBehaviour {
 
     bool following;
     bool goTo;
+    public bool GoTo
+    {
+        set { goTo = value; }
+    }
     GameObject leader;
     Vector3 goToTarget;
 
@@ -37,7 +41,7 @@ public class Follower : MonoBehaviour {
         // Finds the Health script
         healthScript = GetComponent<Health>();
         if (healthScript == null)
-            Debug.Log("Enemy needs a Health script");
+            Debug.Log("Player needs a Health script");
     }
 
     /// <summary>
@@ -47,9 +51,16 @@ public class Follower : MonoBehaviour {
 	{
 		if (!agent.enabled) return;	// Added to prevent this animation from overwriting controller animation
 
-        // Ends game if there is no health
-        if (healthScript != null && healthScript.health <= 0) return;
-        if (healthScript == null) return;
+        if (healthScript != null && healthScript.health <= 0)
+        {
+            Stay();
+            return;
+        }
+        if (healthScript == null)
+        {
+            Stay();
+            return;
+        }
 
         Animate();
     }
@@ -102,6 +113,7 @@ public class Follower : MonoBehaviour {
     public void EnableAgent()
     {
         agent.enabled = true;
+        following = false;
         if (goTo)
         {
             goTo = false;

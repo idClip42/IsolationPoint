@@ -74,6 +74,25 @@ public class PlayerAction : MonoBehaviour {
             }
         }
 
+        //stop following or go to target
+        if (Input.GetButtonDown("Stay"))
+        {
+            GameObject currentPlayer = GetComponent<PlayerController>().Player.gameObject;
+            foreach (GameObject player in gm.players)
+            {
+                Follower f = player.GetComponent<Follower>();
+                if (player == currentPlayer)
+                {
+                    f.GoTo = false;
+                }
+                else if ((player.transform.position - currentPlayer.transform.position).sqrMagnitude <= Mathf.Pow(callDistance, 2))
+                {
+                    //set navagent destination to current player
+                    f.Stay();
+                }
+            }
+        }
+
         //check for go to key press
         if (Input.GetButtonDown("GoTo"))
         {
