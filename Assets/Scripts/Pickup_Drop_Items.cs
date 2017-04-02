@@ -146,6 +146,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		if (leftHandItem != null) {
 			Flashlight flashlight = leftHandItem.GetComponent<Flashlight>();
 			if(flashlight != null) flashlight.PickUpPutDown(false, cc);
+
+			GasCan gasCan = leftHandItem.GetComponent<GasCan>();
+			if(gasCan != null) gasCan.PickUpPutDown(false, cc);
+
 			leftHandItem.transform.parent = null;
 			leftHandItem = null;
 		}
