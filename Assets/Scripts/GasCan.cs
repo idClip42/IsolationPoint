@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class GasCan : MonoBehaviour 
 {
+
+	// TODO: random delay, damage dropoff
+
+
 	public bool hasGas;
 	public float explosionRange = 10;
 	public float explosionForce = 1000;
 	public float explosionDamage = 100;
+	public float explosionMaxDelay = 1.0f;
 	public GameObject explosionParticles;
 	Health healthScript;
 	Collider col;
 	Rigidbody rb;
+
+	float timer;
 
 	void Start () 
 	{
@@ -20,6 +27,7 @@ public class GasCan : MonoBehaviour
 			Debug.Log(gameObject.name + " needs a health script.");
 		col = GetComponentInChildren<Collider>();
 		rb = GetComponent<Rigidbody>();
+		timer = Random.value * explosionMaxDelay;
 	}
 	
 	void Update () 
@@ -29,9 +37,13 @@ public class GasCan : MonoBehaviour
 
 		if(healthScript.health <= 0)
 		{
-			if(hasGas)
-				Explode();
-			DestroyCan();
+			timer -= Time.deltaTime;
+			if(timer <= 0)
+			{
+				if(hasGas)
+					Explode();
+				DestroyCan();
+			}
 		}
 	}
 

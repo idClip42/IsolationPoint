@@ -130,7 +130,8 @@ public class Health : MonoBehaviour {
 		// TODO: angle body with floor normal
 
 		// Disables all colliders
-		DisableColliders();
+		if(GetComponent<GasCan>() == null)
+			DisableColliders();
 
 		// Removes character controller from player list and destroys it
 		CharacterController cc = GetComponent<CharacterController>();
