@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UI_Manager : MonoBehaviour {
 
 	GameObject UI;
+	Generator gScript;
 
 	public Sprite redDot;
 	public Sprite redCross;
@@ -14,26 +15,37 @@ public class UI_Manager : MonoBehaviour {
 	List<Image> healthBarList;
 
 	public Image crosshair;
+	public Image Gbar;
+	Image GbarPrefab;
 
 	Text pauseMenu;
 
 	Vector2 crosshairDefault;
 
 	bool pauseGame;
+	public bool fixingGenerator;
+
+	float timer;
 
 	void Start () {
+		gScript = GameObject.Find ("Generator").GetComponent<Generator> ();
 		crosshairDefault = new Vector2 (0.5f, 0.5f);
 		healthList = new List<Health> ();
 		healthBarList = new List<Image> ();
 		pauseGame = false;
+		fixingGenerator = false;
+		timer = 0;
 		UI = GameObject.Find ("UI");
 		//if(UI == null) UI = GameObject.Find("UI 1");
 		//if(UI == null) Debug.Log("Didn't find UI object");
 		GetCrosshair ();
-
+		GetGBar ();
 		GetHealthScripts ();
 		GetHealthBars ();
 		GetPauseMenu ();
+
+		GbarPrefab.enabled = false;
+		Gbar.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -56,6 +68,10 @@ public class UI_Manager : MonoBehaviour {
 		} else {
 			pauseMenu.enabled = false;
 			Time.timeScale = 1.0f;
+		}
+
+		if (fixingGenerator) {
+			UpdateGbar ();
 		}
 		
 	}
@@ -105,5 +121,37 @@ public class UI_Manager : MonoBehaviour {
 	public void ResetCrosshair(){
 		crosshair.rectTransform.anchorMax = crosshairDefault;
 		crosshair.rectTransform.anchorMin = crosshairDefault;
+	}
+
+	public void ShowGBar(){
+		GbarPrefab.enabled = true;
+		Gbar.enabled = true;
+		Gbar.fillAmount = 0;
+		fixingGenerator = true;
+	}
+
+	void GetGBar(){
+		Image[] temp = UI.GetComponentsInChildren<Image> ();
+		foreach (Image item in temp) {
+			if (item.name == "ProgressBar")
+				Gbar = item;
+			if (item.name == "ProgressBarFill")
+				GbarPrefab = item;
+		}
+	}
+
+	void UpdateGbar(){
+		
+		timer += Time.deltaTime;
+
+		Gbar.fillAmount = (timer / 5.0f);
+
+		if (Gbar.fillAmount == 1.0f) {
+			fixingGenerator = false;
+			GbarPrefab.enabled = false;
+			Gbar.enabled = false;
+			gScript.isFixed = true;
+			gScript.currentlyFixing = false;
+		}
 	}
 }

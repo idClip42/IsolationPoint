@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Generator : MonoBehaviour {
+public class Generator : MonoBehaviour, IInteractable {
+
+	UI_Manager UIScript;
 
 	public bool startLightsOn = true;
 	public bool debugLightsOnLKey = false;
 
 	GameObject[] allLights;
 	bool lightsOn;
+	public bool isFixed;
+	public bool currentlyFixing;
 
 	float timer;
 
-	const float MAX_TIME = 5.0f;
+	const float MAX_TIME = 60.0f * 5.0f;
 
 	void Start () 
 	{
 		allLights = GameObject.FindGameObjectsWithTag("ElectricLight");
 		lightsOn = false;
+		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
+		isFixed = false;
+		currentlyFixing = false;
 
 		SwitchLights(startLightsOn);
 	}
@@ -27,6 +34,8 @@ public class Generator : MonoBehaviour {
 		if(debugLightsOnLKey == true)
 			if(Input.GetKeyDown(KeyCode.L))
 				SwitchLights(!lightsOn);
+
+		UpdateTimer ();
 	}
 
 	public void SwitchLights(bool lOn)
@@ -40,6 +49,30 @@ public class Generator : MonoBehaviour {
 			if(!lOn)
 				intensity = 0;
 			allLights[n].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
+		}
+	}
+
+	public string ActionDescription(){
+		if (!isFixed && !currentlyFixing) {
+			return "Press E to fix generator";
+		} else if (currentlyFixing) {
+			return "Generator being fixed";		
+		} else {
+			return "Generator working properly";
+		}
+	}
+
+	public void Action(){
+		currentlyFixing = true;
+
+		UIScript.ShowGBar ();
+	}
+
+	void UpdateTimer(){
+		timer += Time.deltaTime;
+
+		if (timer > 5.0f) {
+			timer = 0.0f;
 		}
 	}
 }

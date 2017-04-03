@@ -22,6 +22,7 @@ public class PlayerAction : MonoBehaviour {
         //add tag and associated script type to dictionary
         componentDict.Add("Door", typeof(DoorMovement));
         componentDict.Add("Timeskipper", typeof(DaySkip));
+		componentDict.Add ("Generator", typeof(Generator));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 
