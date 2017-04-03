@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour
 		SwapFirstThirdPerson();
 	}
 
+	/*
 	/// <summary>
 	/// A debugging GUI that shows special player controls
 	/// </summary>
@@ -255,6 +256,7 @@ public class PlayerController : MonoBehaviour
 			"First Person";
 		GUI.Box(new Rect(0,0,200,80), "C - Crouch\nF - " + fText + "\nQ - Switch Characters");
 	}
+	*/
 
 
 

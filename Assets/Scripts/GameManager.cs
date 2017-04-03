@@ -136,7 +136,8 @@ public class GameManager : MonoBehaviour {
         //fade in new text
         isFadingText = false;
         objText.CrossFadeAlpha(1.0f, textFadeTime, false);
-        objText.text = objectives[currentObjective].UIText;
+		if(objectives.Length == 0) return;
+		objText.text = objectives[currentObjective].UIText;
     }
 
     /// <summary>
