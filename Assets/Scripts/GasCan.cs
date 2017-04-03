@@ -33,6 +33,8 @@ public class GasCan : MonoBehaviour
 
 		if(healthScript.health <= 0)
 		{
+			if(!hasGas)
+				DestroyCan();
 			kaboomTimer -= Time.deltaTime;
 			if(kaboomTimer <= 0)
 			{

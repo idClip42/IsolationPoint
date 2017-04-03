@@ -51,9 +51,16 @@ public class Flashlight : MonoBehaviour
 				lerpVal
 			);
 		else
+			/*
 			flashightObj.transform.rotation = Quaternion.Lerp(
 				flashightObj.transform.rotation,
 				flashlightOrigPos,
+				lerpVal
+			);
+			*/
+			flashightObj.transform.up = Vector3.Lerp(
+				flashightObj.transform.up,
+				-charAnim.transform.forward,
 				lerpVal
 			);
 
