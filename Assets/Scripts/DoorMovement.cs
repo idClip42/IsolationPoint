@@ -8,16 +8,38 @@ public class DoorMovement : MonoBehaviour, IInteractable {
 
     float openRot;
     bool isOpen;
+    public bool isLocked = false;
+    public bool IsLocked
+    {
+        get { return isLocked; }
+        set {
+            isLocked = value;
+            if (isLocked)
+            {
+                navOb.carving = true;
+            }
+            else
+            {
+                navOb.carving = false;
+            }
+        }
+    }
     bool moving;
     float timeLeft;
     float speed;
     Quaternion startRot;
+    NavMeshObstacle navOb;
+    AudioSource src;
+    public AudioClip lockSound;
+    public AudioClip slamOpenSound;
 
     public float openTime = 5.0f;
     public float fastOpenTime = 1.5f;
 
     // Use this for initialization
     void Start () {
+        src = GetComponent<AudioSource>();
+        navOb = GetComponent<NavMeshObstacle>();
         startRot = transform.rotation;
         if (transform.localScale.x < 0)
         {
@@ -26,6 +48,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         else {
             openRot = 90.0f;
         }
+        IsLocked = isLocked;    //should set the correct nav obstacle settings
         isOpen = false;
         moving = false;
         timeLeft = 0;
@@ -77,12 +100,17 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     /// </summary>
     public void SmashOpen()
     {
-        if (!isOpen)
+        if (!isOpen && !isLocked)
         {
             timeLeft = fastOpenTime - (timeLeft / openTime) * fastOpenTime;
             moving = true;
             speed = GetRotSpeed(fastOpenTime);
             isOpen = true;
+            if(slamOpenSound != null)
+            {
+                src.clip = slamOpenSound;
+                src.Play();
+            }
         }
     }
 
@@ -119,11 +147,22 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     /// </summary>
     public void Action()
     {
+        if (isLocked)
+        {
+            if (lockSound == null) return;
+            src.clip = lockSound;
+            src.Play();
+            return;
+        }
         Open();
     }
 
     public string ActionDescription()
     {
+        if (IsLocked)
+        {
+            return "Locked";
+        }
         if (isOpen)
         {
             return "Close";

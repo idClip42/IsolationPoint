@@ -39,6 +39,8 @@ GameObject:
   - component: {fileID: 95812321573041362}
   - component: {fileID: 114262768668136196}
   - component: {fileID: 65330995254549084}
+  - component: {fileID: 82326370223304624}
+  - component: {fileID: 208359958741735582}
   m_Layer: 0
   m_Name: door_single
   m_TagString: Door
@@ -123,6 +125,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0076487, y: 2.347672, z: 0.2324346}
   m_Center: {x: -0.50382435, y: 1.173836, z: -0.02187917}
+--- !u!82 &82326370223304624
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230596846398896}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95812321573041362
 Animator:
   serializedVersion: 3
@@ -151,5 +233,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d8dd2bbd68f147a2f5d4ccbbcbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLocked: 0
+  lockSound: {fileID: 8300000, guid: 04ca1db0d6635b843b811a3d91ad8a16, type: 3}
+  slamOpenSound: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
   openTime: 2
-  fastOpenTime: 0.5
+  fastOpenTime: 0.3
+--- !u!208 &208359958741735582
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230596846398896}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.504, y: 1.174, z: 0.116000004}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.504, y: 1.174, z: -0.022000002}
+  m_TimeToStationary: 0.5

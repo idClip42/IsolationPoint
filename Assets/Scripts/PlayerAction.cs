@@ -24,6 +24,7 @@ public class PlayerAction : MonoBehaviour {
 		componentDict.Add("Timeskipper", typeof(DaySkip));
 		componentDict.Add ("Generator", typeof(Generator));
 		componentDict.Add ("GasSource", typeof(GasSource));
+        componentDict.Add("UnlockDoor", typeof(UnlockDoorObject));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 
