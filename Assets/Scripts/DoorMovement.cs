@@ -75,7 +75,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     /// <summary>
     /// Quickly open the door
     /// </summary>
-    void SmashOpen()
+    public void SmashOpen()
     {
         if (!isOpen)
         {

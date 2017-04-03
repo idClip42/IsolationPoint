@@ -113,7 +113,8 @@ public class Objective : MonoBehaviour {
         if (parent == null && IsCompleted)
         {
             GameObject gm = GameObject.Find("GM");
-            gm.GetComponent<GameManager>().NextObjective();
+            //gm.GetComponent<GameManager>().NextObjective()
+            gm.GetComponent<GameManager>().PlayEvent();
             return;
         }
 
