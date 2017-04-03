@@ -722,8 +722,6 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void SwapFirstThirdPerson()
 	{
-		// TODO: Make this a Button in the Input Menu, rather than a KeyCode
-
 		if(Input.GetButtonDown("SwapView"))
 		{
 			firstPerson = !firstPerson;

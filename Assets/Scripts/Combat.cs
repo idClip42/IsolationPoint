@@ -128,10 +128,12 @@ public class Combat : MonoBehaviour {
 		{
 			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 1, 0.1f));
 			timer -= Time.deltaTime;
-			PlayerController.controller.SetAimMode(true);
+			if(PlayerController.controller.Player.gameObject == this.gameObject)
+				PlayerController.controller.SetAimMode(true);
 		} else {
 			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 0, 0.1f));
-			PlayerController.controller.SetAimMode(false);
+			if(PlayerController.controller.Player.gameObject == this.gameObject)
+				PlayerController.controller.SetAimMode(false);
 		}
 	}
 
@@ -142,6 +144,7 @@ public class Combat : MonoBehaviour {
 	/// </summary>
 	public void AnimateAiming()
 	{
+
 		// Makes sure this is the current player and they have a gun
 		// Then checks if they're aiming
 		if(gunScript == null) 
@@ -159,14 +162,23 @@ public class Combat : MonoBehaviour {
 		if(isAiming) 
 		{
 			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 1, 0.5f));
-			PlayerController.controller.SetAimMode(true);
-			c.z = camTargetZ/3;
+			if(PlayerController.controller.Player.gameObject == this.gameObject)
+			{
+				PlayerController.controller.SetAimMode(true);
+				c.z = camTargetZ/3;
+			}
 		} else 
 		{
 			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 0, 0.1f));
-			PlayerController.controller.SetAimMode(false);
-			c.z = camTargetZ;
+			if(PlayerController.controller.Player.gameObject == this.gameObject)
+			{
+				PlayerController.controller.SetAimMode(false);
+				c.z = camTargetZ;
+			}
 		}
+
+		if(PlayerController.controller.Player.gameObject != this.gameObject) return;
+
 		cameraTarget.localPosition = c;
 
 		// Points gun aim animation in correct vertical direction
