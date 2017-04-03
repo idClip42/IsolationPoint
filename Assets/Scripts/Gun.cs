@@ -135,7 +135,7 @@ public class Gun : MonoBehaviour
 				} else if(hp != null) {
 					hp.Hit(damage, true, hitInfo.point, hitInfo.normal);
 				} else {
-					MakeBulletHole(hitInfo.point, hitInfo.normal);
+					MakeBulletHole(hitInfo.point, hitInfo.normal, hitInfo.collider.transform);
 				}
 				if(hitInfo.rigidbody != null)
 					ForceToRigidBody(hitInfo.rigidbody, hitInfo.point, forward);
@@ -188,7 +188,7 @@ public class Gun : MonoBehaviour
 	/// </summary>
 	/// <param name="point">Location of bullet hole</param>
 	/// <param name="normal">Normal of surface for bullet hole</param>
-	void MakeBulletHole(Vector3 point, Vector3 normal)
+	void MakeBulletHole(Vector3 point, Vector3 normal, Transform hitObj)
 	{
 		GameObject b = (GameObject) Instantiate(
 			bulletHole,
@@ -197,6 +197,9 @@ public class Gun : MonoBehaviour
 		);
 		b.transform.forward = normal;
 		b.transform.Rotate(0, 0, Random.Range(0, 360));
+
+		b.transform.SetParent(hitObj);
+
 		Destroy(b, 10);
 	}
 
