@@ -6,6 +6,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	GameObject currentItem;
 	GameObject leftHandItem;
+	public GameObject LeftHandItem { get { return leftHandItem; } }
 
 	Transform playerHandL;
 	Transform playerHandR;

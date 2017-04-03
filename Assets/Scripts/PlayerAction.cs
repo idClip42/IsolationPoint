@@ -21,8 +21,9 @@ public class PlayerAction : MonoBehaviour {
 	void Start () {
         //add tag and associated script type to dictionary
         componentDict.Add("Door", typeof(DoorMovement));
-        componentDict.Add("Timeskipper", typeof(DaySkip));
+		componentDict.Add("Timeskipper", typeof(DaySkip));
 		componentDict.Add ("Generator", typeof(Generator));
+		componentDict.Add ("GasSource", typeof(GasSource));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 
