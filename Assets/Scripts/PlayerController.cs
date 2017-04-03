@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 	int bitFieldNoHitbox;
 	public int NoHitboxBit { get { return bitFieldNoHitbox; } }
 
+	int headLayerIndex;
+
 
 
 
@@ -114,6 +116,8 @@ public class PlayerController : MonoBehaviour
 		bitFieldNoHitbox = bitFieldNoHitbox << 8;
 		bitFieldNoHitbox = ~bitFieldNoHitbox;
 
+		headLayerIndex = anim.GetLayerIndex("HeadLayer");
+
 
 
 
@@ -122,8 +126,11 @@ public class PlayerController : MonoBehaviour
 		//  (In favor of actual body colliders)
 		for(int n = 0; n < playerList.Length; ++n)
 		{
-			playerList[n].GetComponentInChildren<Animator>().SetFloat("NoseWipeOffset", Random.value);
+			Animator a = playerList[n].GetComponentInChildren<Animator>();
+			a.SetFloat("NoseWipeOffset", Random.value);
+			a.SetLayerWeight(headLayerIndex, 0);
 		}
+		anim.SetLayerWeight(headLayerIndex, 1);
 	}
 
 
@@ -170,6 +177,9 @@ public class PlayerController : MonoBehaviour
 		// Gets the current transform of the player model
 		if (pickupScript != null)
 			pickupScript.PlayerTransform = player.GetComponent<Transform> ();
+
+		// Turns on head turning
+		anim.SetLayerWeight(headLayerIndex, 1);
 	}
 
 
@@ -563,12 +573,24 @@ public class PlayerController : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Turns the player's head
+	/// </summary>
+	void TurnHead()
+	{
+		float animFrame = (Vector3.Angle(-anim.transform.right, cam.transform.forward))/180.0f;
+		anim.Play("HeadTurn", headLayerIndex, animFrame);
+	}
+
+	/// <summary>
 	/// Animate the player model.
 	/// </summary>
 	void Animate()
 	{
 		// Turns the player model in the correct direction
 		TurnPlayerModel();
+
+		// Turns the players head with the camera
+		TurnHead();
 
 		// Sends necessary values to the Animator
 		// Speed
@@ -663,6 +685,7 @@ public class PlayerController : MonoBehaviour
 		velocity = Vector3.zero;
 		// Sets the animator to stop moving
 		Animate();
+		anim.SetLayerWeight(headLayerIndex, 0);
 
 		if(whichChar < 0)
 		{

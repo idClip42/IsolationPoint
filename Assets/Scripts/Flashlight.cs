@@ -9,11 +9,13 @@ public class Flashlight : MonoBehaviour
 	Rigidbody rb;
 	Camera cam;
 	CharacterController currentChar;
-	GameObject currentModel;
+	Animator charAnim;
 	GameObject flashightObj;
 	Quaternion flashlightOrigPos;
 
 	GameManager gm;
+
+	int leftHandLayerIndex;
 
 
 	void Start () 
@@ -23,7 +25,7 @@ public class Flashlight : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		cam = Camera.main;
 		currentChar = null;
-		currentModel = null;
+		charAnim = null;
 		flashightObj = col.gameObject;
 		flashlightOrigPos = flashightObj.transform.rotation;
 
@@ -39,7 +41,7 @@ public class Flashlight : MonoBehaviour
 		float angleLimit = 90.0f;
 		float lerpVal = 0.5f;
 
-		Vector3 charForward = currentModel.transform.forward;
+		Vector3 charForward = charAnim.transform.forward;
 		Vector3 camForward = cam.transform.forward;
 		float angle = Vector3.Angle(charForward, camForward);
 		if(angle < angleLimit)
@@ -57,6 +59,12 @@ public class Flashlight : MonoBehaviour
 
         //Check if an enemy is within the light
         CheckEnemyInLight();
+
+		// Animates player with flashlight
+		if(charAnim == null) return;
+		float animFrame = (Vector3.Angle(-charAnim.transform.right, cam.transform.forward))/180.0f;
+		charAnim.Play("FlashlightAim", leftHandLayerIndex, animFrame);
+
 	}
 
 	public void PickUpPutDown(bool pickUp, CharacterController c)
@@ -67,10 +75,15 @@ public class Flashlight : MonoBehaviour
 		if(pickUp)
 		{
 			currentChar = c;
-			currentModel = currentChar.GetComponentInChildren<Animator>().gameObject;
+			charAnim = currentChar.GetComponentInChildren<Animator>();
+			leftHandLayerIndex = charAnim.GetLayerIndex("LeftHandLayer");
+			charAnim.SetLayerWeight(leftHandLayerIndex, 1);
+			col.gameObject.layer = 8;
 		} else {
+			charAnim.SetLayerWeight(leftHandLayerIndex, 0);
 			currentChar = null;
-			currentModel = null;
+			charAnim = null;
+			col.gameObject.layer = 0;
 		}
 	}
 

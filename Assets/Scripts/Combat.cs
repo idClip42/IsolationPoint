@@ -26,6 +26,8 @@ public class Combat : MonoBehaviour {
 
 	UI_Manager UIScript;
 
+	int weaponsLayerIndex;
+
 
 	void Start () 
 	{
@@ -41,13 +43,15 @@ public class Combat : MonoBehaviour {
 		cameraTarget = transform.FindChild("CameraAxis").FindChild("CameraTarget");
 		if(cameraTarget == null) Debug.Log("Must have camera target named 'CameraTarget'");
 		camTargetZ = cameraTarget.localPosition.z;
+
+		weaponsLayerIndex = anim.GetLayerIndex("WeaponLayer");
 	}
 	
 	void Update () 
 	{
 		if(PlayerController.controller.Player.gameObject != this.gameObject && this.gameObject.tag != "Enemy")
 		{
-			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
+			anim.SetLayerWeight (weaponsLayerIndex, Mathf.Lerp (anim.GetLayerWeight (weaponsLayerIndex), 0, 0.1f));
 			return;
 		}
 
@@ -55,7 +59,7 @@ public class Combat : MonoBehaviour {
 			// If no new weapon, ensures that no weapon anims continue
 			isAiming = false;
 			PlayerController.controller.SetAimMode(false);
-			anim.SetLayerWeight (1, Mathf.Lerp (anim.GetLayerWeight (1), 0, 0.1f));
+			anim.SetLayerWeight (weaponsLayerIndex, Mathf.Lerp (anim.GetLayerWeight (weaponsLayerIndex), 0, 0.1f));
 			Vector3 c = cameraTarget.localPosition;
 			c.z = camTargetZ;
 			cameraTarget.localPosition = c;
@@ -122,11 +126,11 @@ public class Combat : MonoBehaviour {
 		// Sets whether character is aiming based on whether they're attacking
 		if(timer > 0)
 		{
-			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 1, 0.1f));
+			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 1, 0.1f));
 			timer -= Time.deltaTime;
 			PlayerController.controller.SetAimMode(true);
 		} else {
-			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0, 0.1f));
+			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 0, 0.1f));
 			PlayerController.controller.SetAimMode(false);
 		}
 	}
@@ -154,12 +158,12 @@ public class Combat : MonoBehaviour {
 		Vector3 c = cameraTarget.localPosition;
 		if(isAiming) 
 		{
-			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 1, 0.5f));
+			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 1, 0.5f));
 			PlayerController.controller.SetAimMode(true);
 			c.z = camTargetZ/3;
 		} else 
 		{
-			anim.SetLayerWeight(1, Mathf.Lerp(anim.GetLayerWeight(1), 0, 0.1f));
+			anim.SetLayerWeight(weaponsLayerIndex, Mathf.Lerp(anim.GetLayerWeight(weaponsLayerIndex), 0, 0.1f));
 			PlayerController.controller.SetAimMode(false);
 			c.z = camTargetZ;
 		}
@@ -167,7 +171,7 @@ public class Combat : MonoBehaviour {
 
 		// Points gun aim animation in correct vertical direction
 		float animFrame = Vector3.Angle(Vector3.up, cam.transform.forward)/180.0f;
-		anim.Play(gunScript.gunAnim.ToString(), 1, animFrame);
+		anim.Play(gunScript.gunAnim.ToString(), weaponsLayerIndex, animFrame);
 	}
 
 
@@ -187,8 +191,8 @@ public class Combat : MonoBehaviour {
 
 			string animName = meleeScript.GetAnim();
 
-			anim.Play(animName, 1);
-			timer = anim.GetCurrentAnimatorClipInfo(1).Length * 0.8f;
+			anim.Play(animName, weaponsLayerIndex);
+			timer = anim.GetCurrentAnimatorClipInfo(weaponsLayerIndex).Length * 0.8f;
 			currentMaxTime = timer;
 			meleeScript.Attack(timer);
 		} else if(gunScript != null && isAiming) {
