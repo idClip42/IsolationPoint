@@ -17,6 +17,14 @@ public class GameManager : MonoBehaviour {
     public Event[] scriptedEvents;      //match the event to occur with the completion of the corresponding objective, leave null if no event wanted
     public int currentObjective;
 
+    //Restricts input when true. Used for events where the player should not be able to interact with anything.
+    bool pauseInput;
+    public bool PauseInput
+    {
+        get { return pauseInput; }
+        set { pauseInput = value; }
+    }
+
     SunSetting sunset;
     Text objText;
 
@@ -46,6 +54,7 @@ public class GameManager : MonoBehaviour {
         activePlayers = players.Length;
         //night = false;
         gameover = false;
+        pauseInput = false;
 
         //sunset = GameObject.Find("Sun").GetComponent<SunSetting>();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");

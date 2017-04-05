@@ -10,14 +10,14 @@ public class DoubleDoorOpenEvent : Event {
     DoorMovement door2Script;
 
     // Use this for initialization
-    public override void Start () {
+    protected override void Start () {
         base.Start();
         door1Script = door1.GetComponent<DoorMovement>();
         door2Script = door2.GetComponent<DoorMovement>();
     }
 
     // Update is called once per frame
-    public override void Update () {
+    protected override void Update () {
         base.Update();
 	}
 

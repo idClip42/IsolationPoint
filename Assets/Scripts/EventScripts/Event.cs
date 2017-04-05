@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Event : MonoBehaviour {
-    GameManager gm;
+    protected GameManager gm;
     public Event[] simultaneousEvents;  //These will run at the same time as the main event
     public float timeToComplete = 10.0f;
 
@@ -24,23 +24,22 @@ public class Event : MonoBehaviour {
 
 
 	// Use this for initialization
-	public virtual void Start () {
+	protected virtual void Start () {
         gm = GameObject.Find("GM").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
-    public virtual void Update () {
-        if (isPlaying)
+    protected virtual void Update () {
+        if (!isPlaying) return;
+
+        timeToComplete -= Time.deltaTime;
+        if (timeToComplete <= 0)
         {
-            timeToComplete -= Time.deltaTime;
-            if(timeToComplete <= 0 && allFinished)
-            {
-                isPlaying = false;
-                isFinished = true;
-            }
-            CheckArrayEvents();
-            gm.IsPlayingEvent = isPlaying;
+            isFinished = true;
         }
+        CheckArrayEvents();
+        if (allFinished) isPlaying = false;
+        gm.IsPlayingEvent = isPlaying;
 	}
 
     public virtual void PlayEvent()
@@ -57,8 +56,8 @@ public class Event : MonoBehaviour {
     /// </summary>
     void CheckArrayEvents()
     {
-        if (isFinished) return;
         int fin = 0;
+        if (isFinished) fin++;
         foreach (Event e in simultaneousEvents)
         {
             if (e.IsFinished)
@@ -66,6 +65,6 @@ public class Event : MonoBehaviour {
                 fin++;
             }
         }
-        if (fin == simultaneousEvents.Length) allFinished = true;
+        if (fin == simultaneousEvents.Length + 1) allFinished = true;
     }
 }

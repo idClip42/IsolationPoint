@@ -41,6 +41,9 @@ public class PlayerAction : MonoBehaviour {
 		if(text != null)
         	text.text = " ";
 
+        //check if input is allowed
+        if (gm.PauseInput) return;
+
         //find the game object in front of current character
         GameObject obj = CheckForTag();
         if (obj != null)

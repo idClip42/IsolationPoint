@@ -10,6 +10,10 @@ public class Generator : MonoBehaviour, IInteractable {
 	public bool debugLightsOnLKey = false;
 
 	GameObject[] allLights;
+    public GameObject[] AllLights
+    {
+        get { return allLights; }
+    }
 	bool lightsOn;
 	public bool isFixed;
 	public bool currentlyFixing;

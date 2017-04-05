@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 	Combat combatScript;				// The combat script for scripting combat
 	Health healthScript;				// Ditto for script
 	Pickup_Drop_Items pickupScript; 	// Script for picking up/ putting down items
+    GameManager gm;                     // For any data that this may hold in regards to what the playeris allowed to do.
 
 	Vector3 velocity;					// The velocity the Character Controller will move at every frame
 
@@ -93,6 +94,8 @@ public class PlayerController : MonoBehaviour
 		// Finds the Main Camera
 		cam = Camera.main;
 		if(cam == null) Debug.LogError("Must have main camera tagged 'MainCamera'");
+
+        gm = GameObject.Find("GM").GetComponent<GameManager>();
 
 		// Gets necessary pieces of the selected player
 		SetPlayerVars();
@@ -204,15 +207,18 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void FixedUpdate () 
 	{
-		// If camera is smoothly following player around in third-person,
-		// updates it here in Fixed Update
-		if(!firstPerson) CameraTurn();
+        if (!gm.PauseInput)
+        {
+            // If camera is smoothly following player around in third-person,
+            // updates it here in Fixed Update
+            if (!firstPerson) CameraTurn();
 
-		// Ends if there is no health or no health script, which means the player is dead
-		if(healthScript != null && healthScript.health <= 0) return;
-		if(healthScript == null) return;
+            // Ends if there is no health or no health script, which means the player is dead
+            if (healthScript != null && healthScript.health <= 0) return;
+            if (healthScript == null) return;
+        }
 
-		MovePlayer();
+        MovePlayer();
 		Animate();
 	}
 
@@ -221,6 +227,7 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void Update ()
 	{
+        if (gm.PauseInput) return;
 		// If camera is in player's head in third person,
 		// updates it here in Update 
 		if(firstPerson) CameraTurn();
@@ -280,6 +287,12 @@ public class PlayerController : MonoBehaviour
 		float maxSpeed = crouchState < 3 ? crouchSpeed : runInput ? runSpeed : walkSpeed;
 		if(runInput) Crouch(false);
 		velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+
+        //Restrict input movement
+        if (gm.PauseInput)
+        {
+            velocity = Vector3.zero;
+        }
 
 		// Drag
 		velocity -= velocity * 0.1f;
