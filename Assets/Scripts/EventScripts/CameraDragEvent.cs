@@ -8,7 +8,7 @@ public class CameraDragEvent : Event {
     public float stareTime = 5.0f;  //Time the camera is staring at the desired location
     public Vector3 location;    //Location to stare at
     public bool restrictPlayerControl = false;  //Prevent the player from moving their character or camera?
-    //float maxRadiansPerSecond;
+    float maxRadiansPerSecond;
     float horiz = 0.0f;
     float vert = 0.0f;
     Camera cam; //need to get camera
@@ -16,7 +16,7 @@ public class CameraDragEvent : Event {
     // Use this for initialization
     protected override void Start () {
         base.Start();
-        //maxRadiansPerSecond = 0;
+        maxRadiansPerSecond = 0;
         //override from Event
         timeToComplete = dragTime + stareTime;
 
@@ -33,16 +33,9 @@ public class CameraDragEvent : Event {
         if (timeToComplete <= stareTime) return;
 
         //rotate to face the location -- should not rotate when facing the location
-        Debug.Log(cam.transform.forward);
-        Vector3 rot = cam.transform.rotation.eulerAngles;
-        rot += new Vector3(horiz*Time.deltaTime, vert*Time.deltaTime, 0);
-        rot.z = 0;
-        cam.transform.rotation = Quaternion.Euler(rot);
-        //Vector3 rotAngle = Vector3.RotateTowards(cam.transform.forward, location - cam.transform.position, maxRadiansPerSecond * Time.deltaTime, 0);
-        //cam.transform.rotation = Quaternion.Euler(rotAngle);
-        //Debug.Log(rotAngle);
-        //cam.transform.LookAt(rotAngle, transform.up);
-        Debug.Log(cam.transform.forward);
+        Vector3 rotAngle = Vector3.RotateTowards(cam.transform.forward, location - cam.transform.position, maxRadiansPerSecond * Time.deltaTime, 1);
+        cam.transform.rotation = Quaternion.LookRotation(rotAngle);
+
     }
 
     public override void PlayEvent()
@@ -50,19 +43,22 @@ public class CameraDragEvent : Event {
         //restrict input if wanted
         gm.PauseInput = restrictPlayerControl;
         //calculate the radians to turn in the specified time
-        //float angle;// = Vector3.Angle(cam.transform.forward, location - cam.transform.position);
+        float angle = Vector3.Angle(cam.transform.forward, location - cam.transform.position);
         //maxRadiansPerSecond = angle * Mathf.PI / (180 * dragTime);
-        //maxRadiansPerSecond = angle / dragTime;
+        maxRadiansPerSecond = Mathf.Deg2Rad * angle / dragTime;
         Vector3 loc = location - cam.transform.position;
-        float angle = Vector3.Angle(cam.transform.forward, loc) / dragTime;
-        Vector3 locX = loc;
-        locX.y = locX.z = 0;
-        Vector3 locY = loc;
-        locY.x = locY.z = 0;
+        //float angle = Vector3.Angle(cam.transform.forward, loc) / dragTime;
+        Vector3 camXY = cam.transform.forward, camYZ = cam.transform.forward;
+        Vector3 locXY = loc;
+        locXY.z = 0;
+        camXY.z = 0;
+        Vector3 locYZ = loc;
+        locYZ.x = 0;
+        camYZ.x = 0;
         Debug.Log(angle);
-        horiz = Vector3.Angle(cam.transform.forward, locX) / dragTime;
+        horiz = Vector3.Angle(camXY, locXY) / dragTime;
         Debug.Log(horiz);
-        vert = Vector3.Angle(cam.transform.forward, locY) / dragTime;
+        vert = Vector3.Angle(camYZ, locYZ) / dragTime;
         Debug.Log(vert);
         base.PlayEvent();
     }
