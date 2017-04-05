@@ -44,22 +44,7 @@ public class CameraDragEvent : Event {
         gm.PauseInput = restrictPlayerControl;
         //calculate the radians to turn in the specified time
         float angle = Vector3.Angle(cam.transform.forward, location - cam.transform.position);
-        //maxRadiansPerSecond = angle * Mathf.PI / (180 * dragTime);
         maxRadiansPerSecond = Mathf.Deg2Rad * angle / dragTime;
-        Vector3 loc = location - cam.transform.position;
-        //float angle = Vector3.Angle(cam.transform.forward, loc) / dragTime;
-        Vector3 camXY = cam.transform.forward, camYZ = cam.transform.forward;
-        Vector3 locXY = loc;
-        locXY.z = 0;
-        camXY.z = 0;
-        Vector3 locYZ = loc;
-        locYZ.x = 0;
-        camYZ.x = 0;
-        Debug.Log(angle);
-        horiz = Vector3.Angle(camXY, locXY) / dragTime;
-        Debug.Log(horiz);
-        vert = Vector3.Angle(camYZ, locYZ) / dragTime;
-        Debug.Log(vert);
         base.PlayEvent();
     }
 }
