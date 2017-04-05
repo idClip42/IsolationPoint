@@ -9,8 +9,6 @@ public class CameraDragEvent : Event {
     public Vector3 location;    //Location to stare at
     public bool restrictPlayerControl = false;  //Prevent the player from moving their character or camera?
     float maxRadiansPerSecond;
-    float horiz = 0.0f;
-    float vert = 0.0f;
     Camera cam; //need to get camera
 
     // Use this for initialization

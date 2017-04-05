@@ -115,6 +115,25 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     }
 
     /// <summary>
+    /// Quickly close the door
+    /// </summary>
+    public void SmashClose()
+    {
+        if (isOpen && !isLocked)
+        {
+            timeLeft = fastOpenTime - (timeLeft / openTime) * fastOpenTime;
+            moving = true;
+            speed = -GetRotSpeed(fastOpenTime);
+            isOpen = false;
+            if (slamOpenSound != null)
+            {
+                src.clip = slamOpenSound;
+                src.Play();
+            }
+        }
+    }
+
+    /// <summary>
     /// Open the door
     /// </summary>
     void Open()
