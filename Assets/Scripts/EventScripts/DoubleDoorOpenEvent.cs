@@ -8,6 +8,7 @@ public class DoubleDoorOpenEvent : Event {
     public GameObject door2;
     DoorMovement door1Script;
     DoorMovement door2Script;
+    public bool toOpen = true;
 
     // Use this for initialization
     protected override void Start () {
@@ -23,8 +24,25 @@ public class DoubleDoorOpenEvent : Event {
 
     public override void PlayEvent()
     {
-        if (door1Script != null) door1Script.SmashOpen();
-        if (door2Script != null) door2Script.SmashOpen();
+        if (door1Script != null) {
+            if (toOpen)
+            {
+                door1Script.SmashOpen();
+            } else {
+                door1Script.SmashClose();
+            }
+        }
+        if (door2Script != null)
+        {
+            if (toOpen)
+            {
+                door2Script.SmashOpen();
+            }
+            else
+            {
+                door2Script.SmashClose();
+            }
+        }
         base.PlayEvent();
     }
 }
