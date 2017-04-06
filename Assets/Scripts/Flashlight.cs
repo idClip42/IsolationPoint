@@ -37,32 +37,32 @@ public class Flashlight : MonoBehaviour
 		if(currentChar != PlayerController.controller.Player) return;
 
 		// Aims the flashlight where the camera is looking, within reason
+		// SCREW REASON! MAKE FLASHLIGHT GO EVERYWHERE!!!
 
-		float angleLimit = 90.0f;
+		//float angleLimit = 90.0f;
 		float lerpVal = 0.5f;
 
 		Vector3 charForward = charAnim.transform.forward;
 		Vector3 camForward = cam.transform.forward;
 		float angle = Vector3.Angle(charForward, camForward);
-		if(angle < angleLimit)
+		//if(angle < angleLimit)
+		/*
 			flashightObj.transform.up = Vector3.Lerp(		// Must be up because of way object is oriented
 				flashightObj.transform.up,
 				-camForward,
 				lerpVal
 			);
+*/
+		// Don't lerp, slows it down too much
+		flashightObj.transform.up = -camForward;
+		/*
 		else
-			/*
-			flashightObj.transform.rotation = Quaternion.Lerp(
-				flashightObj.transform.rotation,
-				flashlightOrigPos,
-				lerpVal
-			);
-			*/
 			flashightObj.transform.up = Vector3.Lerp(
 				flashightObj.transform.up,
 				-charAnim.transform.forward,
 				lerpVal
 			);
+			*/
 
         //Check if an enemy is within the light
         CheckEnemyInLight();
