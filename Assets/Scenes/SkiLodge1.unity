@@ -11750,10 +11750,10 @@ Transform:
   - {fileID: 2084825857}
   - {fileID: 1351143555}
   - {fileID: 1621439396}
-  - {fileID: 1223370364}
   - {fileID: 51772998}
   - {fileID: 1850460872}
   - {fileID: 879985344}
+  - {fileID: 1223370364}
   - {fileID: 211350946}
   - {fileID: 1101365954}
   - {fileID: 1568730187}
@@ -87198,6 +87198,10 @@ Prefab:
     - target: {fileID: 100004, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
+      propertyPath: m_TagString
+      value: Snow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd5499c4120e5401a82d17e64466a65a, type: 3}
