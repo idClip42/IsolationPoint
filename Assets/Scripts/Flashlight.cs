@@ -46,15 +46,14 @@ public class Flashlight : MonoBehaviour
 		Vector3 camForward = cam.transform.forward;
 		float angle = Vector3.Angle(charForward, camForward);
 		//if(angle < angleLimit)
-		/*
+		///*
 			flashightObj.transform.up = Vector3.Lerp(		// Must be up because of way object is oriented
 				flashightObj.transform.up,
 				-camForward,
 				lerpVal
 			);
-*/
-		// Don't lerp, slows it down too much
-		flashightObj.transform.up = -camForward;
+//*/
+		//flashightObj.transform.up = -camForward;
 		/*
 		else
 			flashightObj.transform.up = Vector3.Lerp(
