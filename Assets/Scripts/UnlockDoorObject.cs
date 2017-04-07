@@ -11,6 +11,7 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
     public bool setRigidBodyKinematic = false;   //If a rigid body is attached set it to be this value
     bool isUsed = false;
     public bool relockable = false; //Is this a one time thing? Yes = false. Can this relock the doors? Yes = true.
+    public Objective toAffect;  //Objective affected by this action
 
     public void Action()
     {
@@ -28,6 +29,10 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
             string temp = actionDesc;
             actionDesc = actionDesc2;
             actionDesc2 = temp;
+        }
+        if (toAffect != null)
+        {
+            toAffect.IsCompleted = true;
         }
     }
 
