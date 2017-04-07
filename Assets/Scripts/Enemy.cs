@@ -200,14 +200,16 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void CheckView()
     {
+        //If not searching the position is where the enemy last "saw" the player
         if (!searching)
         {
             lastSeen = target.position;
         }
 
+        //Currently seeing and seeking player?
         bool seekingPlayer = false;
         
-
+        //Check each player...
         foreach (GameObject obj in gm.players)
         {
             Vector3 toObj = obj.transform.position - transform.position;
@@ -263,21 +265,24 @@ public class Enemy : MonoBehaviour {
                     //check for obstacles blocking vision -> may need to check around center of player (ie. head, knees, left shoulder, and right shoulder) to better "see"
                     if (hit.transform == parts[i])
                     {
+                        //Currently seeking player and targeting a player...
                         if (targetingPlayer && seekingPlayer)
                         {
                             //check for closest distance when chasing a player
                             if ((target.position - transform.position).sqrMagnitude > (obj.transform.position - transform.position).sqrMagnitude)
                             {
+                                //set closer player as target
                                 target.position = obj.transform.position;
                             }
                         }
-                        else {
+                        else //Not seeking player or not targeting player...
+                        {
+                            //set player as target
                             target.position = obj.transform.position;
-                            searching = false;
+                            searching = false;//has a destination that is player
                             searchTimer = 0;
                             targetingPlayer = true;//now chasing a player
                             agent.speed = runSpeed;
-                            //agent.autoBraking = false;
                         }//end targeting
                         seekingPlayer = true;//sees player currently
                         break;//break bone check for loop
@@ -290,6 +295,7 @@ public class Enemy : MonoBehaviour {
         //if no player in sight and saw player recently
         if (!seekingPlayer && targetingPlayer)
         {
+            //go to last seen position
             target.position = lastSeen;
         }
     }
@@ -302,7 +308,9 @@ public class Enemy : MonoBehaviour {
     /// <returns></returns>
     bool WithinFieldOfView(Vector3 toObj)
     {
+        //get direction to object
         toObj.Normalize();
+        //within view...
         if (Mathf.Abs(Vector3.Angle(facing.forward, toObj)) <= angleOfVision)
         {
             return true;
@@ -367,7 +375,7 @@ public class Enemy : MonoBehaviour {
     }
 
     /// <summary>
-	/// Animate the player model.
+	/// Animate the model.
 	/// </summary>
 	void Animate()
     {
@@ -386,7 +394,10 @@ public class Enemy : MonoBehaviour {
         anim.SetFloat("RightDot", rightDot);
     }
 
-
+    /// <summary>
+    /// Alert the enemy to an 'interesting' location it should go to. Not a high priority so it only walks. 
+    /// </summary>
+    /// <param name="pos">Location to go to</param>
     public void SetTarget(Vector3 pos)
     {
         if (targetingPlayer) return;
@@ -394,5 +405,17 @@ public class Enemy : MonoBehaviour {
         //if not already targeting player...
         searching = false;
         target.position = pos;
+    }
+
+    /// <summary>
+    /// Alert the enemy to the location where it thinks a player is.
+    /// </summary>
+    /// <param name="playerPos">Supposed position of the player</param>
+    public void ChaseTarget(Vector3 playerPos)
+    {
+        targetingPlayer = true;
+        searching = false;
+        lastSeen = playerPos;
+        target.position = playerPos;
     }
 }

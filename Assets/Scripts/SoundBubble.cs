@@ -6,9 +6,10 @@ using UnityEngine;
 public class SoundBubble : MonoBehaviour {
 
     AudioSource src;
-    public float maxSize = 10;
+	public float maxSize = 10;
     float maxScale;
     GameManager gm;
+	public bool willChase = false;	//will the sound cause the enemy to run to the target(signals player presence) or merely be interesting and have the enemy walk to it
 
 	// Use this for initialization
 	void Start () {
@@ -25,14 +26,18 @@ public class SoundBubble : MonoBehaviour {
             {
                 if((gm.enemies[i].transform.position - transform.position).sqrMagnitude <= Mathf.Pow(maxSize, 2))
                 {
-                    gm.enemies[i].GetComponent<Enemy>().SetTarget(transform.position);
+					if (willChase) {
+						gm.enemies [i].GetComponent<Enemy> ().ChaseTarget (transform.position);
+					} else {
+						gm.enemies [i].GetComponent<Enemy> ().SetTarget (transform.position);
+					}
                 }
             }
         }
 	}
 
     /// <summary>
-    /// Get the total scale when considering all the parent transforms as well.
+    /// Get the total scale when considering all the parent transforms.
     /// </summary>
     void GetMaxScale()
     {

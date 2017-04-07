@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33013746610399118}
   - component: {fileID: 23581474289144532}
   - component: {fileID: 95638417146285348}
+  - component: {fileID: 54425458916270472}
+  - component: {fileID: 64451411395196186}
   m_Layer: 0
   m_Name: mannequin_prefab
   m_TagString: Untagged
@@ -35,13 +37,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529003374994864}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.857863, y: 0.5000001, z: 214.89014}
+  m_LocalRotation: {x: -0, y: 0.7952808, z: -0, w: 0.6062413}
+  m_LocalPosition: {x: -2.46, y: 6.5, z: 206.063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 105.364006, z: 0}
 --- !u!23 &23581474289144532
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -79,6 +81,35 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529003374994864}
+  m_Mesh: {fileID: 4300000, guid: cf56d2a83c493c34b9ec6b76ba9136e9, type: 3}
+--- !u!54 &54425458916270472
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529003374994864}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &64451411395196186
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529003374994864}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: cf56d2a83c493c34b9ec6b76ba9136e9, type: 3}
 --- !u!95 &95638417146285348
 Animator:
