@@ -69,7 +69,7 @@ public class Generator : MonoBehaviour, IInteractable {
 	public void Action(){
 		currentlyFixing = true;
 
-		UIScript.ShowGBar ();
+		UIScript.StartGeneratorFix();
 	}
 
 	void UpdateTimer(){

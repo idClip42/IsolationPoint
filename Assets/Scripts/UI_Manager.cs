@@ -7,6 +7,7 @@ public class UI_Manager : MonoBehaviour {
 
 	GameObject UI;
 	Generator gScript;
+	Radio rScript;
 
 	public Sprite redDot;
 	public Sprite redCross;
@@ -15,8 +16,8 @@ public class UI_Manager : MonoBehaviour {
 	List<Image> healthBarList;
 
 	public Image crosshair;
-	public Image Gbar;
-	Image GbarPrefab;
+	public Image bar;
+	Image barPrefab;
 
 	Text pauseMenu;
 
@@ -24,17 +25,21 @@ public class UI_Manager : MonoBehaviour {
 
 	bool pauseGame;
 	public bool fixingGenerator;
+	public bool fixingRadio;
 
-	float timer;
+	float gTimer;
+	float pTimer;
 
 	void Start () {
 		gScript = GameObject.Find ("Generator").GetComponent<Generator> ();
+		rScript = GameObject.Find ("Radio").GetComponent<Radio> ();
 		crosshairDefault = new Vector2 (0.5f, 0.5f);
 		healthList = new List<Health> ();
 		healthBarList = new List<Image> ();
 		pauseGame = false;
 		fixingGenerator = false;
-		timer = 0;
+		fixingRadio = false;
+		gTimer = 0;
 		UI = GameObject.Find ("UI");
 		//if(UI == null) UI = GameObject.Find("UI 1");
 		//if(UI == null) Debug.Log("Didn't find UI object");
@@ -44,8 +49,8 @@ public class UI_Manager : MonoBehaviour {
 		GetHealthBars ();
 		GetPauseMenu ();
 
-		GbarPrefab.enabled = false;
-		Gbar.enabled = false;
+		barPrefab.enabled = false;
+		bar.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -72,6 +77,9 @@ public class UI_Manager : MonoBehaviour {
 
 		if (fixingGenerator) {
 			UpdateGbar ();
+		}
+		if (fixingRadio) {
+			UpdateRBar ();
 		}
 		
 	}
@@ -123,35 +131,60 @@ public class UI_Manager : MonoBehaviour {
 		crosshair.rectTransform.anchorMin = crosshairDefault;
 	}
 
-	public void ShowGBar(){
-		GbarPrefab.enabled = true;
-		Gbar.enabled = true;
-		Gbar.fillAmount = 0;
+	public void ResetBar (){
+		barPrefab.enabled = true;
+		bar.enabled = true;
+		bar.fillAmount = 0;
+	}
+
+	public void StartGeneratorFix(){
+		ResetBar ();
 		fixingGenerator = true;
+	}
+
+	public void StartRadioFix(){
+		ResetBar ();
+		fixingRadio = true;
+		rScript.isFixing = true;
 	}
 
 	void GetGBar(){
 		Image[] temp = UI.GetComponentsInChildren<Image> ();
 		foreach (Image item in temp) {
 			if (item.name == "ProgressBar")
-				Gbar = item;
+				bar = item;
 			if (item.name == "ProgressBarFill")
-				GbarPrefab = item;
+				barPrefab = item;
 		}
 	}
 
 	void UpdateGbar(){
 		
-		timer += Time.deltaTime;
+		gTimer += Time.deltaTime;
 
-		Gbar.fillAmount = (timer / 5.0f);
+		bar.fillAmount = (gTimer / 5.0f);
 
-		if (Gbar.fillAmount == 1.0f) {
+		if (bar.fillAmount == 1.0f) {
 			fixingGenerator = false;
-			GbarPrefab.enabled = false;
-			Gbar.enabled = false;
+			barPrefab.enabled = false;
+			bar.enabled = false;
 			gScript.isFixed = true;
 			gScript.currentlyFixing = false;
+		}
+	}
+
+	void UpdateRBar(){
+
+		pTimer += Time.deltaTime;
+
+		bar.fillAmount = (pTimer / 5.0f);
+
+		if (bar.fillAmount == 1.0f) {
+			fixingRadio = false;
+			barPrefab.enabled = false;
+			bar.enabled = false;
+			rScript.isFixing = false;
+			rScript.isFixed = true;
 		}
 	}
 }
