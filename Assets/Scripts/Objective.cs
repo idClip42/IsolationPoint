@@ -13,6 +13,7 @@ public class Objective : MonoBehaviour {
     public Objective parent;   //main objective parent, if null find gm
                                 //could be another objective -> subobjectives
     public Objective[] subObjectives;  //subobjectives -> act like objectives
+    public Event[] events;      //events to play on completion
 
     bool isCompleted = false;
     public bool IsCompleted {
@@ -21,20 +22,51 @@ public class Objective : MonoBehaviour {
             isCompleted = value;
             if (IsCompleted)
             {
+                isPlaying = true;
+                if (parent == null) gm.IsPlayingEvent = IsPlaying;
+                StartEvents();
                 NextObjective();
             }
         }
     }
 
-	// Use this for initialization
-	void Start () {
-        
-	}
+    GameManager gm;
+    bool allFinished = false;
+    public bool AllFinished
+    {
+        set
+        {
+            allFinished = value;
+            if (allFinished)
+            {
+                isPlaying = false;
+                if (parent == null)
+                {
+                    gm.IsPlayingEvent = IsPlaying;
+                }
+                enabled = false;
+            }
+        }
+    }
+    bool isPlaying = false;
+    public bool IsPlaying
+    {
+        get { return isPlaying; }
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+        gm = GameObject.Find("GM").GetComponent<GameManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        //for events
+        if (!IsPlaying) return;
+
+        CheckArrayEvents();
+    }
 
     void OnTriggerEnter(Collider c)
     {
@@ -59,8 +91,8 @@ public class Objective : MonoBehaviour {
 
             if (subObjectives.Length == 0)
             {
-                isCompleted = true;
-                NextObjective();
+                IsCompleted = true;
+                //NextObjective();
                 return;
             }
 
@@ -92,8 +124,8 @@ public class Objective : MonoBehaviour {
 
             if (subObjectives.Length == 0)
             {
-                isCompleted = true;
-                NextObjective();
+                IsCompleted = true;
+                //NextObjective();
                 return;
             }
 
@@ -112,9 +144,7 @@ public class Objective : MonoBehaviour {
         //next objective in gm list
         if (parent == null && IsCompleted)
         {
-            GameObject gm = GameObject.Find("GM");
-            //gm.GetComponent<GameManager>().NextObjective()
-            gm.GetComponent<GameManager>().PlayEvent();
+            gm.PlayEvent(); //used to fade out objective text
             return;
         }
 
@@ -143,8 +173,41 @@ public class Objective : MonoBehaviour {
             if (subsCompleted == parent.subObjectives.Length)
             {
                 parent.IsCompleted = true;
-                parent.NextObjective();
             }
+        }
+    }
+
+    /// <summary>
+    /// Check if the all the events associated with this are complete.
+    /// </summary>
+    void CheckArrayEvents()
+    {
+        if(events.Length == 0)
+        {
+            AllFinished = true;
+            return;
+        }
+
+        int fin = 0;
+        //if (isFinished) fin++;
+        foreach (Event e in events)
+        {
+            if (e.IsFinished)
+            {
+                fin++;
+            }
+        }
+        if (fin == events.Length) AllFinished = true;
+    }
+
+    /// <summary>
+    /// Start all the events associated with this.
+    /// </summary>
+    void StartEvents()
+    {
+        foreach(Event e in events)
+        {
+            e.PlayEvent();
         }
     }
 }

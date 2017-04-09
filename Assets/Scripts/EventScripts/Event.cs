@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Event : MonoBehaviour {
     protected GameManager gm;
-    public Event[] simultaneousEvents;  //These will run at the same time as the main event
     public float timeToComplete = 10.0f;
 
     bool isPlaying = false;
@@ -20,9 +19,6 @@ public class Event : MonoBehaviour {
         set { isFinished = value; }
     }
 
-    bool allFinished = false;
-
-
 	// Use this for initialization
 	protected virtual void Start () {
         gm = GameObject.Find("GM").GetComponent<GameManager>();
@@ -30,41 +26,21 @@ public class Event : MonoBehaviour {
 
     // Update is called once per frame
     protected virtual void Update () {
-        if (!isPlaying) return;
+        if (!IsPlaying) return;
 
         timeToComplete -= Time.deltaTime;
         if (timeToComplete <= 0)
         {
             isFinished = true;
+            isPlaying = false;
         }
-        CheckArrayEvents();
-        if (allFinished) isPlaying = false;
-        gm.IsPlayingEvent = isPlaying;
 	}
 
+    /// <summary>
+    /// Start the event.
+    /// </summary>
     public virtual void PlayEvent()
     {
         isPlaying = true;
-        foreach(Event e in simultaneousEvents)
-        {
-            e.PlayEvent();
-        }
-    }
-
-    /// <summary>
-    /// Check if the all the events associated with this are complete.
-    /// </summary>
-    void CheckArrayEvents()
-    {
-        int fin = 0;
-        if (isFinished) fin++;
-        foreach (Event e in simultaneousEvents)
-        {
-            if (e.IsFinished)
-            {
-                fin++;
-            }
-        }
-        if (fin == simultaneousEvents.Length + 1) allFinished = true;
     }
 }

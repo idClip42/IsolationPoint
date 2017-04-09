@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour {
     public GameObject[] enemies;
 
     public Objective[] objectives;     //list of objectives, in order, for the player to complete
-    public Event[] scriptedEvents;      //match the event to occur with the completion of the corresponding objective, leave null if no event wanted
-    public int currentObjective;
+    int currentObjective;
 
     //Restricts input when true. Used for events where the player should not be able to interact with anything.
     bool pauseInput;
@@ -25,18 +24,16 @@ public class GameManager : MonoBehaviour {
         set { pauseInput = value; }
     }
 
-    SunSetting sunset;
+    //SunSetting sunset;
     Text objText;
 
-    //bool night;
-    //public bool Night { get { return night; } }
     public bool gameover;
 
     bool isPlayingEvent = false;
     public bool IsPlayingEvent
     {
         get { return isPlayingEvent; }
-        set { isPlayingEvent = true; }
+        set { isPlayingEvent = value; }
     }
 
     bool isFadingText = true;
@@ -46,7 +43,8 @@ public class GameManager : MonoBehaviour {
 	void Start () {
         Random.InitState((int)Time.time);
         InitializeVariables();
-	}
+        if (objectives.Length > 0) DisplayObjective();
+    }
 
     void InitializeVariables()
     {
@@ -67,6 +65,7 @@ public class GameManager : MonoBehaviour {
         for(int i = 0; i < objectives.Length; i++)
         {
             objectives[i].enabled = false;
+
             foreach (Objective sub in objectives[i].subObjectives)
             {
                 sub.parent = objectives[i];
@@ -82,7 +81,6 @@ public class GameManager : MonoBehaviour {
             }
         }
         currentObjective = 0;
-        if (objectives.Length > 0) DisplayObjective();
     }
 	
 	// Update is called once per frame
@@ -95,26 +93,14 @@ public class GameManager : MonoBehaviour {
         }
 
         //fade in the objective text
-        if (!isPlayingEvent && isFadingText)
+        if (!IsPlayingEvent && isFadingText)
         {
-            if (objText.canvasRenderer.GetAlpha() <= 0.011f)
+            if (objText.canvasRenderer.GetAlpha() <= 0.02f)
             {
+                NextObjective();
                 DisplayObjective();
             }
         }
-
-        /*
-        //night starts --> spawn or warp enemies --> warp for now
-        if(!night && sunset.Night)
-        {
-            foreach(GameObject enemy in enemies)
-            {
-                //warp enemy to start location --> held off level in the meantime
-                enemy.GetComponent<NavMeshAgent>().Warp(enemyStart[Random.Range(0, enemyStart.Length - 1)].position);
-            }
-            night = true;
-        }
-        */
 	}
 
     /// <summary>
@@ -123,8 +109,8 @@ public class GameManager : MonoBehaviour {
     public void NextObjective()
     {
         if(currentObjective+1 < objectives.Length)
-        {
-            objectives[currentObjective].enabled = false;
+        {            
+            //enable next set of objectives
             currentObjective++;
             objectives[currentObjective].enabled = true;
             foreach(Objective sub in objectives[currentObjective].subObjectives)
@@ -133,6 +119,8 @@ public class GameManager : MonoBehaviour {
             }
             return;
         }
+
+        //disable the current obj and end game
         objectives[currentObjective].enabled = false;
         gameover = true;
     }
@@ -144,9 +132,9 @@ public class GameManager : MonoBehaviour {
     {
         //fade in new text
         isFadingText = false;
+		if(objectives.Length == 0 || gameover) return;
         objText.CrossFadeAlpha(1.0f, textFadeTime, false);
-		if(objectives.Length == 0) return;
-		objText.text = objectives[currentObjective].UIText;
+        objText.text = objectives[currentObjective].UIText;
     }
 
     /// <summary>
@@ -157,13 +145,5 @@ public class GameManager : MonoBehaviour {
         //fade out prev objective
         isFadingText = true;
         objText.CrossFadeAlpha(0.01f, textFadeTime, false);
-
-        //play event
-        Event e = scriptedEvents[currentObjective];
-        if (e != null)
-        {
-            e.PlayEvent();
-        }
-        NextObjective();
     }
 }

@@ -28,7 +28,7 @@ public class CameraDragEvent : Event {
         if (!IsPlaying) return;
         base.Update();
         if (IsFinished && restrictPlayerControl) gm.PauseInput = false;
-        if (timeToComplete <= stareTime) return;
+        //if (timeToComplete <= stareTime) return;
 
         //rotate to face the location -- should not rotate when facing the location
         Vector3 rotAngle = Vector3.RotateTowards(cam.transform.forward, location - cam.transform.position, maxRadiansPerSecond * Time.deltaTime, 1);
