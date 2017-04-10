@@ -23,11 +23,11 @@ public class LightFlickerEvent : Event {
         float intensity = (-(flickerTime - timeToComplete) / 3) + 0.5f * Mathf.Sin(0.2f * ((flickerTime - timeToComplete + 12.55f) * (flickerTime - timeToComplete + 12.55f))) + 1;
         if (IsFinished)
         {
-            if (stayOn) intensity = 2.0f;
+            intensity = 2.0f;
             if (!stayOn)
             {
                 generator.SwitchLights(false);
-                return;
+                //return;
             }
         }
 

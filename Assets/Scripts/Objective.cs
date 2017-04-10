@@ -207,7 +207,7 @@ public class Objective : MonoBehaviour {
     {
         foreach(Event e in events)
         {
-            e.PlayEvent();
+            if (e != null) e.PlayEvent();
         }
     }
 }

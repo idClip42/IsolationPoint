@@ -12,7 +12,7 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
     bool isUsed = false;
     public bool relockable = false; //Is this a one time thing? Yes = false. Can this relock the doors? Yes = true.
     public Objective toAffect;  //Objective affected by this action
-	Generator generatorScript;
+	//Generator generatorScript;
 
     public void Action()
     {
@@ -35,7 +35,7 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
         {
             toAffect.IsCompleted = true;
         }
-		generatorScript.SwitchLights (false);
+		//generatorScript.SwitchLights (false);
     }
 
     public string ActionDescription()
@@ -46,7 +46,7 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
 
     // Use this for initialization
     void Start () {
-		generatorScript = GameObject.Find ("Generator").GetComponent<Generator> ();
+		//generatorScript = GameObject.Find ("Generator").GetComponent<Generator> ();
 	}
 	
 	// Update is called once per frame

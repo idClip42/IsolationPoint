@@ -20378,6 +20378,41 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: afbd5def48247ef4c843b5dfdc4f2731, type: 3}
+--- !u!1 &407383389 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100008, guid: 5367cadd6a0ee46cba9836900b1be4b3, type: 3}
+  m_PrefabInternal: {fileID: 271893050}
+--- !u!65 &407383390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 407383389}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0.5, z: -0.5}
+--- !u!114 &407383391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 407383389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: Find the basement
+  isTriggered: 1
+  onEnter: 1
+  triggerTags:
+  - Player
+  parent: {fileID: 0}
+  subObjectives: []
+  events: []
 --- !u!1 &409349807 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: afbd5def48247ef4c843b5dfdc4f2731, type: 3}
@@ -34492,9 +34527,11 @@ MonoBehaviour:
   enemyStart:
   - {fileID: 75869439}
   enemies: []
-  objectives: []
-  scriptedEvents: []
-  currentObjective: 0
+  objectives:
+  - {fileID: 1545136950}
+  - {fileID: 1204720961}
+  - {fileID: 407383391}
+  - {fileID: 1382425150}
   gameover: 0
   textFadeTime: 1
 --- !u!4 &684459630
@@ -36759,17 +36796,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6779251, y: 2.016012, z: 0.4627406}
   m_Center: {x: -0.000000074505806, y: 1.0080043, z: -0.000000037252903}
---- !u!114 &752520814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 752520809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d9a36246651434a8e6a1976c444842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &753762568 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fd4ef0be1d7553445a68797a5ed515ba, type: 3}
@@ -58917,7 +58943,56 @@ MonoBehaviour:
   - {fileID: 1990731008}
   setRigidBodyKinematic: 0
   relockable: 0
-  toAffect: {fileID: 0}
+  toAffect: {fileID: 1204720961}
+--- !u!114 &1204720961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1204720957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: Unblock the doors
+  isTriggered: 0
+  onEnter: 0
+  triggerTags: []
+  parent: {fileID: 0}
+  subObjectives: []
+  events:
+  - {fileID: 1204720963}
+  - {fileID: 1204720962}
+--- !u!114 &1204720962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1204720957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283caf9e0decb9b48a1252dcf6e31d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 4
+  generator: {fileID: 1382425145}
+  stayOn: 0
+--- !u!114 &1204720963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1204720957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6bf944c0248131439205383d405a07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 0.3
+  door1Script: {fileID: 1705869408}
+  door2Script: {fileID: 1990731009}
+  toOpen: 1
 --- !u!4 &1208024767 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4703436186493586, guid: eaecdf99160108a4ca6ac8146a5499f2,
@@ -67989,6 +68064,7 @@ GameObject:
   - component: {fileID: 1382425147}
   - component: {fileID: 1382425146}
   - component: {fileID: 1382425145}
+  - component: {fileID: 1382425150}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -68074,6 +68150,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 76
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1382425150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1382425144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: Fix the generator (No trigger to complete yet)
+  isTriggered: 0
+  onEnter: 0
+  triggerTags: []
+  parent: {fileID: 0}
+  subObjectives: []
+  events: []
 --- !u!1001 &1384777791
 Prefab:
   m_ObjectHideFlags: 0
@@ -71803,7 +71897,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9ce6a7ec921643b4eb533ed0f956567c, type: 3}
       propertyPath: m_TagString
-      value: Timeskipper
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ce6a7ec921643b4eb533ed0f956567c, type: 3}
@@ -75134,6 +75228,67 @@ Transform:
   m_PrefabParentObject: {fileID: 4140562577440166, guid: e126c9cedab7a45dea65616f255f4ad3,
     type: 2}
   m_PrefabInternal: {fileID: 1543831673}
+--- !u!1 &1545136948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1545136951}
+  - component: {fileID: 1545136950}
+  - component: {fileID: 1545136949}
+  m_Layer: 0
+  m_Name: Objective 1 - Go To The Doors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1545136949
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1545136948}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1545136950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1545136948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: 
+  isTriggered: 1
+  onEnter: 1
+  triggerTags:
+  - Player
+  parent: {fileID: 0}
+  subObjectives: []
+  events: []
+--- !u!4 &1545136951
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1545136948}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0025078356, y: 4.701, z: 192.699}
+  m_LocalScale: {x: 2.2326503, y: 2.2326512, z: 2.2326512}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 126
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1545451831
 Prefab:
   m_ObjectHideFlags: 0
@@ -82759,6 +82914,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1802067365764552, guid: 13660ac904868411784b59482d42c8f3,
     type: 2}
   m_PrefabInternal: {fileID: 1208103984}
+--- !u!114 &1705869408 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114843053104708520, guid: 13660ac904868411784b59482d42c8f3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1208103984}
+  m_Script: {fileID: 11500000, guid: d39d8dd2bbd68f147a2f5d4ccbbcbd77, type: 3}
 --- !u!1001 &1706537138
 Prefab:
   m_ObjectHideFlags: 0
@@ -97505,6 +97666,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1320997825560658, guid: 13660ac904868411784b59482d42c8f3,
     type: 2}
   m_PrefabInternal: {fileID: 1208103984}
+--- !u!114 &1990731009 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114813988399616954, guid: 13660ac904868411784b59482d42c8f3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1208103984}
+  m_Script: {fileID: 11500000, guid: d39d8dd2bbd68f147a2f5d4ccbbcbd77, type: 3}
 --- !u!1 &1992892321 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 8e68ef8baeb3f4c408369a8e7e4d0f93, type: 3}
