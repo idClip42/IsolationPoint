@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public GameObject[] enemies;
 
     public Objective[] objectives;     //list of objectives, in order, for the player to complete
-    int currentObjective;
+    public int currentObjective;
 
     //Restricts input when true. Used for events where the player should not be able to interact with anything.
     bool pauseInput;
