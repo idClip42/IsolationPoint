@@ -33,7 +33,7 @@ public class Generator : MonoBehaviour, IInteractable {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
 		isFixed = false;
 		currentlyFixing = false;
-        flickerEvent = GameObject.GetComponent<LightFlickerEvent>();
+        flickerEvent = GetComponent<LightFlickerEvent>();
         if (flickerEvent)
         {
             flickerEvent.generator = this;
@@ -80,7 +80,7 @@ public class Generator : MonoBehaviour, IInteractable {
 
         foreach(Objective o in objectivesToAffect)
         {
-            o.IsComplete = true;
+            o.IsCompleted = true;
         }
 
 		UIScript.StartGeneratorFix();
