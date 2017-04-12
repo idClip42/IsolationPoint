@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33572540196027034}
   - component: {fileID: 23807022098241730}
   - component: {fileID: 95813920231237922}
+  - component: {fileID: 114538574545271264}
   m_Layer: 0
   m_Name: radio_prefab
   m_TagString: Untagged
@@ -35,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905405770315226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.9978821, z: -0, w: -0.065049075}
+  m_LocalPosition: {x: 76.02773, y: 67.596306, z: -45.81197}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -187.45898, z: 0}
 --- !u!23 &23807022098241730
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -97,3 +98,16 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114538574545271264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1905405770315226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c7697827884574294f4374fe89f12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFixed: 0
+  isFixing: 0
