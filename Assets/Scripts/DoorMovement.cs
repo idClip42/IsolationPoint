@@ -173,7 +173,23 @@ public class DoorMovement : MonoBehaviour, IInteractable {
             src.Play();
             return;
         }
-        Open();
+
+        //For double key press - 'E' and 'LShift'
+        if (Input.GetButton("Run"))
+        {
+            if (isOpen)
+            {
+                SmashClose();
+            }
+            else
+            {
+                SmashOpen();
+            }
+        }
+        else
+        {
+            Open();
+        }
     }
 
     public string ActionDescription()

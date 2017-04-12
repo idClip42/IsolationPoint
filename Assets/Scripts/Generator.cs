@@ -18,6 +18,10 @@ public class Generator : MonoBehaviour, IInteractable {
 	public bool isFixed;
 	public bool currentlyFixing;
 
+    public Objective[] objectivesToAffect;
+    LightFlickerEvent flickerEvent;
+
+    public float maxTime;
 	float timer;
 
 	const float MAX_TIME = 60.0f * 5.0f;
@@ -29,6 +33,11 @@ public class Generator : MonoBehaviour, IInteractable {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
 		isFixed = false;
 		currentlyFixing = false;
+        flickerEvent = GameObject.GetComponent<LightFlickerEvent>();
+        if (flickerEvent)
+        {
+            flickerEvent.generator = this;
+        }
 
 		SwitchLights(startLightsOn);
 	}
@@ -69,14 +78,25 @@ public class Generator : MonoBehaviour, IInteractable {
 	public void Action(){
 		currentlyFixing = true;
 
+        foreach(Objective o in objectivesToAffect)
+        {
+            o.IsComplete = true;
+        }
+
 		UIScript.StartGeneratorFix();
 	}
 
 	void UpdateTimer(){
+        //only update if the lights are on
+        if (!lightsOn) return;
+
 		timer += Time.deltaTime;
 
-		if (timer > 5.0f) {
-			timer = 0.0f;
+		if (timer > maxTime) {
+            //play the flicker event -- will control lightsOn
+            flickerEvent.PlayEvent();
+            //By the time event completes and changes(or not) lightsOn timer should be 0ish again
+            timer = -flickerEvent.timeToComplete;
 		}
 	}
 }

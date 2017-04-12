@@ -66,7 +66,7 @@ public class PlayerAction : MonoBehaviour {
             }
         }
 
-        //check for group key press --> place in PlayerController?
+        //check for group key press
         if (Input.GetButtonDown("Group"))
         {
             GameObject currentPlayer = GetComponent<PlayerController>().Player.gameObject;
@@ -116,9 +116,9 @@ public class PlayerAction : MonoBehaviour {
 
 
     /// <summary>
-    /// Check if the gameobject is a door.
+    /// Check if the gameobject is tagged to have a script.
     /// </summary>
-    /// <returns>Returns the object if it is a door.</returns>
+    /// <returns>Returns the object if it has a tag in the dictionary.</returns>
     GameObject CheckForTag()
     {
         // creates ray at mouse position
@@ -130,12 +130,6 @@ public class PlayerAction : MonoBehaviour {
 		//if (Physics.Raycast(Camera.main.transform.position, forward, out hit, 5))
 		if(Physics.SphereCast (Camera.main.transform.position, aimRadius, forward, out hit, 5))
         {
-            /*
-            if (hit.transform.tag == "Door")
-            {
-                return hit.transform.gameObject;
-            }
-            */
             foreach(string key in componentDict.Keys)
             {
                 if(hit.transform.tag == key)

@@ -19,6 +19,7 @@ public class Objective : MonoBehaviour {
     public bool IsCompleted {
         get { return isCompleted; }
         set {
+            if (!enabled) return;
             isCompleted = value;
             if (IsCompleted)
             {
