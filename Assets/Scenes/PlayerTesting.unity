@@ -1987,7 +1987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
-  accurateWithGun: 0
+  accurateWithGun: 1
 --- !u!143 &275589989
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8607,6 +8607,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 13700010, guid: 6c8fc81fb36094b7c8320895bc5c04ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f2471ceac8b9a8649b67e9f42159518e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c8fc81fb36094b7c8320895bc5c04ba, type: 3}
   m_IsPrefabParent: 0
@@ -9025,6 +9029,8 @@ MonoBehaviour:
   debugLightsOnLKey: 0
   isFixed: 0
   currentlyFixing: 0
+  objectivesToAffect: []
+  maxTime: 0
 --- !u!23 &1455822683
 MeshRenderer:
   m_ObjectHideFlags: 0
