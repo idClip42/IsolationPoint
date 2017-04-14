@@ -407,14 +407,24 @@ public class PlayerController : MonoBehaviour
 		RaycastHit hitInfo;
 		Vector3 top = player.transform.position + player.center + Vector3.down * player.height/2;
 		float maxDist = 0.6f;
-		float radius = 0.8f;
+		float radius = 0.4f;
 
 		// Keep these Debug lines in case they're needed for fiddling later
-		// Debug.DrawLine(top, top + Vector3.up * maxDist, Color.blue);
-		// Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
-		// Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
+		 Debug.DrawLine(top, top + Vector3.up * maxDist, Color.blue);
+		 Debug.DrawLine(top, top + Vector3.right * radius, Color.green);
+		 Debug.DrawLine(top + Vector3.up * maxDist, top + Vector3.up * maxDist + Vector3.up * radius, Color.green);
 
+		/*
 		if(Physics.SphereCast(top, radius, Vector3.up, out hitInfo, maxDist, bitFieldNoHitbox, QueryTriggerInteraction.Ignore))
+		{
+			crouchState = 1;
+		} else {
+			crouchState = 2;
+		}
+		*/
+
+		// Makes casting a little better
+		if(Physics.BoxCast(top, new Vector3(radius, radius, 0.01f), Vector3.up, out hitInfo, Quaternion.identity, maxDist, bitFieldNoHitbox, QueryTriggerInteraction.Ignore))
 		{
 			crouchState = 1;
 		} else {
