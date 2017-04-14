@@ -128,7 +128,7 @@ public class PlayerAction : MonoBehaviour {
 
         // Raycasts from main camera forward vector and returns true if the item is within 2 units and has correct tag
 		//if (Physics.Raycast(Camera.main.transform.position, forward, out hit, 5))
-		if(Physics.SphereCast (Camera.main.transform.position, aimRadius, forward, out hit, 5))
+		if(Physics.SphereCast (Camera.main.transform.position, aimRadius, forward, out hit, 5, ~(0 << 8), QueryTriggerInteraction.Ignore))
         {
             foreach(string key in componentDict.Keys)
             {

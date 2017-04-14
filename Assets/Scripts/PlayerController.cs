@@ -112,7 +112,10 @@ public class PlayerController : MonoBehaviour
 		camXOffset = cameraTarget.transform.localPosition.x;
 
 		// A bitfield that translates to 111111. Will likely need to be increased
-		bitFieldAllLayers = 63;
+		//bitFieldAllLayers = 63;
+		bitFieldAllLayers = ~(0 << 8);
+		//bitFieldAllLayers = bitFieldAllLayers << 8;
+		//bitFieldAllLayers = ~bitFieldAllLayers;
 
 		// Calcs bitfield for ignoring hitbox layer
 		bitFieldNoHitbox = 1;
