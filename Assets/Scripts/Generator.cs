@@ -24,6 +24,7 @@ public class Generator : MonoBehaviour, IInteractable {
             isFixed = value;
             if (isFixed)
             {
+                worker.IsWorking = false;
                 if (objectiveToFixGenerator != null) objectiveToFixGenerator.IsCompleted = true;
                 if (hasGas)
                 {
@@ -49,6 +50,8 @@ public class Generator : MonoBehaviour, IInteractable {
     public Objective objectiveToFillWithGas;
     public Objective objectiveToFixGenerator;
     LightFlickerEvent flickerEvent;
+
+    Follower worker;
 
     public float maxTime;
 	float timer;
@@ -121,6 +124,8 @@ public class Generator : MonoBehaviour, IInteractable {
         if (!isFixed)
         {
             currentlyFixing = true;
+            SetWorker();
+            worker.IsWorking = true;
             UIScript.StartGeneratorFix();
         }
         else//to fill generator with gas
@@ -161,5 +166,10 @@ public class Generator : MonoBehaviour, IInteractable {
         if (item == null) return null;
         GasCan gasScript = item.GetComponent<GasCan>();
         return gasScript;
+    }
+
+    void SetWorker()
+    {
+        worker = PlayerController.controller.Player.gameObject.GetComponent<Follower>();
     }
 }

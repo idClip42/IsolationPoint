@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
 	int headLayerIndex;
 
-
+    Follower followScript;
 
 
 	public static PlayerController controller;
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
 		headLayerIndex = anim.GetLayerIndex("HeadLayer");
 
-
+        followScript = player.gameObject.GetComponent<Follower>();
 
 
 		// Makes it so everyone doesn't wipe their nose in sync
@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
             if (healthScript == null) return;
         }
 
-        MovePlayer();
+        if (!followScript.IsWorking) MovePlayer();
 		Animate();
 	}
 
@@ -245,11 +245,15 @@ public class PlayerController : MonoBehaviour
 		if(healthScript != null && healthScript.health <= 0) return;
 		if(healthScript == null) return;
 
-		// User input to toggle crouching
-		CrouchInput();
+        //If the character is doing an action (ie. fixing the generator) the character cannot move
+        if (!followScript.IsWorking)
+        {
+            // User input to toggle crouching
+            CrouchInput();
 
-		// User input to attack
-		AttackInput();
+            // User input to attack
+            AttackInput();
+        }
 
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
@@ -700,6 +704,7 @@ public class PlayerController : MonoBehaviour
 			SwapCharacters(2);
 		else if(Input.GetKeyDown(KeyCode.Alpha4))
 			SwapCharacters(3);
+
 	}
 
 	/// <summary>
@@ -728,10 +733,11 @@ public class PlayerController : MonoBehaviour
 		}
 
         if (playerNum >= playerList.Length) return;
-        player.gameObject.GetComponent<Follower>().EnableAgent();
+        followScript.EnableAgent();
         player = playerList[playerNum];
-        player.gameObject.GetComponent<Follower>().Stay();
-        player.gameObject.GetComponent<Follower>().Agent.enabled = false;
+        SetFollowScript();
+        followScript.Stay();
+        followScript.Agent.enabled = false;
         SetPlayerVars();
 		// Check animation state for crouch state
 		crouchState = anim.GetInteger("CrouchState");
@@ -790,4 +796,9 @@ public class PlayerController : MonoBehaviour
 		playerList = newList;
 	}
 
+
+    void SetFollowScript()
+    {
+        followScript = player.gameObject.GetComponent<Follower>();
+    }
 }
