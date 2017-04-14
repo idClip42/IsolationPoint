@@ -24,18 +24,34 @@ public class Generator : MonoBehaviour, IInteractable {
             isFixed = value;
             if (isFixed)
             {
-                SwitchLights(true);
+                if (objectiveToFixGenerator != null) objectiveToFixGenerator.IsCompleted = true;
+                if (hasGas)
+                {
+                    SwitchLights(true);
+                }
             }
         }
     }
 	public bool currentlyFixing;
+    public bool hasGas;
+    public bool HasGas
+    {
+        get { return hasGas; }
+        set {
+            hasGas = value;
+            if (hasGas && isFixed)
+            {
+                SwitchLights(true);
+            }
+        }
+    }
 
-    public Objective[] objectivesToAffect;
+    public Objective objectiveToFillWithGas;
+    public Objective objectiveToFixGenerator;
     LightFlickerEvent flickerEvent;
 
     public float maxTime;
 	float timer;
-    public bool startTimer = false;
 
 	const float MAX_TIME = 60.0f * 5.0f;
 
@@ -46,6 +62,7 @@ public class Generator : MonoBehaviour, IInteractable {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
 		isFixed = false;
 		currentlyFixing = false;
+        hasGas = true;
         flickerEvent = GetComponent<LightFlickerEvent>();
         if (flickerEvent)
         {
@@ -80,34 +97,48 @@ public class Generator : MonoBehaviour, IInteractable {
 	}
 
 	public string ActionDescription(){
-		if (!isFixed && !currentlyFixing) {
-			return "Press E to fix generator";
-		} else if (currentlyFixing) {
-			return "Generator being fixed";		
-		} else {
-			return "Generator working properly";
-		}
+        if (!isFixed && !currentlyFixing)
+        {
+            return "Press E to fix generator";
+        }
+        else if (currentlyFixing)
+        {
+            return "Generator being fixed";
+        }
+        else if (!hasGas)
+        {
+            return "Fill with gas";
+        }
+        else
+        {
+            return "Generator working properly";
+        }
 	}
 
 	public void Action(){
-        GasCan gasCan = GetCurrentGasScript();
-        if (gasCan == null || !gasCan.hasGas) return;//need a gas can with gas
-        if (currentlyFixing || isFixed) return;//only if not fixed or being fixed
-
-		currentlyFixing = true;
-        gasCan.hasGas = false; //remove gas
-
-        foreach(Objective o in objectivesToAffect)
+        if (currentlyFixing || (isFixed && hasGas)) return;//only if fixed and running or being fixed
+        //to fix generator
+        if (!isFixed)
         {
-            o.IsCompleted = true;
+            currentlyFixing = true;
+            UIScript.StartGeneratorFix();
         }
-
-		UIScript.StartGeneratorFix();
+        else//to fill generator with gas
+        {
+            GasCan gasCan = GetCurrentGasScript();
+            if (gasCan.hasGas)
+            {
+                HasGas = true;
+                gasCan.hasGas = false;//remove gas
+                if (objectiveToFillWithGas != null) objectiveToFillWithGas.IsCompleted = true;
+            }
+        }
+        
 	}
 
 	void UpdateTimer(){
-        //only update if the lights are on
-        if (!lightsOn || !startTimer) return;
+        //only update if the lights are on and generator fixed
+        if (!lightsOn || !isFixed) return;
 
 		timer += Time.deltaTime;
 
