@@ -26313,6 +26313,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1905405770315226, guid: 0f43b3988fc23b04199740bca901b704, type: 2}
+      propertyPath: m_Name
+      value: Radio
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f43b3988fc23b04199740bca901b704, type: 2}
   m_IsPrefabParent: 0
@@ -59006,6 +59010,7 @@ MonoBehaviour:
   subObjectives: []
   events:
   - {fileID: 1204720963}
+  - {fileID: 1382425151}
   - {fileID: 1204720962}
 --- !u!114 &1204720962
 MonoBehaviour:
@@ -59015,12 +59020,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1204720957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 283caf9e0decb9b48a1252dcf6e31d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ec03973de2144945af14040d2d1b75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToComplete: 4
+  timeToComplete: 0.1
   generator: {fileID: 1382425145}
-  stayOn: 0
 --- !u!114 &1204720963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68108,9 +68112,10 @@ GameObject:
   - component: {fileID: 1382425146}
   - component: {fileID: 1382425145}
   - component: {fileID: 1382425150}
+  - component: {fileID: 1382425151}
   m_Layer: 0
   m_Name: Generator
-  m_TagString: Untagged
+  m_TagString: Generator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -68130,6 +68135,10 @@ MonoBehaviour:
   debugLightsOnLKey: 1
   isFixed: 0
   currentlyFixing: 0
+  objectivesToAffect:
+  - {fileID: 1382425150}
+  maxTime: 600
+  startTimer: 0
 --- !u!23 &1382425146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -68204,13 +68213,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIText: Fix the generator (No trigger to complete yet)
+  UIText: Fix the generator (Nothing after this yet)
   isTriggered: 0
   onEnter: 0
   triggerTags: []
   parent: {fileID: 0}
   subObjectives: []
   events: []
+--- !u!114 &1382425151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1382425144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283caf9e0decb9b48a1252dcf6e31d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 4
+  generator: {fileID: 1382425145}
+  stayOn: 0
 --- !u!1001 &1384777791
 Prefab:
   m_ObjectHideFlags: 0
@@ -75325,8 +75348,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1545136948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0025078356, y: 4.701, z: 192.699}
-  m_LocalScale: {x: 2.2326503, y: 2.2326512, z: 2.2326512}
+  m_LocalPosition: {x: -0.0025078356, y: 4.701, z: 191.275}
+  m_LocalScale: {x: 4.091935, y: 2.2326512, z: 6.953738}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 127

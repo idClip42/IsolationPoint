@@ -16,6 +16,18 @@ public class Generator : MonoBehaviour, IInteractable {
     }
 	bool lightsOn;
 	public bool isFixed;
+    public bool IsFixed
+    {
+        get { return isFixed; }
+        set
+        {
+            isFixed = value;
+            if (isFixed)
+            {
+                SwitchLights(true);
+            }
+        }
+    }
 	public bool currentlyFixing;
 
     public Objective[] objectivesToAffect;
@@ -23,6 +35,7 @@ public class Generator : MonoBehaviour, IInteractable {
 
     public float maxTime;
 	float timer;
+    public bool startTimer = false;
 
 	const float MAX_TIME = 60.0f * 5.0f;
 
@@ -61,7 +74,8 @@ public class Generator : MonoBehaviour, IInteractable {
 			float intensity = 2.0f;
 			if(!lOn)
 				intensity = 0;
-			allLights[n].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
+            allLights[n].GetComponentInChildren<Light>().intensity = intensity;
+            allLights[n].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
 		}
 	}
 
@@ -76,7 +90,12 @@ public class Generator : MonoBehaviour, IInteractable {
 	}
 
 	public void Action(){
+        GasCan gasCan = GetCurrentGasScript();
+        if (gasCan == null || !gasCan.hasGas) return;//need a gas can with gas
+        if (currentlyFixing || isFixed) return;//only if not fixed or being fixed
+
 		currentlyFixing = true;
+        gasCan.hasGas = false; //remove gas
 
         foreach(Objective o in objectivesToAffect)
         {
@@ -88,15 +107,28 @@ public class Generator : MonoBehaviour, IInteractable {
 
 	void UpdateTimer(){
         //only update if the lights are on
-        if (!lightsOn) return;
+        if (!lightsOn || !startTimer) return;
 
 		timer += Time.deltaTime;
 
 		if (timer > maxTime) {
-            //play the flicker event -- will control lightsOn
-            flickerEvent.PlayEvent();
-            //By the time event completes and changes(or not) lightsOn timer should be 0ish again
-            timer = -flickerEvent.timeToComplete;
+            if (flickerEvent != null)
+            {
+                //play the flicker event -- will control lightsOn
+                flickerEvent.PlayEvent();
+                //By the time event completes and changes(or not) lightsOn timer should be 0ish again
+                timer = -flickerEvent.timeToComplete;
+            }
 		}
 	}
+
+    GasCan GetCurrentGasScript()
+    {
+        CharacterController currentPlayer = PlayerController.controller.Player;
+        Pickup_Drop_Items pickupScript = currentPlayer.GetComponent<Pickup_Drop_Items>();
+        GameObject item = pickupScript.LeftHandItem;
+        if (item == null) return null;
+        GasCan gasScript = item.GetComponent<GasCan>();
+        return gasScript;
+    }
 }

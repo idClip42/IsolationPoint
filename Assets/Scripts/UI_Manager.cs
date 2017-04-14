@@ -168,7 +168,7 @@ public class UI_Manager : MonoBehaviour {
 			fixingGenerator = false;
 			barPrefab.enabled = false;
 			bar.enabled = false;
-			gScript.isFixed = true;
+			gScript.IsFixed = true;
 			gScript.currentlyFixing = false;
 		}
 	}

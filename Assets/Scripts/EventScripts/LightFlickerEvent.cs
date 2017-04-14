@@ -9,10 +9,10 @@ public class LightFlickerEvent : Event {
 
     // Use this for initialization
     protected override void Start () {
-        base.Start();
         flickerTime = 4.0f;
         timeToComplete = flickerTime;
-	}
+        base.Start();
+    }
 
     // Update is called once per frame
     protected override void Update () {
@@ -31,6 +31,7 @@ public class LightFlickerEvent : Event {
         foreach (GameObject l in generator.AllLights)
         {
             l.GetComponentInChildren<Light>().intensity = intensity;
+            l.GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
         }
     }
 

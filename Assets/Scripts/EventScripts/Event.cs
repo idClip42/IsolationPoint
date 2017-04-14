@@ -5,7 +5,7 @@ using UnityEngine;
 public class Event : MonoBehaviour {
     protected GameManager gm;
     public float timeToComplete = 10.0f;
-
+    float startTime;
     bool isPlaying = false;
     public bool IsPlaying
     {
@@ -22,6 +22,7 @@ public class Event : MonoBehaviour {
 	// Use this for initialization
 	protected virtual void Start () {
         gm = GameObject.Find("GM").GetComponent<GameManager>();
+        startTime = timeToComplete;
     }
 
     // Update is called once per frame
@@ -42,5 +43,7 @@ public class Event : MonoBehaviour {
     public virtual void PlayEvent()
     {
         isPlaying = true;
+        IsFinished = false;
+        timeToComplete = startTime;
     }
 }

@@ -13,14 +13,15 @@ public class CameraDragEvent : Event {
 
     // Use this for initialization
     protected override void Start () {
-        base.Start();
         maxRadiansPerSecond = 0;
         //override from Event
         timeToComplete = dragTime + stareTime;
+        
 
         // Finds the Main Camera
         cam = Camera.main;
         if (cam == null) Debug.LogError("Must have main camera tagged 'MainCamera'");
+        base.Start();
     }
 
     // Update is called once per frame
