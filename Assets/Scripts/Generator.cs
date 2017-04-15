@@ -172,7 +172,6 @@ public class Generator : MonoBehaviour, IInteractable {
         return gasScript;
     }
 
-<<<<<<< HEAD
 	void UpdateMonitor(float percentFull)
 	{
 		if(gasMonitor == null) return;
@@ -183,10 +182,8 @@ public class Generator : MonoBehaviour, IInteractable {
 		mat.mainTextureOffset = new Vector2(0, 0.5f * percentFull);
 		mat.SetColor("_EmissionColor", new Color((1.0f-percentFull), percentFull, 0, 1.0f));
 	}
-=======
     void SetWorker()
     {
         worker = PlayerController.controller.Player.gameObject.GetComponent<Follower>();
     }
->>>>>>> dffb1b46f006fa78dabe95d2ffb9516518e25320
 }
