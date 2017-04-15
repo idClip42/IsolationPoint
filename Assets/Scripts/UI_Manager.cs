@@ -171,6 +171,12 @@ public class UI_Manager : MonoBehaviour {
 			gScript.IsFixed = true;
 			gScript.currentlyFixing = false;
 		}
+
+        if (!PlayerController.controller.FollowScript.IsWorking)
+        {
+            barPrefab.enabled = false;
+            bar.enabled = false;
+        }
 	}
 
 	void UpdateRBar(){

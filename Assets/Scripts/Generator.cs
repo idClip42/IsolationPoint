@@ -24,6 +24,7 @@ public class Generator : MonoBehaviour, IInteractable {
             isFixed = value;
             if (isFixed)
             {
+                worker.IsWorking = false;
                 if (objectiveToFixGenerator != null) objectiveToFixGenerator.IsCompleted = true;
                 if (hasGas)
                 {
@@ -49,6 +50,8 @@ public class Generator : MonoBehaviour, IInteractable {
     public Objective objectiveToFillWithGas;
     public Objective objectiveToFixGenerator;
     LightFlickerEvent flickerEvent;
+
+    Follower worker;
 
     public float maxTime;
 	float timer;
@@ -125,6 +128,8 @@ public class Generator : MonoBehaviour, IInteractable {
         if (!isFixed)
         {
             currentlyFixing = true;
+            SetWorker();
+            worker.IsWorking = true;
             UIScript.StartGeneratorFix();
         }
         else//to fill generator with gas
@@ -167,6 +172,7 @@ public class Generator : MonoBehaviour, IInteractable {
         return gasScript;
     }
 
+<<<<<<< HEAD
 	void UpdateMonitor(float percentFull)
 	{
 		if(gasMonitor == null) return;
@@ -177,4 +183,10 @@ public class Generator : MonoBehaviour, IInteractable {
 		mat.mainTextureOffset = new Vector2(0, 0.5f * percentFull);
 		mat.SetColor("_EmissionColor", new Color((1.0f-percentFull), percentFull, 0, 1.0f));
 	}
+=======
+    void SetWorker()
+    {
+        worker = PlayerController.controller.Player.gameObject.GetComponent<Follower>();
+    }
+>>>>>>> dffb1b46f006fa78dabe95d2ffb9516518e25320
 }

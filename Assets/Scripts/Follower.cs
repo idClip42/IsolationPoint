@@ -11,6 +11,24 @@ public class Follower : MonoBehaviour {
     {
         get { return agent; }
     }
+    public bool AgentEnabled
+    {
+        get { return agent.enabled; }
+        set {
+            agent.enabled = value;
+            if (agent.enabled)
+            {
+                if (isWorking)
+                {
+                    agent.Stop();
+                }
+                else
+                {
+                    agent.Resume();
+                }
+            }
+        }
+    }
     Animator anim;
     Health healthScript;
 
@@ -19,6 +37,25 @@ public class Follower : MonoBehaviour {
     public bool GoTo
     {
         set { goTo = value; }
+    }
+    bool isWorking;
+    public bool IsWorking
+    {
+        get { return isWorking; }
+        set {
+            isWorking = value;
+            if (AgentEnabled)
+            {
+                if (isWorking)
+                {
+                    agent.Stop();
+                }
+                else
+                {
+                    agent.Resume();
+                }
+            }
+        }
     }
     GameObject leader;
     Vector3 goToTarget;

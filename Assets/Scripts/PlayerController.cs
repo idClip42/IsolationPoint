@@ -3,57 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour 
+public class PlayerController : MonoBehaviour
 {
-	CharacterController player;			// The Character Controller of the current player character
-										// This is the object that gets moved around
-	public CharacterController[] playerList;
-										// The list of Character Controllers to be swapped between
+    CharacterController player;         // The Character Controller of the current player character
+                                        // This is the object that gets moved around
+    public CharacterController[] playerList;
+    // The list of Character Controllers to be swapped between
 
-	public float camXSpeed;				// The speed at which the mouse (or other input?)
-	public float camYSpeed;				// moves the camera
+    public float camXSpeed;             // The speed at which the mouse (or other input?)
+    public float camYSpeed;             // moves the camera
 
-	public float walkSpeed;				// The speed at which the player walks,
-	public float runSpeed;				// runs,
-	public float crouchSpeed;			// and sneaks,
-	public float acceleration;			// as well as their rate of acceleration
+    public float walkSpeed;             // The speed at which the player walks,
+    public float runSpeed;              // runs,
+    public float crouchSpeed;           // and sneaks,
+    public float acceleration;          // as well as their rate of acceleration
 
 
-	Camera cam;							// The Main Camera
-	Transform cameraAxis;				// The axis around which the main camera will move
-	Transform cameraTarget;				// The location is space, a child of the axis,
-										// which the camera smoothly moves towards
+    Camera cam;                         // The Main Camera
+    Transform cameraAxis;               // The axis around which the main camera will move
+    Transform cameraTarget;             // The location is space, a child of the axis,
+                                        // which the camera smoothly moves towards
 
-	Animator anim;						// The character model of the current player character
-	Transform headBone;					// The head bone of the character model - used for camera purposes
-	Transform fpsCamTarget;				// An empty object positioned at the eyes of the character model, used as the FPS cam position
+    Animator anim;                      // The character model of the current player character
+    Transform headBone;                 // The head bone of the character model - used for camera purposes
+    Transform fpsCamTarget;             // An empty object positioned at the eyes of the character model, used as the FPS cam position
 
-	Combat combatScript;				// The combat script for scripting combat
-	Health healthScript;				// Ditto for script
-	Pickup_Drop_Items pickupScript; 	// Script for picking up/ putting down items
+    Combat combatScript;                // The combat script for scripting combat
+    Health healthScript;                // Ditto for script
+    Pickup_Drop_Items pickupScript; 	// Script for picking up/ putting down items
     GameManager gm;                     // For any data that this may hold in regards to what the playeris allowed to do.
 
-	Vector3 velocity;					// The velocity the Character Controller will move at every frame
+    Vector3 velocity;                   // The velocity the Character Controller will move at every frame
 
-	bool alwaysFaceForward;				// Whether the character model will always turn to face the way the camera is facing (true),
-										// or face in the direction it is moving (false)
-										// The latter is for running around freely, and the former is for aiming weapons
+    bool alwaysFaceForward;             // Whether the character model will always turn to face the way the camera is facing (true),
+                                        // or face in the direction it is moving (false)
+                                        // The latter is for running around freely, and the former is for aiming weapons
 
-	float camXOffset;					// How far to the side of the player the third person, "over-the-shoulder" camera is
+    float camXOffset;                   // How far to the side of the player the third person, "over-the-shoulder" camera is
 
-	int crouchState;					// Whether the players is standing (3), crouching (2), or crawling (1)
-	bool firstPerson;					// Whether the player is in first-person mode (true), or third-person mode (false)
+    int crouchState;                    // Whether the players is standing (3), crouching (2), or crawling (1)
+    bool firstPerson;                   // Whether the player is in first-person mode (true), or third-person mode (false)
 
-	int playerNum;						// The index of the current player character
-
-
-	int bitFieldAllLayers;				// The bitfield used to signify all layers
-	int bitFieldNoHitbox;
-	public int NoHitboxBit { get { return bitFieldNoHitbox; } }
-
-	int headLayerIndex;
+    int playerNum;                      // The index of the current player character
 
 
+    int bitFieldAllLayers;              // The bitfield used to signify all layers
+    int bitFieldNoHitbox;
+    public int NoHitboxBit { get { return bitFieldNoHitbox; } }
+
+    int headLayerIndex;
+
+    Follower followScript;
+    public Follower FollowScript
+    {
+        get { return followScript; }
+    }
 
 
 	public static PlayerController controller;
@@ -124,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
 		headLayerIndex = anim.GetLayerIndex("HeadLayer");
 
-
+        followScript = player.gameObject.GetComponent<Follower>();
 
 
 		// Makes it so everyone doesn't wipe their nose in sync
@@ -221,7 +225,7 @@ public class PlayerController : MonoBehaviour
             if (healthScript == null) return;
         }
 
-        MovePlayer();
+        if (!followScript.IsWorking) MovePlayer();
 		Animate();
 	}
 
@@ -245,11 +249,15 @@ public class PlayerController : MonoBehaviour
 		if(healthScript != null && healthScript.health <= 0) return;
 		if(healthScript == null) return;
 
-		// User input to toggle crouching
-		CrouchInput();
+        //If the character is doing an action (ie. fixing the generator) the character cannot move
+        if (!followScript.IsWorking)
+        {
+            // User input to toggle crouching
+            CrouchInput();
 
-		// User input to attack
-		AttackInput();
+            // User input to attack
+            AttackInput();
+        }
 
 		// User input to switch between first and third person
 		SwapFirstThirdPerson();
@@ -700,6 +708,7 @@ public class PlayerController : MonoBehaviour
 			SwapCharacters(2);
 		else if(Input.GetKeyDown(KeyCode.Alpha4))
 			SwapCharacters(3);
+
 	}
 
 	/// <summary>
@@ -728,10 +737,11 @@ public class PlayerController : MonoBehaviour
 		}
 
         if (playerNum >= playerList.Length) return;
-        player.gameObject.GetComponent<Follower>().EnableAgent();
+        followScript.EnableAgent();
         player = playerList[playerNum];
-        player.gameObject.GetComponent<Follower>().Stay();
-        player.gameObject.GetComponent<Follower>().Agent.enabled = false;
+        SetFollowScript();
+        followScript.Stay();
+        followScript.Agent.enabled = false;
         SetPlayerVars();
 		// Check animation state for crouch state
 		crouchState = anim.GetInteger("CrouchState");
@@ -790,4 +800,9 @@ public class PlayerController : MonoBehaviour
 		playerList = newList;
 	}
 
+
+    void SetFollowScript()
+    {
+        followScript = player.gameObject.GetComponent<Follower>();
+    }
 }
