@@ -40,7 +40,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4164801616781404}
   - component: {fileID: 33836028834924748}
-  - component: {fileID: 64721131486472592}
   - component: {fileID: 23384531491887376}
   m_Layer: 0
   m_Name: MonitorColor
@@ -73,7 +72,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4967658824104618}
   - component: {fileID: 33590029321603294}
-  - component: {fileID: 64149814444731124}
   - component: {fileID: 23667431169728276}
   m_Layer: 0
   m_Name: Cutout
@@ -250,34 +248,6 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1165667316839512}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64149814444731124
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1590562678269746}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64721131486472592
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1165667316839512}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65316886551684450
 BoxCollider:
