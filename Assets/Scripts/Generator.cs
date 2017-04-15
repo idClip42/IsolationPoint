@@ -55,6 +55,8 @@ public class Generator : MonoBehaviour, IInteractable {
 
 	const float MAX_TIME = 60.0f * 5.0f;
 
+	public GameObject gasMonitor;
+
 	void Start () 
 	{
 		allLights = GameObject.FindGameObjectsWithTag("ElectricLight");
@@ -79,6 +81,8 @@ public class Generator : MonoBehaviour, IInteractable {
 				SwitchLights(!lightsOn);
 
 		UpdateTimer ();
+
+		UpdateMonitor((maxTime - timer)/maxTime);
 	}
 
 	public void SwitchLights(bool lOn)
@@ -162,4 +166,15 @@ public class Generator : MonoBehaviour, IInteractable {
         GasCan gasScript = item.GetComponent<GasCan>();
         return gasScript;
     }
+
+	void UpdateMonitor(float percentFull)
+	{
+		if(gasMonitor == null) return;
+		if(percentFull > 1.0f) percentFull = 1.0f;
+		if(percentFull < 0) percentFull = 0;
+
+		Material mat = gasMonitor.GetComponent<MeshRenderer>().material;
+		mat.mainTextureOffset = new Vector2(0, 0.5f * percentFull);
+		mat.SetColor("_EmissionColor", new Color((1.0f-percentFull), percentFull, 0, 1.0f));
+	}
 }
