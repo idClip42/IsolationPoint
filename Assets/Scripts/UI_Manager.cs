@@ -177,7 +177,12 @@ public class UI_Manager : MonoBehaviour {
             barPrefab.enabled = false;
             bar.enabled = false;
         }
-	}
+        else
+        {
+            barPrefab.enabled = true;
+            bar.enabled = true;
+        }
+    }
 
 	void UpdateRBar(){
 
@@ -191,6 +196,18 @@ public class UI_Manager : MonoBehaviour {
 			bar.enabled = false;
 			rScript.isFixing = false;
 			rScript.isFixed = true;
+            return;
 		}
-	}
+
+        if (!PlayerController.controller.FollowScript.IsWorking)
+        {
+            barPrefab.enabled = false;
+            bar.enabled = false;
+        }
+        else
+        {
+            barPrefab.enabled = true;
+            bar.enabled = true;
+        }
+    }
 }
