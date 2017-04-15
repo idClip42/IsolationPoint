@@ -5,8 +5,11 @@ using UnityEngine.AI;
 
 public class EnemyWarpEvent : Event {
     public GameObject[] enemiesToWarp;
-    public Vector3 locationToWarpTo;
+    public Transform locationToWarpTo;
     public float delayIncrease = 0.5f;
+    public Transform target;            //Location to go to after warp
+    public bool willRun = false;        //Is the target 'seen' as a player?
+
 
     // Use this for initialization
     protected override void Start () {
@@ -36,13 +39,20 @@ public class EnemyWarpEvent : Event {
 
     IEnumerator WarpWithDelay(float delay, GameObject g)
     {
-        yield return new WaitForSeconds(delay);
-        g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo);
+        yield return new WaitForSeconds(delay);//...?
+        g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
+        if (willRun)
+        {
+            g.GetComponent<Enemy>().ChaseTarget(target.position);
+        }
+        else {
+            g.GetComponent<Enemy>().SetTarget(target.position);
+        }
     }
 
     void Warp(GameObject g)
     {
-        g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo);
+        g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
     }
 
 }

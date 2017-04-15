@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour {
                 {
                     //attack
                     combatScript.Attack();
-                    FaceTarget();
+                    //FaceTarget();
                 }
                 else
                 {
@@ -167,7 +167,7 @@ public class Enemy : MonoBehaviour {
         //check for players in view -> set to target
         CheckView();
 
-        FaceTarget();     //turn on for enemies to slide past but still face character, much harder to lose sight
+        //FaceTarget();     //turn on for enemies to slide past but still face character, much harder to lose sight
         if (target != null) agent.SetDestination(target.position);
 	}
 
