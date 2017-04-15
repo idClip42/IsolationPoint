@@ -98,7 +98,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1802067365764552
 GameObject:
@@ -157,7 +157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214524731223700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1871657, y: -0.43094558, z: -0.39572692}
+  m_LocalPosition: {x: 0, y: 3.5, z: 193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4158455006884172}
@@ -174,7 +174,7 @@ Transform:
   m_GameObject: {fileID: 1802067365764552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.113, y: 0, z: 2.5}
-  m_LocalScale: {x: 1.11, y: 0.8548935, z: 1}
+  m_LocalScale: {x: 1.11, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4088569696881304}
   m_RootOrder: 0
@@ -200,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 1320997825560658}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.113, y: 0, z: 2.5}
-  m_LocalScale: {x: -1.11, y: 0.8548935, z: 1}
+  m_LocalScale: {x: -1.11, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4088569696881304}
   m_RootOrder: 1
@@ -351,14 +351,14 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1320997825560658}
-  m_Mesh: {fileID: 4300000, guid: 6c3a01ef23a330740acca24940361015, type: 3}
+  m_Mesh: {fileID: 4300000, guid: b7c5fe91341eca044b560d2f7cdf2e37, type: 3}
 --- !u!33 &33663130434294340
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802067365764552}
-  m_Mesh: {fileID: 4300000, guid: 6c3a01ef23a330740acca24940361015, type: 3}
+  m_Mesh: {fileID: 4300000, guid: b7c5fe91341eca044b560d2f7cdf2e37, type: 3}
 --- !u!64 &64968649310127388
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -602,10 +602,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6bf944c0248131439205383d405a07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simultaneousEvents: []
   timeToComplete: 0.3
-  door1: {fileID: 1802067365764552}
-  door2: {fileID: 1320997825560658}
+  door1Script: {fileID: 0}
+  door2Script: {fileID: 0}
+  toOpen: 1
 --- !u!114 &114813988399616954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d8dd2bbd68f147a2f5d4ccbbcbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 0
+  isLocked: 1
   lockSound: {fileID: 8300000, guid: 04ca1db0d6635b843b811a3d91ad8a16, type: 3}
   slamOpenSound: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
   openTime: 2
@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d8dd2bbd68f147a2f5d4ccbbcbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 0
+  isLocked: 1
   lockSound: {fileID: 8300000, guid: 04ca1db0d6635b843b811a3d91ad8a16, type: 3}
   slamOpenSound: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
   openTime: 2
