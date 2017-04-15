@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour {
     Vector3 lastSeen;                   //Last seen location of player
     Vector3 midWander;                  //Used in wander/search
 
-    Transform facing;                     //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
+    //Transform facing;                     //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
 
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
     bool targetingPlayer;               //True if the target is the player -> run
@@ -39,6 +39,22 @@ public class Enemy : MonoBehaviour {
     float searchTimer;           //Current time spent searching
 
     public float startAttackDistance = 0.5f;   //Distance from player at which the enemy will start its attack
+    public bool canMove = true;
+    public bool CanMove
+    {
+        get { return canMove; }
+        set {
+            canMove = value;
+            if (canMove)
+            {
+                agent.Resume();
+            }
+            else
+            {
+                agent.Stop();
+            }
+        }
+    }
 
 
     // Use this for initialization
@@ -55,12 +71,12 @@ public class Enemy : MonoBehaviour {
         searching = true;
         targetingPlayer = false;
 
-        facing = transform;//match to head of model
+        //facing = transform;//match to head of model
         foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
         {
             if(child.name == "Head_end")
             {
-                facing = child.transform;
+                //facing = child.transform;
             }
         }
         lastSeen = Vector3.zero;
@@ -90,6 +106,8 @@ public class Enemy : MonoBehaviour {
 
         locSet = 0;
         locInd = 0;
+
+        CanMove = canMove;
     }
 
     /// <summary>
@@ -169,7 +187,7 @@ public class Enemy : MonoBehaviour {
 
         //FaceTarget();     //turn on for enemies to slide past but still face character, much harder to lose sight
         if (target != null) agent.SetDestination(target.position);
-	}
+    }
 
     /// <summary>
     /// Find a new location to go to, within the subset if any left.
@@ -311,7 +329,7 @@ public class Enemy : MonoBehaviour {
         //get direction to object
         toObj.Normalize();
         //within view...
-        if (Mathf.Abs(Vector3.Angle(facing.forward, toObj)) <= angleOfVision)
+        if (Mathf.Abs(Vector3.Angle(transform.forward, toObj)) <= angleOfVision)
         {
             return true;
         }
@@ -398,13 +416,16 @@ public class Enemy : MonoBehaviour {
     /// Alert the enemy to an 'interesting' location it should go to. Not a high priority so it only walks. 
     /// </summary>
     /// <param name="pos">Location to go to</param>
-    public void SetTarget(Vector3 pos)
+    public void SetTarget(Vector3 pos, bool forgetPlayer)
     {
-        if (targetingPlayer) return;
+        //if still remember the player position and targeting player, dont set new target
+        if (!forgetPlayer && targetingPlayer) return;
 
         //if not already targeting player...
         searching = false;
         target.position = pos;
+        Debug.Log(pos);
+        Debug.Log(target.position);
     }
 
     /// <summary>
@@ -417,5 +438,7 @@ public class Enemy : MonoBehaviour {
         searching = false;
         lastSeen = playerPos;
         target.position = playerPos;
+        Debug.Log(playerPos);
+        Debug.Log(target.position);
     }
 }

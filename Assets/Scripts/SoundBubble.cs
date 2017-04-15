@@ -29,7 +29,7 @@ public class SoundBubble : MonoBehaviour {
 					if (willChase) {
 						gm.enemies [i].GetComponent<Enemy> ().ChaseTarget (transform.position);
 					} else {
-						gm.enemies [i].GetComponent<Enemy> ().SetTarget (transform.position);
+						gm.enemies [i].GetComponent<Enemy> ().SetTarget (transform.position, false);
 					}
                 }
             }

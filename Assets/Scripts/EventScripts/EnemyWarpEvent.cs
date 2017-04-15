@@ -32,8 +32,9 @@ public class EnemyWarpEvent : Event {
         {
             //g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo);
             //Invoke("Warp", 0.5f);
-            StartCoroutine(WarpWithDelay(delay, g));
-            delay += delayIncrease;
+            //StartCoroutine(WarpWithDelay(delay, g));
+            //delay += delayIncrease;
+            Warp(g);
         }
     }
 
@@ -46,13 +47,22 @@ public class EnemyWarpEvent : Event {
             g.GetComponent<Enemy>().ChaseTarget(target.position);
         }
         else {
-            g.GetComponent<Enemy>().SetTarget(target.position);
+            g.GetComponent<Enemy>().SetTarget(target.position, true);
         }
+        g.GetComponent<Enemy>().CanMove = true;
     }
 
     void Warp(GameObject g)
     {
         g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
+        if (willRun)
+        {
+            g.GetComponent<Enemy>().ChaseTarget(target.position);
+        }
+        else {
+            g.GetComponent<Enemy>().SetTarget(target.position, true);
+        }
+        g.GetComponent<Enemy>().CanMove = true;
     }
 
 }

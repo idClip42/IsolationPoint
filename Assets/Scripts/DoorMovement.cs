@@ -7,7 +7,24 @@ using UnityEngine.AI;
 public class DoorMovement : MonoBehaviour, IInteractable {
 
     float openRot;
+
     bool isOpen;
+    public bool IsOpen
+    {
+        get { return isOpen; }
+        set {
+            isOpen = value;
+            if (isOpen)
+            {
+                navOb.enabled = false;
+            }
+            else
+            {
+                navOb.enabled = true;
+            }
+        }
+    }
+
     public bool isLocked = false;
     public bool IsLocked
     {
@@ -24,12 +41,15 @@ public class DoorMovement : MonoBehaviour, IInteractable {
             }
         }
     }
+
     bool moving;
     float timeLeft;
     float speed;
     Quaternion startRot;
     NavMeshObstacle navOb;
     AudioSource src;
+    Transform doorCenter;
+
     public AudioClip lockSound;
     public AudioClip slamOpenSound;
 
@@ -40,6 +60,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     void Start () {
         src = GetComponent<AudioSource>();
         navOb = GetComponent<NavMeshObstacle>();
+        doorCenter = transform.FindChild("DoorCenter");
         startRot = transform.rotation;
         if (transform.localScale.x < 0)
         {
@@ -48,8 +69,8 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         else {
             openRot = 90.0f;
         }
+        IsOpen = false;
         IsLocked = isLocked;    //should set the correct nav obstacle settings
-        isOpen = false;
         moving = false;
         timeLeft = 0;
         speed = 0;
@@ -65,7 +86,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
                 speed = 0;
                 moving = false;
                 timeLeft = 0;
-                if (!isOpen)
+                if (!IsOpen)
                 {
                     transform.rotation = startRot;
                 }
@@ -87,10 +108,20 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             RaycastHit hit;
-            Physics.Raycast(g.transform.position, Vector3.Normalize(transform.position - g.transform.position), out hit, g.GetComponent<NavMeshAgent>().radius);
-            if (hit.transform == transform)
+            Physics.Raycast(g.transform.position + new Vector3(0, 1, 0), doorCenter.position - (g.transform.position + new Vector3(0, 1, 0)), out hit, g.GetComponent<NavMeshAgent>().radius + 1);
+            //Debug.DrawRay(doorCenter.position, Vector3.Normalize(g.transform.position + new Vector3(0, 1, 0) - doorCenter.position) * 1.5f, Color.white);
+            if (hit.transform == g.transform)
             {
+                //Debug.Log("Open sesame");
                 SmashOpen();
+            }else if(hit.transform == transform)
+            {
+                //Debug.Log("Grr");
+                SmashOpen();
+            }
+            else
+            {
+                //Debug.Log(hit.transform);
             }
         }
     }
@@ -100,12 +131,12 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     /// </summary>
     public void SmashOpen()
     {
-        if (!isOpen && !isLocked)
+        if (!IsOpen && !isLocked)
         {
             timeLeft = fastOpenTime - (timeLeft / openTime) * fastOpenTime;
             moving = true;
             speed = GetRotSpeed(fastOpenTime);
-            isOpen = true;
+            IsOpen = true;
             if(slamOpenSound != null)
             {
                 src.clip = slamOpenSound;
@@ -119,12 +150,12 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     /// </summary>
     public void SmashClose()
     {
-        if (isOpen && !isLocked)
+        if (IsOpen && !IsLocked)
         {
             timeLeft = fastOpenTime - (timeLeft / openTime) * fastOpenTime;
             moving = true;
             speed = -GetRotSpeed(fastOpenTime);
-            isOpen = false;
+            IsOpen = false;
             if (slamOpenSound != null)
             {
                 src.clip = slamOpenSound;
@@ -140,7 +171,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     {
         moving = true;
         timeLeft = openTime - timeLeft;
-        if (!isOpen)
+        if (!IsOpen)
         {
             speed = GetRotSpeed(openTime);
         }
@@ -148,7 +179,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         {
             speed = -GetRotSpeed(openTime);
         }
-        isOpen = !isOpen;
+        IsOpen = !IsOpen;
     }
 
     /// <summary>
@@ -177,7 +208,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         //For double key press - 'E' and 'LShift'
         if (Input.GetButton("Run"))
         {
-            if (isOpen)
+            if (IsOpen)
             {
                 SmashClose();
             }
@@ -198,10 +229,11 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         {
             return "Locked";
         }
-        if (isOpen)
+        if (IsOpen)
         {
             return "Close";
         }
         return "Open";
     }
+
 }
