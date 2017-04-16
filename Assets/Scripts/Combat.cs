@@ -68,6 +68,8 @@ public class Combat : MonoBehaviour {
 		AnimateMelee();
 		AnimateAiming();
 
+
+		if(gameObject.tag == "Enemy") return;
 		if (gunScript != null && isAiming == true) {
 			gunScript.UpdateCrosshair ();
 		} 
