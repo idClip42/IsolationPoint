@@ -11,6 +11,10 @@ public class Radio : MonoBehaviour, IInteractable {
 
 	Radio_Pieces[] radioPieces;
 
+	int fixedPieces;
+
+	const int TOTAL_PIECES = 4;
+
 	// Use this for initialization
 	void Start () {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
@@ -25,10 +29,11 @@ public class Radio : MonoBehaviour, IInteractable {
 	}
 
 	public string ActionDescription(){
-		foreach (Radio_Pieces piece in radioPieces) {
-			if (piece.pickedUp == false) {
-				return "Find all pieces to repair the radio";
-			}
+		if (fixedPieces < TOTAL_PIECES) {
+			return "Find all pieces to repair radio " + fixedPieces + "/4";
+		}
+		if (fixedPieces == TOTAL_PIECES && isFixed == false) {
+			return "All pieces found, press E to fix radio";
 		}
 		if (isFixing) {
 			return "Radio is being fixed";
@@ -41,12 +46,16 @@ public class Radio : MonoBehaviour, IInteractable {
 	}
 
 	public void Action(){
-		foreach (Radio_Pieces piece in radioPieces) {
-			if (piece.pickedUp == false) {
-				return;
-			}
+		if (fixedPieces == TOTAL_PIECES) {
+			UIScript.StartRadioFix ();
 		}
 
-		UIScript.StartRadioFix ();
+		foreach (Radio_Pieces piece in radioPieces) {
+			if (piece.pickedUp == true) {
+				fixedPieces++;
+				piece.pickedUp = false;
+				Destroy (piece.gameObject);
+			}
+		}
 	}
 }

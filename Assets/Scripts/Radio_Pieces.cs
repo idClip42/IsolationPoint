@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Radio_Pieces : MonoBehaviour, IInteractable {
+public class Radio_Pieces : MonoBehaviour {
 
 	public bool pickedUp;
 
-	MeshRenderer mesh;
+	Collider col;
+	Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
 		pickedUp = false;
-		mesh = GetComponent<MeshRenderer> ();
+		col = GetComponentInChildren<Collider>();
+		rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -19,16 +21,10 @@ public class Radio_Pieces : MonoBehaviour, IInteractable {
 		
 	}
 
-	public string ActionDescription(){
-		if (!pickedUp) {
-			return "Press E to pickup radio piece";
-		} else {
-			return "";
-		}
-	}
-
-	public void Action(){
-		pickedUp = true;
-		mesh.enabled = false;
+	public void PickUpPutDown(bool pickUp, CharacterController cc)
+	{
+		col.isTrigger = pickUp;
+		rb.isKinematic = pickUp;
+		pickedUp = pickUp;
 	}
 }

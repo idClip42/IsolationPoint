@@ -107,6 +107,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 			GasCan gasCan = leftHandItem.GetComponent<GasCan>();
 			if(gasCan != null) gasCan.PickUpPutDown(true, cc);
+
+			Radio_Pieces radioPiece = leftHandItem.GetComponent<Radio_Pieces> ();
+			if (radioPiece != null) radioPiece.PickUpPutDown (true, cc);
 		}
 	}
 
@@ -150,6 +153,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 			GasCan gasCan = leftHandItem.GetComponent<GasCan>();
 			if(gasCan != null) gasCan.PickUpPutDown(false, cc);
+
+			Radio_Pieces radioPiece = leftHandItem.GetComponent<Radio_Pieces> ();
+			if (radioPiece != null)	radioPiece.PickUpPutDown (false, cc);
 
 			leftHandItem.transform.parent = null;
 			leftHandItem = null;

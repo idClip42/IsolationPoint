@@ -172,7 +172,7 @@ public class UI_Manager : MonoBehaviour {
 			gScript.currentlyFixing = false;
 		}
 
-        if (!PlayerController.controller.FollowScript.IsWorking)
+   /*     if (!PlayerController.controller.FollowScript.IsWorking)
         {
             barPrefab.enabled = false;
             bar.enabled = false;
@@ -181,7 +181,7 @@ public class UI_Manager : MonoBehaviour {
         {
             barPrefab.enabled = true;
             bar.enabled = true;
-        }
+        } */
     }
 
 	void UpdateRBar(){
@@ -199,7 +199,7 @@ public class UI_Manager : MonoBehaviour {
             return;
 		}
 
-        if (!PlayerController.controller.FollowScript.IsWorking)
+     /*   if (!PlayerController.controller.FollowScript.IsWorking)
         {
             barPrefab.enabled = false;
             bar.enabled = false;
@@ -208,6 +208,6 @@ public class UI_Manager : MonoBehaviour {
         {
             barPrefab.enabled = true;
             bar.enabled = true;
-        }
+        } */
     }
 }
