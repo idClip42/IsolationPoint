@@ -20,6 +20,7 @@ public class MeleeWeapon : MonoBehaviour {
 	{
 		// Gets the collider, makes sure it's NOT a trigger
 		col = GetComponent<Collider>();
+		if(col == null) col = GetComponentInChildren<Collider>();
 		//col.isTrigger = true;
 		col.isTrigger = false;
 
