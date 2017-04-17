@@ -737,7 +737,8 @@ public class PlayerController : MonoBehaviour
 		}
 
         if (playerNum >= playerList.Length) return;
-        followScript.EnableAgent();
+        if (crouchState != 1)
+            followScript.EnableAgent();
         player = playerList[playerNum];
         SetFollowScript();
         followScript.Stay();

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour {
 
+    public static UI_Manager UIManager;
+
 	GameObject UI;
 	Generator gScript;
 	Radio rScript;
@@ -29,8 +31,10 @@ public class UI_Manager : MonoBehaviour {
 
 	float gTimer;
 	float pTimer;
+    float fTimer;
 
 	void Start () {
+        UIManager = this;
 		gScript = GameObject.Find ("Generator").GetComponent<Generator> ();
 		rScript = GameObject.Find ("Radio").GetComponent<Radio> ();
 		crosshairDefault = new Vector2 (0.5f, 0.5f);
@@ -209,5 +213,33 @@ public class UI_Manager : MonoBehaviour {
             barPrefab.enabled = true;
             bar.enabled = true;
         } */
+    }
+
+    /// <summary>
+    /// Call from other scripts that have their own timers. Should allow for this one function to be used for all bar related timers.
+    /// </summary>
+    /// <param name="fill">How full the bar is</param>
+    public void UpdateBar(float fill)
+    {
+        bar.fillAmount = fill;
+
+        if (bar.fillAmount == 1.0f)
+        {
+            barPrefab.enabled = false;
+            bar.enabled = false;
+            return;
+        }
+
+        //Only show the bar if the currect character is working on something (doing the thing that needs the bar)
+        if (!PlayerController.controller.FollowScript.IsWorking)
+        {
+            barPrefab.enabled = false;
+            bar.enabled = false;
+        }
+        else
+        {
+            barPrefab.enabled = true;
+            bar.enabled = true;
+        }
     }
 }

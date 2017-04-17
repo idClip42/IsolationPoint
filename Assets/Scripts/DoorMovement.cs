@@ -110,19 +110,9 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         {
             RaycastHit hit;
             Physics.Raycast(g.transform.position + new Vector3(0, 1, 0), doorCenter.position - (g.transform.position + new Vector3(0, 1, 0)), out hit, g.GetComponent<NavMeshAgent>().radius + 1);
-            //Debug.DrawRay(doorCenter.position, Vector3.Normalize(g.transform.position + new Vector3(0, 1, 0) - doorCenter.position) * 1.5f, Color.white);
-            if (hit.transform == g.transform)
+            if (hit.transform == transform)
             {
-                //Debug.Log("Open sesame");
                 SmashOpen();
-            }else if(hit.transform == transform)
-            {
-                //Debug.Log("Grr");
-                SmashOpen();
-            }
-            else
-            {
-                //Debug.Log(hit.transform);
             }
         }
     }

@@ -22,11 +22,11 @@ public class PlayerAction : MonoBehaviour {
         //add tag and associated script type to dictionary
         componentDict.Add("Door", typeof(DoorMovement));
 		componentDict.Add("Timeskipper", typeof(DaySkip));
-		componentDict.Add ("Generator", typeof(Generator));
-		componentDict.Add ("GasSource", typeof(GasSource));
+        componentDict.Add("Generator", typeof(Generator));
+        componentDict.Add("GasSource", typeof(GasSource));
         componentDict.Add("UnlockDoor", typeof(UnlockDoorObject));
-		componentDict.Add ("RadioPiece", typeof(Radio_Pieces));
-		componentDict.Add ("Radio", typeof(Radio));
+        componentDict.Add("RadioPiece", typeof(Radio_Pieces));
+        componentDict.Add("Radio", typeof(Radio));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 
@@ -77,6 +77,7 @@ public class PlayerAction : MonoBehaviour {
                 {
                     //set navagent destination to current player
                     Follower f = player.GetComponent<Follower>();
+                    f.Agent.enabled = true;
                     f.SetLeader(currentPlayer);
                 }
             }
