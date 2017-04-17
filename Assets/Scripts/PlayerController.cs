@@ -785,6 +785,7 @@ public class PlayerController : MonoBehaviour
 	/// <param name="deadPlayer">Dead player.</param>
 	public void RemovePlayerFromList(CharacterController deadPlayer)
 	{
+		if(playerList.Length == 1) return;
 		CharacterController[] newList = new CharacterController[playerList.Length - 1];
 		int count = 0;
 		for(int n = 0; n < playerList.Length; ++n)
