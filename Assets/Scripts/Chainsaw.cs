@@ -7,17 +7,16 @@ public class Chainsaw : MonoBehaviour
 	GameObject particles;
 	AudioSource[] audio;
 	MeleeWeapon weapon;
+	public GameObject chainsawBlade;
+	Material bladeMat;
 
 	void Start () 
 	{
 		particles = GetComponentInChildren<ParticleSystem>().gameObject;
 		audio = GetComponents<AudioSource>();
 		weapon = GetComponent<MeleeWeapon>();
+		bladeMat = chainsawBlade.GetComponent<MeshRenderer>().material;
 	}
-
-	// Can we tell its hit something when the collider is disabled?
-	// No, collider is enabled when swinging
-	// Have two separate audio sources?
 	
 	void Update () 
 	{
@@ -26,15 +25,7 @@ public class Chainsaw : MonoBehaviour
 		{
 			audio[0].enabled = true;
 			particles.SetActive(true);
-
-			//if(c.enabled == true)
-			//{
-			//	if(!audio[1].isPlaying)
-			//	{
-			//		audio[1].Play();
-			//	}
-			//} else 
-			//	audio[1].Stop();
+			bladeMat.mainTextureOffset = new Vector2(Mathf.Sin(Time.time * 100) * 0.2f, bladeMat.mainTextureOffset.y);
 		} else {
 			audio[0].enabled = false;
 			particles.SetActive(false);
@@ -46,6 +37,8 @@ public class Chainsaw : MonoBehaviour
 		//Plays a sound when hitting anything
 		// Except the camera
 		if(c.gameObject.tag == "MainCamera") 
+			return;
+		if(c.isTrigger == false) 
 			return;
 		audio[1].Play();
 	}
