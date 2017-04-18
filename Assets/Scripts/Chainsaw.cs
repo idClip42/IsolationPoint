@@ -43,6 +43,10 @@ public class Chainsaw : MonoBehaviour
 
 	void OnTriggerEnter(Collider c)
 	{
+		//Plays a sound when hitting anything
+		// Except the camera
+		if(c.gameObject.tag == "MainCamera") 
+			return;
 		audio[1].Play();
 	}
 }
