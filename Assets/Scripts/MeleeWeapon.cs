@@ -12,6 +12,7 @@ public class MeleeWeapon : MonoBehaviour {
 	public float wait = 0.5f;					// Minimum time between attacks
 
 	Collider col;								// The weapon's collider
+	public Collider Col	{ get { return col; } }
 
 	float timer;								// used with wait variable
 	int currentAnimIndex;						// The current animation to be played from attackAnimations
