@@ -146,6 +146,9 @@ public class Combat : MonoBehaviour {
 	/// </summary>
 	public void AnimateAiming()
 	{
+		int headLayerIndex = anim.GetLayerIndex("HeadLayer");
+		anim.SetLayerWeight(headLayerIndex, 1);
+
 
 		// Makes sure this is the current player and they have a gun
 		// Then checks if they're aiming
@@ -168,6 +171,11 @@ public class Combat : MonoBehaviour {
 			{
 				PlayerController.controller.SetAimMode(true);
 				c.z = camTargetZ/3;
+
+				if(gunScript.gunAnim == Gun.GunAnimation.LongGunAim)
+				{
+					anim.SetLayerWeight(headLayerIndex, 0);
+				}
 			}
 		} else 
 		{
