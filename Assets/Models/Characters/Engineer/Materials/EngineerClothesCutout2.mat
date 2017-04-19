@@ -6,13 +6,13 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EngineerClothesFade
+  m_Name: EngineerClothesCutout2
   m_Shader: {fileID: 4800000, guid: f54a0b353fa1f0d458029454db7e0150, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _METALLICGLOSSMAP _NORMALMAP
+  m_ShaderKeywords: _ALPHATEST_ON _EMISSION _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Transparent
+    RenderType: TransparentCutout
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -115,13 +115,13 @@ Material:
       second: 2
     - first:
         name: _Cutoff
-      second: 0.721
+      second: 0.75
     - first:
         name: _DetailNormalMapScale
       second: 1
     - first:
         name: _DstBlend
-      second: 10
+      second: 0
     - first:
         name: _GlossMapScale
       second: 1
@@ -139,7 +139,7 @@ Material:
       second: 0
     - first:
         name: _Mode
-      second: 2
+      second: 1
     - first:
         name: _Occlusion
       second: 7.5
@@ -166,7 +166,7 @@ Material:
       second: 1
     - first:
         name: _SrcBlend
-      second: 5
+      second: 1
     - first:
         name: _TranslucencyViewDependency
       second: 0.7
@@ -181,7 +181,7 @@ Material:
       second: 166
     - first:
         name: _ZWrite
-      second: 0
+      second: 1
     m_Colors:
     - first:
         name: _Color
