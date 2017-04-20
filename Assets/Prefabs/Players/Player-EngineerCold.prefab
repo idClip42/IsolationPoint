@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 114847950086859674}
   - component: {fileID: 114821312930848844}
   - component: {fileID: 195420746349678196}
+  - component: {fileID: 208436433821360452}
   m_Layer: 0
   m_Name: Player-EngineerCold
   m_TagString: Player
@@ -1488,15 +1489,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318372221962426}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 0.85, z: 0}
+  m_LocalRotation: {x: -0, y: -0.998154, z: -0, w: 0.060735583}
+  m_LocalPosition: {x: 44.16, y: 4.592, z: 34.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4090114981111948}
   - {fileID: 4969932778795422}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -173.03601, z: 0}
 --- !u!4 &4121128571961410
 Transform:
   m_ObjectHideFlags: 1
@@ -3327,8 +3328,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.00068715215, y: 0.013563439, z: 0.0013501942}
-    m_Extent: {x: 0.049866192, y: 0.04009292, z: 0.024837138}
+    m_Center: {x: 0.0006828308, y: 0.013563633, z: 0.001350522}
+    m_Extent: {x: 0.05942111, y: 0.052094433, z: 0.025037402}
   m_DirtyAABB: 0
 --- !u!137 &137181324796482706
 SkinnedMeshRenderer:
@@ -3370,8 +3371,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.000024275854, y: -0.00011791113, z: -0.000007538125}
-    m_Extent: {x: 0.0017070463, y: 0.0015387962, z: 0.0016732672}
+    m_Center: {x: 0.000024676323, y: -0.00011789799, z: -0.0000075399876}
+    m_Extent: {x: 0.0020729832, y: 0.0019496761, z: 0.0016779656}
   m_DirtyAABB: 0
 --- !u!137 &137313522031149558
 SkinnedMeshRenderer:
@@ -3789,8 +3790,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.000024275854, y: -0.000117910706, z: -0.0000075399876}
-    m_Extent: {x: 0.0017070463, y: 0.0015387958, z: 0.0016732672}
+    m_Center: {x: 0.000024676323, y: -0.00011789799, z: -0.000007543713}
+    m_Extent: {x: 0.0020729832, y: 0.0019496758, z: 0.0016779605}
   m_DirtyAABB: 0
 --- !u!137 &137990753926093228
 SkinnedMeshRenderer:
@@ -3832,8 +3833,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.00068715215, y: 0.013563445, z: 0.0013501644}
-    m_Extent: {x: 0.049866192, y: 0.040092938, z: 0.024837174}
+    m_Center: {x: 0.0006828308, y: 0.013563156, z: 0.0013501644}
+    m_Extent: {x: 0.05942111, y: 0.052094437, z: 0.025037413}
   m_DirtyAABB: 0
 --- !u!143 &143137474285795098
 CharacterController:
@@ -110008,6 +110009,21 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208436433821360452
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318372221962426}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!259 &259722221323711514
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

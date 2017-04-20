@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 114282880159500686}
   - component: {fileID: 114337407667410870}
   - component: {fileID: 195945949677008914}
+  - component: {fileID: 208655462422652058}
   m_Layer: 0
   m_Name: Player-RunnerWarm
   m_TagString: Player
@@ -3283,6 +3284,21 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208655462422652058
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1106470338137622}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!259 &259390728965507542
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

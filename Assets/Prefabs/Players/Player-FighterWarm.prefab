@@ -824,6 +824,7 @@ GameObject:
   - component: {fileID: 114860595396944582}
   - component: {fileID: 114093422766778872}
   - component: {fileID: 195956990869395208}
+  - component: {fileID: 208799814955275288}
   m_Layer: 0
   m_Name: Player-FighterWarm
   m_TagString: Player
@@ -2197,7 +2198,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544869266547030}
-  m_LocalRotation: {x: 0.30384073, y: -0.64503866, z: 0.31283832, w: 0.6274855}
+  m_LocalRotation: {x: 0.30384076, y: -0.6450387, z: 0.31283835, w: 0.6274856}
   m_LocalPosition: {x: -0.0000000053551044, y: 0.47874445, z: 0.000000007945345}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.9999998}
   m_Children:
@@ -3585,6 +3586,21 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208799814955275288
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681041632581938}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!259 &259173326280872948
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

@@ -821,6 +821,7 @@ GameObject:
   - component: {fileID: 114730694069157366}
   - component: {fileID: 114290252768168140}
   - component: {fileID: 195667024592256452}
+  - component: {fileID: 208222529074251356}
   m_Layer: 0
   m_Name: Player-ShooterCold
   m_TagString: Player
@@ -1004,6 +1005,8 @@ GameObject:
   - component: {fileID: 4249045030134942}
   - component: {fileID: 95304567880581928}
   - component: {fileID: 259772693144157572}
+  - component: {fileID: 114621018834200632}
+  - component: {fileID: 114860829537413276}
   m_Layer: 0
   m_Name: shooter
   m_TagString: Untagged
@@ -1538,15 +1541,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616560307757356}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.01, y: 0.85, z: 0.38}
+  m_LocalRotation: {x: -0, y: -0.9999764, z: -0, w: -0.006872118}
+  m_LocalPosition: {x: 53.93, y: 4.435, z: 40.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4930728175268424}
   - {fileID: 4249045030134942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180.788, z: 0}
 --- !u!4 &4271496378019244
 Transform:
   m_ObjectHideFlags: 1
@@ -2501,6 +2504,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114621018834200632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839556506117214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817b99857223dfc48b21eb81dfc17ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snowSteps:
+  - {fileID: 8300000, guid: fc347a98cab7c2349bf40797f54680ac, type: 3}
+  - {fileID: 8300000, guid: d5b482da29584294c91c43f96a86e467, type: 3}
+  - {fileID: 8300000, guid: b1da7b7bb09258a4885efbff10a83253, type: 3}
+  - {fileID: 8300000, guid: 0934ac112308dc142b7aea3dc06b5ab6, type: 3}
+  - {fileID: 8300000, guid: 6ef7aaa6b4e0c8845b1949fb0c0ac99b, type: 3}
+  snowL: {fileID: 2100000, guid: 267a9c0abf8c7db499b70e40923b86c4, type: 2}
+  snowR: {fileID: 2100000, guid: 9b39f8bbdcdc3754381b8204471844de, type: 2}
+  snowFootprintPrefab: {fileID: 1976602840719064, guid: 29a80d118c21ba4469c88ea0bbcaa191,
+    type: 2}
+  woodSteps:
+  - {fileID: 8300000, guid: d670e2df05b527e448246c2739fab762, type: 3}
+  - {fileID: 8300000, guid: d007f9ca5e2f3b04bb0126fbc317af33, type: 3}
+  - {fileID: 8300000, guid: 5f5cc149e77a3cb42aa89f640b703734, type: 3}
+  - {fileID: 8300000, guid: 595f6d23d0f231d48b5ae0dc6bb5d068, type: 3}
+  - {fileID: 8300000, guid: 369cd8f3a5f2fc14e992b8478a47d54a, type: 3}
+  - {fileID: 8300000, guid: 3329ad90153c9d44b962c587417dfcba, type: 3}
+  - {fileID: 8300000, guid: 6c7fb9ccc7bc78b49b0ed9b58ebe0eff, type: 3}
+  - {fileID: 8300000, guid: 10e4920aad62db14d9ea6876351741d5, type: 3}
+  - {fileID: 8300000, guid: 8d1d13e6d4bec4344a2e1c865578e611, type: 3}
+  - {fileID: 8300000, guid: 4431fdbd4ed40a0448fa979310c288e9, type: 3}
+  - {fileID: 8300000, guid: 549df4f10412e9c48857559abda5e050, type: 3}
+  - {fileID: 8300000, guid: cf2feec12eb9ce84fa415c6001758c4a, type: 3}
+  - {fileID: 8300000, guid: 044ce017d34a7f34181d97cad6bef856, type: 3}
+  - {fileID: 8300000, guid: a850b7581f4563244902a95d6c5068a4, type: 3}
+  - {fileID: 8300000, guid: 934d61e07f4af424b8afa04cc1ec44ae, type: 3}
+  crunchSteps: []
+  lifetime: 20
 --- !u!114 &114706248082773826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2529,6 +2571,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4308722b86dc7ee42bf8251a81266179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114860829537413276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839556506117214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817b99857223dfc48b21eb81dfc17ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snowSteps:
+  - {fileID: 8300000, guid: fc347a98cab7c2349bf40797f54680ac, type: 3}
+  - {fileID: 8300000, guid: d5b482da29584294c91c43f96a86e467, type: 3}
+  - {fileID: 8300000, guid: b1da7b7bb09258a4885efbff10a83253, type: 3}
+  - {fileID: 8300000, guid: 0934ac112308dc142b7aea3dc06b5ab6, type: 3}
+  - {fileID: 8300000, guid: 6ef7aaa6b4e0c8845b1949fb0c0ac99b, type: 3}
+  snowL: {fileID: 2100000, guid: 267a9c0abf8c7db499b70e40923b86c4, type: 2}
+  snowR: {fileID: 2100000, guid: 9b39f8bbdcdc3754381b8204471844de, type: 2}
+  snowFootprintPrefab: {fileID: 1976602840719064, guid: 29a80d118c21ba4469c88ea0bbcaa191,
+    type: 2}
+  woodSteps:
+  - {fileID: 8300000, guid: d670e2df05b527e448246c2739fab762, type: 3}
+  - {fileID: 8300000, guid: d007f9ca5e2f3b04bb0126fbc317af33, type: 3}
+  - {fileID: 8300000, guid: 5f5cc149e77a3cb42aa89f640b703734, type: 3}
+  - {fileID: 8300000, guid: 595f6d23d0f231d48b5ae0dc6bb5d068, type: 3}
+  - {fileID: 8300000, guid: 369cd8f3a5f2fc14e992b8478a47d54a, type: 3}
+  - {fileID: 8300000, guid: 3329ad90153c9d44b962c587417dfcba, type: 3}
+  - {fileID: 8300000, guid: 6c7fb9ccc7bc78b49b0ed9b58ebe0eff, type: 3}
+  - {fileID: 8300000, guid: 10e4920aad62db14d9ea6876351741d5, type: 3}
+  - {fileID: 8300000, guid: 8d1d13e6d4bec4344a2e1c865578e611, type: 3}
+  - {fileID: 8300000, guid: 4431fdbd4ed40a0448fa979310c288e9, type: 3}
+  - {fileID: 8300000, guid: 549df4f10412e9c48857559abda5e050, type: 3}
+  - {fileID: 8300000, guid: cf2feec12eb9ce84fa415c6001758c4a, type: 3}
+  - {fileID: 8300000, guid: 044ce017d34a7f34181d97cad6bef856, type: 3}
+  - {fileID: 8300000, guid: a850b7581f4563244902a95d6c5068a4, type: 3}
+  - {fileID: 8300000, guid: 934d61e07f4af424b8afa04cc1ec44ae, type: 3}
+  crunchSteps: []
+  lifetime: 20
 --- !u!136 &136046981645738630
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3448,6 +3529,21 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208222529074251356
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616560307757356}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!259 &259772693144157572
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

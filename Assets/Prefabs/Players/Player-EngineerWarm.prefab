@@ -690,6 +690,7 @@ GameObject:
   - component: {fileID: 114318938274108536}
   - component: {fileID: 114089088156557240}
   - component: {fileID: 195617689134924604}
+  - component: {fileID: 208843002259885392}
   m_Layer: 0
   m_Name: Player-EngineerWarm
   m_TagString: Player
@@ -2875,7 +2876,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: 0.000024277717, y: -0.00011791149, z: -0.000007543713}
-    m_Extent: {x: 0.0017070463, y: 0.0015185626, z: 0.0016547326}
+    m_Extent: {x: 0.0017070463, y: 0.001518562, z: 0.0016547313}
   m_DirtyAABB: 0
 --- !u!137 &137076389674546520
 SkinnedMeshRenderer:
@@ -70963,6 +70964,21 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208843002259885392
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521409540251756}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!259 &259360355138230706
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1

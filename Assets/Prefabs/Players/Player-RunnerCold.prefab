@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 114863765394484390}
   - component: {fileID: 114653263815083010}
   - component: {fileID: 195036918971269068}
+  - component: {fileID: 208001306983892016}
   m_Layer: 0
   m_Name: Player-RunnerCold
   m_TagString: Player
@@ -2329,15 +2330,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1897821199183556}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.02, y: 0.85, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0.99966913, z: -0, w: -0.025724798}
+  m_LocalPosition: {x: 39.32, y: 4.886, z: 34.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4576050557687686}
   - {fileID: 4382675847623154}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -182.948, z: 0}
 --- !u!23 &23220766816228118
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -3283,6 +3284,21 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!208 &208001306983892016
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897821199183556}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!259 &259202347660969582
 LightProbeProxyVolume:
   m_ObjectHideFlags: 1
