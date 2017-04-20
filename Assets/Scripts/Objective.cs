@@ -193,7 +193,7 @@ public class Objective : MonoBehaviour {
         //if (isFinished) fin++;
         foreach (Event e in events)
         {
-            if (e.IsFinished)
+            if (e != null && e.IsFinished)
             {
                 fin++;
             }

@@ -17,6 +17,14 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
     public void Action()
     {
         if (isUsed) return;
+        //only use when objective is active
+        if(toAffect != null)
+        {
+            if (!toAffect.enabled)
+            {
+                return;
+            }
+        }
         foreach(GameObject d in doorsToUnlock)
         {
             d.GetComponent<DoorMovement>().IsLocked = !d.GetComponent<DoorMovement>().IsLocked;
@@ -41,6 +49,13 @@ public class UnlockDoorObject : MonoBehaviour, IInteractable {
     public string ActionDescription()
     {
         if (isUsed) return " ";
+        if (toAffect != null)
+        {
+            if (!toAffect.enabled)
+            {
+                return " ";
+            }
+        }
         return actionDesc;
     }
 
