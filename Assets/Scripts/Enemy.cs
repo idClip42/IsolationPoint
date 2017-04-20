@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour {
 
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
     bool targetingPlayer;               //True if the target is the player -> run
+    public bool debug = false;
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
     Animator anim;                      //Animates model
@@ -37,6 +38,8 @@ public class Enemy : MonoBehaviour {
     int locInd;                         //current index within set
 
     float searchTimer;           //Current time spent searching
+    float waitTime;                     //Used to set the location after a warp
+    Vector3 afterWarp;
 
     public float startAttackDistance = 0.5f;   //Distance from player at which the enemy will start its attack
     public bool canMove = true;
@@ -107,6 +110,8 @@ public class Enemy : MonoBehaviour {
         locSet = 0;
         locInd = 0;
 
+        waitTime = 0;
+
         CanMove = canMove;
     }
 
@@ -129,6 +134,16 @@ public class Enemy : MonoBehaviour {
         {
             gm.gameover = true;
             return;
+        }
+
+        if(waitTime > 0)
+        {
+            waitTime -= Time.deltaTime;
+            if(waitTime < 0)
+            {
+                target.position = afterWarp;
+                agent.SetDestination(target.position);
+            }
         }
 
         //move
@@ -187,6 +202,7 @@ public class Enemy : MonoBehaviour {
 
         //FaceTarget();     //turn on for enemies to slide past but still face character, much harder to lose sight
         if (target != null) agent.SetDestination(target.position);
+        if (debug) Debug.Log(target.position);
     }
 
     /// <summary>
@@ -194,6 +210,7 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void NewLocation()
     {
+        if (debug) Debug.Log("Hit location");
         //if locations exist
         if (gm.locations.Length > 0)
         {
@@ -420,10 +437,13 @@ public class Enemy : MonoBehaviour {
     {
         //if still remember the player position and targeting player, dont set new target
         if (!forgetPlayer && targetingPlayer) return;
+        debug = true;
 
         //if not already targeting player...
+        waitTime = 1;
         searching = false;
-        target.position = pos;
+        afterWarp = pos;
+        //target.position = pos;
         Debug.Log(pos);
         Debug.Log(target.position);
     }
@@ -434,10 +454,13 @@ public class Enemy : MonoBehaviour {
     /// <param name="playerPos">Supposed position of the player</param>
     public void ChaseTarget(Vector3 playerPos)
     {
+        debug = true;
+        waitTime = 1;
+        afterWarp = playerPos;
         targetingPlayer = true;
         searching = false;
         lastSeen = playerPos;
-        target.position = playerPos;
+        //target.position = playerPos;
         Debug.Log(playerPos);
         Debug.Log(target.position);
     }

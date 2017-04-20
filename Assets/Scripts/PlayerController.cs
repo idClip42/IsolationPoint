@@ -94,9 +94,10 @@ public class PlayerController : MonoBehaviour
         // player.gameObject.GetComponent<Follower>().Agent.enabled = false;
 		// Changed because the Follower script, at least in PlayerTesting scene, doesn't seem to have found the agent before this runs
 		player.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        player.gameObject.GetComponent<NavMeshObstacle>().enabled = true;
 
-		// Finds the Main Camera
-		cam = Camera.main;
+        // Finds the Main Camera
+        cam = Camera.main;
 		if(cam == null) Debug.LogError("Must have main camera tagged 'MainCamera'");
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
@@ -743,6 +744,7 @@ public class PlayerController : MonoBehaviour
         SetFollowScript();
         followScript.Stay();
         followScript.Agent.enabled = false;
+        followScript.Obstacle.enabled = true;
         SetPlayerVars();
 		// Check animation state for crouch state
 		crouchState = anim.GetInteger("CrouchState");

@@ -11,6 +11,11 @@ public class Follower : MonoBehaviour {
     {
         get { return agent; }
     }
+    NavMeshObstacle obst;
+    public NavMeshObstacle Obstacle
+    {
+        get { return obst; }
+    }
     Animator anim;
     Health healthScript;
 
@@ -45,6 +50,9 @@ public class Follower : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //set false in inspector
+        obst = GetComponent<NavMeshObstacle>();
+
         agent = GetComponent<NavMeshAgent>();
         if (agent == null)
             Debug.LogError("Player needs a NavMeshAgent");
@@ -132,6 +140,7 @@ public class Follower : MonoBehaviour {
     public void EnableAgent()
     {
         agent.enabled = true;
+        obst.enabled = false;
         following = false;
         if (goTo)
         {
