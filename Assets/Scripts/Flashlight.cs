@@ -76,7 +76,7 @@ public class Flashlight : MonoBehaviour
 	public void PickUpPutDown(bool pickUp, CharacterController c)
 	{
 		col.isTrigger = pickUp;
-		light.enabled = pickUp;
+		//light.enabled = pickUp;
 		rb.isKinematic = pickUp;
 		if(pickUp)
 		{
