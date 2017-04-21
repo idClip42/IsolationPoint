@@ -99,7 +99,7 @@ public class Generator : MonoBehaviour, IInteractable {
 			if(!lOn)
 				intensity = 0;
             allLights[n].GetComponentInChildren<Light>().intensity = intensity;
-			MeshRenderer m = allLights[n].GetComponent<MeshRenderer>();
+			MeshRenderer m = allLights[n].GetComponentInChildren<MeshRenderer>();
 			if(m != null) m.material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
 		}
 	}
