@@ -82,14 +82,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1161189293953792}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.272257, y: -8.805926, z: 27.426743}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 7.727743, y: -11.805926, z: 47.426743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928671349154688}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4928671349154688
 Transform:
   m_ObjectHideFlags: 1
@@ -265,8 +265,8 @@ MonoBehaviour:
   isLocked: 0
   lockSound: {fileID: 8300000, guid: 04ca1db0d6635b843b811a3d91ad8a16, type: 3}
   slamOpenSound: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
-  openTime: 2
-  fastOpenTime: 0.3
+  openTime: 1.25
+  fastOpenTime: 0.25
 --- !u!208 &208359958741735582
 NavMeshObstacle:
   m_ObjectHideFlags: 1
