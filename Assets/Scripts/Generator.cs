@@ -124,7 +124,7 @@ public class Generator : MonoBehaviour, IInteractable {
 	}
 
 	public void Action(){
-        if (currentlyFixing || (isFixed && hasGas)) return;//only if fixed and running or being fixed
+        if (currentlyFixing) return;//only if fixed and running or being fixed
         //to fix generator
         if (!isFixed)
         {
@@ -138,6 +138,7 @@ public class Generator : MonoBehaviour, IInteractable {
             GasCan gasCan = GetCurrentGasScript();
             if (gasCan.hasGas)
             {
+                timer = 0;
                 HasGas = true;
                 gasCan.hasGas = false;//remove gas
                 if (objectiveToFillWithGas != null) objectiveToFillWithGas.IsCompleted = true;
@@ -177,7 +178,7 @@ public class Generator : MonoBehaviour, IInteractable {
 	{
 		if(gasMonitor == null) return;
 		if(percentFull > 1.0f) percentFull = 1.0f;
-		if(percentFull < 0) percentFull = 0;
+		if(percentFull < 0) percentFull = 0.01f;//0 is the same as 1 with offsets
 
 		Material mat = gasMonitor.GetComponent<MeshRenderer>().material;
 		mat.mainTextureOffset = new Vector2(0, 0.5f * percentFull);
