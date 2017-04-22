@@ -11,6 +11,7 @@ public class AdjustLODs : MonoBehaviour
 
 	[Range(0, 1)] public float LOD1Percentage;
 	[Range(0, 1)] public float LOD2Percentage;
+	public bool killLOD0 = false;
 
 	LODGroup[] lods;
 
@@ -26,6 +27,12 @@ public class AdjustLODs : MonoBehaviour
 			if(stuff.Length > 2)
 				stuff[1].screenRelativeTransitionHeight = LOD2Percentage;
 			l.SetLODs(stuff);
+
+			if(killLOD0 == true)
+			{
+				LOD[] stuff2 = {stuff[1]};
+				l.SetLODs(stuff2);
+			}
 		}
 	}
 }
