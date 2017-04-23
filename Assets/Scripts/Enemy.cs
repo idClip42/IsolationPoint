@@ -114,6 +114,9 @@ public class Enemy : MonoBehaviour {
         waitTime = 0;
 
         CanMove = canMove;
+
+		anim.SetLayerWeight(anim.GetLayerIndex("HeadLayer"), 0);
+		anim.SetLayerWeight(anim.GetLayerIndex("LeftHandLayer"), 0);
     }
 
     /// <summary>

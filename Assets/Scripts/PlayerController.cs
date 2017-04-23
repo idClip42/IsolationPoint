@@ -141,7 +141,8 @@ public class PlayerController : MonoBehaviour
 			a.SetFloat("NoseWipeOffset", Random.value);
 			a.SetLayerWeight(headLayerIndex, 0);
 		}
-		anim.SetLayerWeight(headLayerIndex, 1);
+		if(gameObject.tag != "Enemy")
+			anim.SetLayerWeight(headLayerIndex, 1);
 	}
 
 
@@ -190,7 +191,8 @@ public class PlayerController : MonoBehaviour
 			pickupScript.PlayerTransform = player.GetComponent<Transform> ();
 
 		// Turns on head turning
-		anim.SetLayerWeight(headLayerIndex, 1);
+		if(gameObject.tag != "Enemy")
+			anim.SetLayerWeight(headLayerIndex, 1);
 	}
 
 

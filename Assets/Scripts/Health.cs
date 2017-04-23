@@ -116,6 +116,8 @@ public class Health : MonoBehaviour {
 			anim.Play("Death", 0);
 			// Stops animation on higher layers
 			anim.SetLayerWeight(1, 0);
+			anim.SetLayerWeight(2, 0);
+			anim.SetLayerWeight(3, 0);
 		}
 
 		// TODO: pool of blood

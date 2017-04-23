@@ -147,7 +147,8 @@ public class Combat : MonoBehaviour {
 	public void AnimateAiming()
 	{
 		int headLayerIndex = anim.GetLayerIndex("HeadLayer");
-		anim.SetLayerWeight(headLayerIndex, 1);
+		if(gameObject.tag != "Enemy")
+			anim.SetLayerWeight(headLayerIndex, 1);
 
 
 		// Makes sure this is the current player and they have a gun
