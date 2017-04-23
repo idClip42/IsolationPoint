@@ -90,8 +90,8 @@ public class Combat : MonoBehaviour {
 			meleeScript.IsHeld(false);
 		if(gunScript != null)
 			gunScript.IsHeld(false);
-		if(weapon != null) 
-			weapon.transform.parent = null;
+		//if(weapon != null) 
+		//	weapon.transform.parent = null;
 		if(gunScript != null) 
 			gunScript.CombatScript = null;
 		weapon = null;
