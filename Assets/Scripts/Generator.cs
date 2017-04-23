@@ -42,6 +42,7 @@ public class Generator : MonoBehaviour, IInteractable {
             hasGas = value;
             if (hasGas && isFixed)
             {
+                timer = 0;
                 SwitchLights(true);
             }
         }
@@ -159,7 +160,7 @@ public class Generator : MonoBehaviour, IInteractable {
                 //play the flicker event -- will control lightsOn
                 flickerEvent.PlayEvent();
                 //By the time event completes and changes(or not) lightsOn timer should be 0ish again
-                timer = -flickerEvent.timeToComplete;
+                //timer = -flickerEvent.timeToComplete;
             }
 		}
 	}
