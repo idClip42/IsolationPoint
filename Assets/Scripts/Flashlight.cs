@@ -104,13 +104,15 @@ public class Flashlight : MonoBehaviour
         RaycastHit hit;
         
         Physics.SphereCast(transform.position, 0.2f, forward, out hit, light.range);
+        Debug.DrawRay(transform.position, forward);
         if(hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
         }
-
+        /*
         Vector3 aim = Vector3.RotateTowards(forward, transform.up, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -118,6 +120,7 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, transform.up + transform.right, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -125,6 +128,7 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, transform.right, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -132,6 +136,7 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, transform.right - transform.up, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -139,6 +144,7 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, -transform.up, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -146,6 +152,7 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, -transform.right - transform.up, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -153,6 +160,7 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, -transform.right, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
@@ -160,9 +168,11 @@ public class Flashlight : MonoBehaviour
 
         aim = Vector3.RotateTowards(forward, transform.up - transform.right, (3 / 4) * light.spotAngle * Mathf.PI / 180, 0);
         Physics.SphereCast(transform.position, 0.2f, aim, out hit, light.range);
+        Debug.DrawRay(transform.position, aim);
         if (hit.transform != null && hit.transform.tag == "Enemy")
         {
             hit.transform.gameObject.GetComponent<Enemy>().SetTarget(transform.position, false);
         }
+        */
     }
 }

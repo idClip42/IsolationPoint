@@ -9,6 +9,7 @@ public class EnemyWarpEvent : Event {
     public float delayIncrease = 0.5f;
     public Transform target;            //Location to go to after warp
     public bool willRun = false;        //Is the target 'seen' as a player?
+    public bool willResumeMotion = true;    //Affects the nav agent, false will keep it in one place, true will set it to move
 
 
     // Use this for initialization
@@ -25,7 +26,7 @@ public class EnemyWarpEvent : Event {
     public override void PlayEvent()
     {
         base.PlayEvent();
-        float delay = 0.0f;
+        //float delay = 0.0f;
 
         //warp after a small delay to hopefully avoid stacking multiple enemies, delay may need to be increased
         foreach(GameObject g in enemiesToWarp)
@@ -49,7 +50,7 @@ public class EnemyWarpEvent : Event {
         else {
             g.GetComponent<Enemy>().SetTarget(target.position, true);
         }
-        g.GetComponent<Enemy>().CanMove = true;
+        g.GetComponent<Enemy>().CanMove = willResumeMotion;
     }
 
     void Warp(GameObject g)
@@ -62,7 +63,7 @@ public class EnemyWarpEvent : Event {
         else {
             g.GetComponent<Enemy>().SetTarget(target.position, true);
         }
-        g.GetComponent<Enemy>().CanMove = true;
+        g.GetComponent<Enemy>().CanMove = willResumeMotion;
     }
 
 }

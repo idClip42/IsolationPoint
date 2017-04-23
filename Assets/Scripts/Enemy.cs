@@ -59,6 +59,8 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    public bool autoChangePath = true;
+
 
     // Use this for initialization
     void Start () {
@@ -200,7 +202,7 @@ public class Enemy : MonoBehaviour {
         //check for players in view -> set to target
         CheckView();
 
-        //FaceTarget();     //turn on for enemies to slide past but still face character, much harder to lose sight
+        if (targetingPlayer) FaceTarget();
         if (target != null) agent.SetDestination(target.position);
         if (debug) Debug.Log(target.position);
     }
@@ -214,20 +216,29 @@ public class Enemy : MonoBehaviour {
         //if locations exist
         if (gm.locations.Length > 0)
         {
-            //if finished with locations in set --> switch set
-            if (gm.locations[locSet].GetComponent<LocationList>().locations.Length-1 <= locInd || locInd < 0)
+            //if finished with locations in set
+            // --> switch set
+            if (gm.locations[locSet].GetComponent<LocationList>().locations.Length - 1 <= locInd || locInd < 0)
             {
-                int loc;
-                do
+                if (autoChangePath)
                 {
-                    loc = Random.Range(0, gm.locations.Length);
-                } while (loc == locSet);
-                locSet = loc;
-                locInd = -1;
+                    int loc;
+                    do
+                    {
+                        loc = Random.Range(0, gm.locations.Length);
+                    } while (loc == locSet);
+                    locSet = loc;
+                    locInd = -1;
+                }
+                else
+                {
+                    // --> return to start of current set
+                    locInd = -1;
+                }
             }
-            locInd++;
-            target.position = gm.locations[locSet].GetComponent<LocationList>().locations[locInd].transform.position;
         }
+        locInd++;
+        target.position = gm.locations[locSet].GetComponent<LocationList>().locations[locInd].transform.position;
     }
 
     /// <summary>
@@ -393,10 +404,11 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void FaceTarget()
     {
-        if (target.position == transform.position) return;
+        //if (target.position == transform.position) return;
         Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), new Vector3(0, 1, 0));    // flattens the vector3
+        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 1.0f);
+        transform.rotation = lookRotation;
     }
 
 
@@ -445,7 +457,7 @@ public class Enemy : MonoBehaviour {
         afterWarp = pos;
         //target.position = pos;
         Debug.Log(pos);
-        Debug.Log(target.position);
+        //Debug.Log(target.position);
     }
 
     /// <summary>
@@ -462,6 +474,35 @@ public class Enemy : MonoBehaviour {
         lastSeen = playerPos;
         //target.position = playerPos;
         Debug.Log(playerPos);
-        Debug.Log(target.position);
+        //Debug.Log(target.position);
+    }
+
+    /// <summary>
+    /// Manually set which path, from GM, that the enemy will wander on.
+    /// </summary>
+    /// <param name="pathIndex">Index to the location set in GM.</param>
+    public void SetPath(int pathIndex)
+    {
+        if (pathIndex < 0 && pathIndex >= gm.locations.Length) return;
+        locSet = pathIndex;
+        locInd = 0;
+        target.position = gm.locations[locSet].GetComponentInChildren<LocationList>().locations[locInd].position;
+    }
+
+    /// <summary>
+    /// Manually set which path, from GM, that the enemy will wander on.
+    /// </summary>
+    /// <param name="pathName">The name of the path to travel.</param>
+    public void SetPath(string pathName)
+    {
+        for(int i = 0; i < gm.locations.Length; i++)
+        {
+            if(gm.locations[i].name == pathName)
+            {
+                locSet = i;
+                locInd = 0;
+                target.position = gm.locations[locSet].GetComponentInChildren<LocationList>().locations[locInd].position;
+            }
+        }
     }
 }
