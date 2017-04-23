@@ -45,10 +45,12 @@ public class EnemyWarpEvent : Event {
         g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
         if (willRun)
         {
-            g.GetComponent<Enemy>().ChaseTarget(target.position);
+            if (target != null)
+                g.GetComponent<Enemy>().ChaseTarget(target.position);
         }
         else {
-            g.GetComponent<Enemy>().SetTarget(target.position, true);
+            if (target != null)
+                g.GetComponent<Enemy>().SetTarget(target.position, true);
         }
         g.GetComponent<Enemy>().CanMove = willResumeMotion;
     }
@@ -58,10 +60,12 @@ public class EnemyWarpEvent : Event {
         g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
         if (willRun)
         {
-            g.GetComponent<Enemy>().ChaseTarget(target.position);
+            if (target != null)
+                g.GetComponent<Enemy>().ChaseTarget(target.position);
         }
         else {
-            g.GetComponent<Enemy>().SetTarget(target.position, true);
+            if (target != null)
+                g.GetComponent<Enemy>().SetTarget(target.position, true);
         }
         g.GetComponent<Enemy>().CanMove = willResumeMotion;
     }

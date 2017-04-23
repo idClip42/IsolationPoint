@@ -23,10 +23,9 @@ public class SetEnemyPathEvent : Event {
     public override void PlayEvent()
     {
         base.PlayEvent();
-        Debug.Log("Name: " + pathName);
         if(pathName != null && pathName != " " && pathName != "")
         {
-            foreach(Enemy e in enemies)
+            foreach (Enemy e in enemies)
             {
                 e.SetPath(pathName);
                 e.autoChangePath = autoSwitchPaths;

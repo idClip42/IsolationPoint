@@ -7,13 +7,14 @@ public class Objective : MonoBehaviour {
     public string UIText;   //text shown to the player
     public bool isTriggered;    //can be completed by trigger on collider (ie. go to location)
     public bool onEnter;    //trigger complete upon enter or exit?
-    //public bool isInteractable; //can be completed by interaction
     public string[] triggerTags;    //tags that will trigger completion
 
     public Objective parent;   //main objective parent, if null find gm
                                 //could be another objective -> subobjectives
     public Objective[] subObjectives;  //subobjectives -> act like objectives
     public Event[] events;      //events to play on completion
+
+    public bool destroyTriggerOnComplete = false;    //Should be true on triggers to remove the trigger (Make sure the collider is on the same object as the objective AND the only collider there)
 
     bool isCompleted = false;
     public bool IsCompleted {
@@ -46,6 +47,7 @@ public class Objective : MonoBehaviour {
                     gm.IsPlayingEvent = IsPlaying;
                 }
                 enabled = false;
+                if(destroyTriggerOnComplete) Destroy(gameObject.GetComponent<Collider>(), 1);
             }
         }
     }

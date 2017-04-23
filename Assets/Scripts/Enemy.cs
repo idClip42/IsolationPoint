@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour {
 
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
     bool targetingPlayer;               //True if the target is the player -> run
-    public bool debug = false;
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
     Animator anim;                      //Animates model
@@ -149,7 +148,6 @@ public class Enemy : MonoBehaviour {
         }
 
         //move
-        //agent.Resume();
         if (searching)
         {
             searchTimer += Time.deltaTime;
@@ -204,7 +202,6 @@ public class Enemy : MonoBehaviour {
 
         if (targetingPlayer) FaceTarget();
         if (target != null) agent.SetDestination(target.position);
-        if (debug) Debug.Log(target.position);
     }
 
     /// <summary>
@@ -212,7 +209,6 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void NewLocation()
     {
-        if (debug) Debug.Log("Hit location");
         //if locations exist
         if (gm.locations.Length > 0)
         {
@@ -449,15 +445,11 @@ public class Enemy : MonoBehaviour {
     {
         //if still remember the player position and targeting player, dont set new target
         if (!forgetPlayer && targetingPlayer) return;
-        debug = true;
 
         //if not already targeting player...
         waitTime = 1;
         searching = false;
         afterWarp = pos;
-        //target.position = pos;
-        Debug.Log(pos);
-        //Debug.Log(target.position);
     }
 
     /// <summary>
@@ -466,15 +458,11 @@ public class Enemy : MonoBehaviour {
     /// <param name="playerPos">Supposed position of the player</param>
     public void ChaseTarget(Vector3 playerPos)
     {
-        debug = true;
         waitTime = 1;
         afterWarp = playerPos;
         targetingPlayer = true;
         searching = false;
         lastSeen = playerPos;
-        //target.position = playerPos;
-        Debug.Log(playerPos);
-        //Debug.Log(target.position);
     }
 
     /// <summary>
