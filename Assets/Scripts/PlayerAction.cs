@@ -15,7 +15,6 @@ public class PlayerAction : MonoBehaviour {
     Text text;
 
     public float callDistance = 5;
-    //public float goToDistance = 15;
 
 	// Use this for initialization
 	void Start () {
@@ -108,6 +107,10 @@ public class PlayerAction : MonoBehaviour {
             RaycastHit hit;
             Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out hit);
             if (hit.transform == null) return;
+            while (hit.transform == PlayerController.controller.Player.transform)
+            {
+                Physics.Raycast(hit.point, Camera.main.transform.TransformDirection(Vector3.forward), out hit);
+            }
             GameObject currentPlayer = GetComponent<PlayerController>().Player.gameObject;
             Follower f = currentPlayer.GetComponent<Follower>();
             f.SetDestination(hit.point);
@@ -131,6 +134,10 @@ public class PlayerAction : MonoBehaviour {
 		//if (Physics.Raycast(Camera.main.transform.position, forward, out hit, 5))
 		if(Physics.SphereCast (Camera.main.transform.position, aimRadius, forward, out hit, 5, ~(0 << 8), QueryTriggerInteraction.Ignore))
         {
+            if(hit.transform == PlayerController.controller.Player.transform)
+            {
+                Physics.SphereCast(hit.point, aimRadius, forward, out hit, 5 - hit.distance, ~(0 << 8), QueryTriggerInteraction.Ignore);
+            }
             foreach(string key in componentDict.Keys)
             {
                 if(hit.transform.tag == key)

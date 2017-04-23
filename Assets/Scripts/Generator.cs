@@ -45,6 +45,10 @@ public class Generator : MonoBehaviour, IInteractable {
                 timer = 0;
                 SwitchLights(true);
             }
+            if (!hasGas)
+            {
+                SwitchLights(false);
+            }
         }
     }
 
@@ -114,7 +118,7 @@ public class Generator : MonoBehaviour, IInteractable {
         {
             return "Generator being fixed";
         }
-        else if (!hasGas)
+        else if (!HasGas)
         {
             return "Fill with gas";
         }
@@ -137,7 +141,7 @@ public class Generator : MonoBehaviour, IInteractable {
         else//to fill generator with gas
         {
             GasCan gasCan = GetCurrentGasScript();
-            if (gasCan.hasGas)
+            if (gasCan != null && gasCan.hasGas)
             {
                 timer = 0;
                 HasGas = true;
@@ -154,7 +158,7 @@ public class Generator : MonoBehaviour, IInteractable {
 
 		timer += Time.deltaTime;
 
-		if (timer > maxTime) {
+		if (timer > maxTime - 4) {
             if (flickerEvent != null)
             {
                 //play the flicker event -- will control lightsOn
@@ -163,6 +167,11 @@ public class Generator : MonoBehaviour, IInteractable {
                 //timer = -flickerEvent.timeToComplete;
             }
 		}
+
+        if(timer > maxTime)
+        {
+            HasGas = false;
+        }
 	}
 
     GasCan GetCurrentGasScript()

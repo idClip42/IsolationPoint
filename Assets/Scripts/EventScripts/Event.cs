@@ -6,7 +6,7 @@ public class Event : MonoBehaviour {
     protected GameManager gm;
     public float timeToComplete = 10.0f;
     float startTime;
-    bool isPlaying = false;
+    protected bool isPlaying = false;
     public bool IsPlaying
     {
         get { return isPlaying; }
