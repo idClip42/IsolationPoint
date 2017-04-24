@@ -26,6 +26,7 @@ public class PlayerAction : MonoBehaviour {
         componentDict.Add("UnlockDoor", typeof(UnlockDoorObject));
         componentDict.Add("RadioPiece", typeof(Radio_Pieces));
         componentDict.Add("Radio", typeof(Radio));
+        componentDict.Add("BearTrap", typeof(BearTrap));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 

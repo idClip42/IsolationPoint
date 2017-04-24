@@ -210,6 +210,7 @@ public class Generator : MonoBehaviour, IInteractable {
 		mat.mainTextureOffset = new Vector2(0, 0.5f * percentFull);
 		mat.SetColor("_EmissionColor", new Color((1.0f-percentFull), percentFull, 0, 1.0f));
 	}
+
     void SetWorker()
     {
         worker = PlayerController.controller.Player.gameObject.GetComponent<Follower>();
