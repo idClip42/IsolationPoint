@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour {
     public float angleOfVision;         //Cone representing field of view
     public float visionDistance;        //Distance the enemy can see at
     public float searchDuration;        //How long the enemy searches for players near the last seen location
+    public float trapTime;              //How long an enemy will be immobilized by a trap
 
     public Transform target;            //Destination
     Vector3 lastSeen;                   //Last seen location of player
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour {
 
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
     bool targetingPlayer;               //True if the target is the player -> run
+    bool isImmobilized;
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
     Animator anim;                      //Animates model
@@ -36,8 +38,9 @@ public class Enemy : MonoBehaviour {
     int locSet;                         //current location set
     int locInd;                         //current index within set
 
-    float searchTimer;           //Current time spent searching
+    float searchTimer;                  //Current time spent searching
     float waitTime;                     //Used to set the location after a warp
+    float trapTimer;                    //Used for immobilizing
     Vector3 afterWarp;
 
     public float startAttackDistance = 0.5f;   //Distance from player at which the enemy will start its attack
@@ -74,6 +77,7 @@ public class Enemy : MonoBehaviour {
         //faceTarget = true;
         searching = true;
         targetingPlayer = false;
+        isImmobilized = false;
 
         //facing = transform;//match to head of model
         foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
@@ -112,6 +116,7 @@ public class Enemy : MonoBehaviour {
         locInd = 0;
 
         waitTime = 0;
+        trapTimer = 0;
 
         CanMove = canMove;
 
@@ -147,6 +152,16 @@ public class Enemy : MonoBehaviour {
             {
                 target.position = afterWarp;
                 agent.SetDestination(target.position);
+            }
+        }
+
+        if (isImmobilized)
+        {
+            trapTimer += Time.deltaTime;
+            if(trapTimer >= trapTime)
+            {
+                isImmobilized = false;
+                agent.Resume();
             }
         }
 
@@ -495,5 +510,25 @@ public class Enemy : MonoBehaviour {
                 target.position = gm.locations[locSet].GetComponentInChildren<LocationList>().locations[locInd].position;
             }
         }
+    }
+
+    /// <summary>
+    /// Sets the immobilized enemy able to move again.
+    /// </summary>
+    public void Free()
+    {
+        isImmobilized = false;
+        trapTimer = 0;
+        agent.Resume();
+    }
+
+    /// <summary>
+    /// Stop the enemy from moving as if caught by a trap. Immobilized.
+    /// </summary>
+    public void StartCaughtTimer()
+    {
+        trapTimer = 0;
+        isImmobilized = true;
+        agent.Stop();
     }
 }

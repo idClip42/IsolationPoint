@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BearTrap : MonoBehaviour, IInteractable {
 
@@ -13,14 +14,30 @@ public class BearTrap : MonoBehaviour, IInteractable {
             isOpen = value;
             if (isOpen)
             {
-                col.isTrigger = true;
+                tag = "Left_Object";//Left hand item, or should it be right?
+                //col.isTrigger = true;
                 //set rotation of teeth to 0
                 if (LTeeth != null) LTeeth.transform.rotation = Quaternion.Euler(0, 0, 0);
                 if (RTeeth != null) RTeeth.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                if(caughtEntity != null)
+                {
+                    if(caughtEntity.tag == "Player")
+                    {
+                        //free the player
+                        caughtEntity.GetComponent<Follower>().IsWorking = false;
+                    }
+                    else if(caughtEntity.tag == "Enemy")
+                    {
+                        //free the enemy
+                        caughtEntity.GetComponent<Enemy>().Free();
+                    }
+                }
             }
             else
             {
-                col.isTrigger = false;
+                //col.isTrigger = false;
+                tag = "BearTrap";
                 //set rot of teeth to 90
                 if (LTeeth != null) LTeeth.transform.rotation = Quaternion.Euler(90, 0, 0);
                 if (RTeeth != null) RTeeth.transform.rotation = Quaternion.Euler(-90, 0, 0);
@@ -33,6 +50,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
     public bool drawBlood = true;				// Whether the trap draws blood
     AudioSource src;
     float timer;
+    float restTime;
 
     bool isSetting;
     bool IsSetting
@@ -53,20 +71,47 @@ public class BearTrap : MonoBehaviour, IInteractable {
     }
 
     bool isSnapping;
+    bool isResting;
+
+    bool isCarried;
+    bool IsCarried
+    {
+        set {
+            isCarried = value;
+            rb.isKinematic = isCarried;
+            if (isCarried)
+            {
+                col.enabled = false;
+            }
+            else
+            {
+                col.enabled = true;
+                transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+                isResting = true;
+            }
+        }
+    }
 
     Follower worker;
+    GameObject caughtEntity;
     public GameObject LTeeth;
     public GameObject RTeeth;
-    BoxCollider col;
+    public BoxCollider col;
+    Rigidbody rb;
 
     // Use this for initialization
     void Start()
     {
         isSetting = false;
         timer = 0.0f;
+        restTime = 0.25f;
         src = GetComponentInChildren<AudioSource>();
-        col = GetComponent<BoxCollider>();
+        rb = GetComponentInChildren<Rigidbody>();
+        worker = null;
+        caughtEntity = null;
         IsOpen = isOpen;
+        isCarried = false;
+        isResting = false;
     }
 
     // Update is called once per frame
@@ -83,11 +128,21 @@ public class BearTrap : MonoBehaviour, IInteractable {
             {
                 IsSetting = false;
                 timer = 0;
+                isResting = true;
             }
         }
-
+        else if (isResting)
+        {
+            timer += Time.deltaTime;
+            if(timer >= restTime)
+            {
+                isResting = false;
+                timer = 0;
+                caughtEntity = null;
+            }
+        }
         //set rotation of teeth to 90 - (90 * timer / snapTime)
-        if (isSnapping)
+        else if (isSnapping)
         {
             timer += Time.deltaTime;
             if (LTeeth != null) LTeeth.transform.rotation = Quaternion.Euler(90 - (90 * timer / snapTime), 0, 0);
@@ -113,16 +168,31 @@ public class BearTrap : MonoBehaviour, IInteractable {
 
     public void Action()
     {
-        if (!isOpen)
+        if (caughtEntity == PlayerController.controller.Player.gameObject)
+        {
+            return;
+        }
+
+        if (!isOpen && !isSetting && !isSnapping)
         {
             IsSetting = true;
             SetWorker();
             worker.IsWorking = true;
         }
+
+        if(isOpen && !isSnapping)
+        {
+            IsCarried = true;
+        }
     }
 
     public string ActionDescription()
     {
+        if(caughtEntity == PlayerController.controller.Player.gameObject)
+        {
+            return " ";
+        }
+
         if (!isOpen)
         {
             return "Set trap";
@@ -130,25 +200,53 @@ public class BearTrap : MonoBehaviour, IInteractable {
         else if (isSetting)
         {
             return "Setting trap";
+        }else if(isOpen && !isSnapping)
+        {
+            return " ";
         }
 
-        return " ";
+        return "Pick up";
     }
 
     void OnTriggerEnter(Collider c)
     {
-        if (!isOpen) return;
-        isSnapping = true;
+        if (!isOpen || caughtEntity != null || isCarried || !col.enabled) return;
         timer = 0;
-
-        //play snap shut sound
-        if (src != null) src.PlayOneShot(src.clip);
 
         // Gets the health script of the target
         Health healthScript = c.gameObject.GetComponent<Health>();
         Health_Part healthPartScript = c.gameObject.GetComponent<Health_Part>();
         // If there's no health scripts, returns
         if (healthScript == null && healthPartScript == null) return;
+
+        if(c.gameObject.tag == "Player")
+        {
+            caughtEntity = c.gameObject;
+            //should work for being stuck as well
+            //don't cause damage -- used when freeing a character so they dont immediately get caught again
+            if (isResting)
+            {
+                return;
+            }
+            caughtEntity.GetComponent<Follower>().IsWorking = true;
+        }
+        else if(c.gameObject.tag == "Enemy")
+        {
+            caughtEntity = c.gameObject;
+            //start the enemy's timer to break free
+            //don't cause damage -- used when freeing a character so they dont immediately get caught again
+            if (isResting)
+            {
+                return;
+            }
+            caughtEntity.GetComponent<Enemy>().StartCaughtTimer();
+        }
+
+
+        isSnapping = true;
+        //play snap shut sound
+        if (src != null && src.clip != null) src.PlayOneShot(src.clip);
+
 
         // If colliding with another character, does damage
         Vector3 point = c.ClosestPointOnBounds(transform.position);
@@ -159,11 +257,31 @@ public class BearTrap : MonoBehaviour, IInteractable {
             healthPartScript.Hit(damage, drawBlood, point, normal);
     }
 
+
+    void OnTriggerExit(Collider c)
+    {
+        //caughtEntity = null;
+    }
+
     /// <summary>
     /// Set the character who is using this as the worker.
     /// </summary>
     void SetWorker()
     {
         worker = PlayerController.controller.Player.gameObject.GetComponent<Follower>();
+    }
+
+
+
+    public void PickUpPutDown(bool pickUp, CharacterController c)
+    {
+        IsCarried = pickUp;
+        if (pickUp)
+        {
+            col.gameObject.layer = 8;
+        }
+        else {
+            col.gameObject.layer = 0;
+        }
     }
 }

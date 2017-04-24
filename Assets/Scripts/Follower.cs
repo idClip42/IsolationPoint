@@ -25,7 +25,7 @@ public class Follower : MonoBehaviour {
     {
         set { goTo = value; }
     }
-    bool isWorking;
+    public bool isWorking;
     public bool IsWorking
     {
         get { return isWorking; }

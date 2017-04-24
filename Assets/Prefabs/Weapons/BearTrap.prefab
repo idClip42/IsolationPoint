@@ -86,6 +86,8 @@ GameObject:
   - component: {fileID: 114518676091434178}
   - component: {fileID: 65681122528089322}
   - component: {fileID: 82247788303671988}
+  - component: {fileID: 54540114095909818}
+  - component: {fileID: 65889113373310410}
   m_Layer: 0
   m_Name: BearTrap
   m_TagString: BearTrap
@@ -145,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866257967303960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.061, y: 0.085, z: 2.476}
+  m_LocalPosition: {x: 44.875954, y: 0.048, z: 167.95567}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4861462021426220}
@@ -336,6 +338,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1015385634101932}
   m_Mesh: {fileID: 4300000, guid: 9bda2b4d6644344fe982fca83418237d, type: 3}
+--- !u!54 &54540114095909818
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866257967303960}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!65 &65681122528089322
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -348,6 +365,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 1}
   m_Center: {x: 0, y: 0.2, z: 0}
+--- !u!65 &65889113373310410
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1866257967303960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.05, z: 1}
+  m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!82 &82247788303671988
 AudioSource:
   m_ObjectHideFlags: 1
@@ -357,8 +386,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: bcfa19ed46d21934398338f982cb3cb7, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -397,7 +426,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -446,3 +475,4 @@ MonoBehaviour:
   drawBlood: 1
   LTeeth: {fileID: 1903787779068832}
   RTeeth: {fileID: 1032846697225952}
+  col: {fileID: 65681122528089322}

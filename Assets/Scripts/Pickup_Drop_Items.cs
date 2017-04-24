@@ -116,7 +116,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 			Radio_Pieces radioPiece = leftHandItem.GetComponent<Radio_Pieces> ();
 			if (radioPiece != null) radioPiece.PickUpPutDown (true, cc);
-		}
+
+            BearTrap bearTrap = leftHandItem.GetComponent<BearTrap>();
+            if (bearTrap != null) bearTrap.PickUpPutDown(true, cc);
+        }
 	}
 
 	/// <summary>
@@ -166,7 +169,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				Radio_Pieces radioPiece = leftHandItem.GetComponent<Radio_Pieces> ();
 				if (radioPiece != null)	radioPiece.PickUpPutDown (false, cc);
 
-				leftHandItem.transform.parent = null;
+                BearTrap bearTrap = leftHandItem.GetComponent<BearTrap>();
+                if (bearTrap != null) bearTrap.PickUpPutDown(false, cc);
+
+                leftHandItem.transform.parent = null;
 				leftHandItem = null;
 			}
 		}
