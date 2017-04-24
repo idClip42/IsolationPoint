@@ -71,6 +71,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 		//if (Physics.Raycast (Camera.main.transform.position, forward, out hit, 5)) {
 		if(Physics.SphereCast (Camera.main.transform.position, aimRadius, forward, out hit, 5)) {
 			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "Weapon") {
+				if(currentItem != null)
+					currentItem.transform.parent = null;
 				currentItem = hit.transform.gameObject;
 				combatScript.PickUpWeapon (currentItem);
 				return true;
