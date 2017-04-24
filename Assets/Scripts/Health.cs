@@ -124,7 +124,7 @@ public class Health : MonoBehaviour {
 
 		if(GetComponent<Pickup_Drop_Items>() != null)
 		{
-			GetComponent<Pickup_Drop_Items>().DropItem();
+			GetComponent<Pickup_Drop_Items>().DropItem(true);
 			Destroy(GetComponent<Pickup_Drop_Items>());
 		}
 		Destroy(GetComponent<Combat>());

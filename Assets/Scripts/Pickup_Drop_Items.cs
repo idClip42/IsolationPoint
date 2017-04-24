@@ -40,7 +40,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			SetTransform ();
-			DropItem ();
+			DropItem (false);
+			DropItem (true);
 		}
 
 		if (Input.GetKeyDown (KeyCode.E)) {
@@ -75,6 +76,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				return true;
 			}
 			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "Left_Object") {
+				if (leftHandItem != null) {
+					DropItem (true);
+				}
 				leftHandItem = hit.transform.gameObject;
 				return true;
 			}
@@ -86,7 +90,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// Sets the current item to the hand transform and parents it to the hand
 	/// </summary>
 	void SetCurrentItem() {
-		
+
 		if (currentItem != null) {
 			currentItem.transform.position = playerHandR.position;
 			currentItem.transform.parent = playerHandR;
@@ -140,25 +144,29 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	/// <summary>
 	/// Raycasts below the player and drops the object slightly in front of him
 	/// </summary>
-	public void DropItem(){
-		
-		if (currentItem != null) {
-			currentItem.transform.parent = null;
-			currentItem = null;
+	public void DropItem(bool leftHand){
+
+		if (!leftHand) {
+			if (currentItem != null) {
+				currentItem.transform.parent = null;
+				currentItem = null;
+			}
 		}
 
-		if (leftHandItem != null) {
-			Flashlight flashlight = leftHandItem.GetComponent<Flashlight>();
-			if(flashlight != null) flashlight.PickUpPutDown(false, cc);
+		if (leftHand) {
+			if (leftHandItem != null) {
+				Flashlight flashlight = leftHandItem.GetComponent<Flashlight>();
+				if(flashlight != null) flashlight.PickUpPutDown(false, cc);
 
-			GasCan gasCan = leftHandItem.GetComponent<GasCan>();
-			if(gasCan != null) gasCan.PickUpPutDown(false, cc);
+				GasCan gasCan = leftHandItem.GetComponent<GasCan>();
+				if(gasCan != null) gasCan.PickUpPutDown(false, cc);
 
-			Radio_Pieces radioPiece = leftHandItem.GetComponent<Radio_Pieces> ();
-			if (radioPiece != null)	radioPiece.PickUpPutDown (false, cc);
+				Radio_Pieces radioPiece = leftHandItem.GetComponent<Radio_Pieces> ();
+				if (radioPiece != null)	radioPiece.PickUpPutDown (false, cc);
 
-			leftHandItem.transform.parent = null;
-			leftHandItem = null;
+				leftHandItem.transform.parent = null;
+				leftHandItem = null;
+			}
 		}
 
 		combatScript.PickUpWeapon (null);
