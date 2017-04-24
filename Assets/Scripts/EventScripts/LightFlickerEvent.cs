@@ -5,7 +5,7 @@ using UnityEngine;
 public class LightFlickerEvent : Event {
     public Generator generator;//because there could be multiple but this only controls one
     float flickerTime;
-    //public bool stayOn = false; //Will the lights still be on when completed? Assumed starts on.
+    public bool stayOn = false; //Will the lights still be on when completed? Assumed starts on.
 
     // Use this for initialization
     protected override void Start () {
@@ -23,7 +23,8 @@ public class LightFlickerEvent : Event {
         float intensity = (-(flickerTime - timeToComplete) / 3) + 0.5f * Mathf.Sin(0.2f * ((flickerTime - timeToComplete + 12.55f) * (flickerTime - timeToComplete + 12.55f))) + 1;
         if (IsFinished)
         {
-            //generator.SwitchLights(stayOn);
+            generator.LightsOn = stayOn;
+            generator.IsFlickering = false;
             return;
         }
 

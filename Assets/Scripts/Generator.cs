@@ -15,6 +15,10 @@ public class Generator : MonoBehaviour, IInteractable {
         get { return allLights; }
     }
 	bool lightsOn;
+    public bool LightsOn
+    {
+        set { lightsOn = value; }
+    }
 	public bool isFixed;
     public bool IsFixed
     {
@@ -51,6 +55,17 @@ public class Generator : MonoBehaviour, IInteractable {
             }
         }
     }
+    bool isFlickering;
+    public bool IsFlickering
+    {
+        set {
+            isFlickering = value;
+            if (!isFlickering)
+            {
+                SwitchLights(lightsOn);
+            }
+        }
+    }
 
     public Objective objectiveToFillWithGas;
     public Objective objectiveToFixGenerator;
@@ -78,6 +93,7 @@ public class Generator : MonoBehaviour, IInteractable {
         {
             flickerEvent.generator = this;
         }
+        isFlickering = false;
 
 		SwitchLights(startLightsOn);
 	}

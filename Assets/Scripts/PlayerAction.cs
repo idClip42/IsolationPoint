@@ -136,7 +136,10 @@ public class PlayerAction : MonoBehaviour {
         {
             if(hit.transform == PlayerController.controller.Player.transform)
             {
-                Physics.SphereCast(hit.point, aimRadius, forward, out hit, 5 - hit.distance, ~(0 << 8), QueryTriggerInteraction.Ignore);
+                if(!Physics.SphereCast(hit.point, aimRadius, forward, out hit, 5 - hit.distance, ~(0 << 8), QueryTriggerInteraction.Ignore))
+                {
+                    return null;
+                }
             }
             foreach(string key in componentDict.Keys)
             {
