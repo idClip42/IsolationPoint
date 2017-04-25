@@ -26,6 +26,8 @@ public class BearTrap : MonoBehaviour, IInteractable {
                     {
                         //free the player
                         caughtEntity.GetComponent<Follower>().IsWorking = false;
+                        if (caughtEntity != PlayerController.controller.Player.gameObject)
+                            caughtEntity.GetComponentInChildren<NavMeshAgent>().enabled = true;
                     }
                     else if(caughtEntity.tag == "Enemy")
                     {
@@ -117,6 +119,12 @@ public class BearTrap : MonoBehaviour, IInteractable {
     // Update is called once per frame
     void Update()
     {
+        if (!isOpen)
+        {
+            if (caughtEntity != null && caughtEntity != PlayerController.controller.Player.gameObject)
+                caughtEntity.GetComponentInChildren<NavMeshAgent>().enabled = false;
+        }
+
         if (isSetting)
         {
             timer += Time.deltaTime;
@@ -229,6 +237,8 @@ public class BearTrap : MonoBehaviour, IInteractable {
                 return;
             }
             caughtEntity.GetComponent<Follower>().IsWorking = true;
+            if (caughtEntity != PlayerController.controller.Player.gameObject)
+                caughtEntity.GetComponentInChildren<NavMeshAgent>().enabled = false;
         }
         else if(c.gameObject.tag == "Enemy")
         {
@@ -255,12 +265,6 @@ public class BearTrap : MonoBehaviour, IInteractable {
             healthScript.Hit(damage, drawBlood, point, normal, null);
         else if (healthPartScript != null)
             healthPartScript.Hit(damage, drawBlood, point, normal);
-    }
-
-
-    void OnTriggerExit(Collider c)
-    {
-        //caughtEntity = null;
     }
 
     /// <summary>

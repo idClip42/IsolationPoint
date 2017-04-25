@@ -97,7 +97,7 @@ public class Follower : MonoBehaviour {
         if (!enabled) return;
 
         //follow the leader~
-        if (following)
+        if (following && agent.enabled)
             agent.SetDestination(leader.transform.position);
 	}
 
