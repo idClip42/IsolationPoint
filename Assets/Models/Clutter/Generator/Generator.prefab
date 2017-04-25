@@ -24,12 +24,16 @@ GameObject:
   - component: {fileID: 65316886551684450}
   - component: {fileID: 65823830035233084}
   - component: {fileID: 114788738347882236}
+  - component: {fileID: 114490832557301820}
+  - component: {fileID: 114932632235700870}
+  - component: {fileID: 114730869758641130}
+  - component: {fileID: 114768946414939632}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Generator
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1165667316839512
 GameObject:
@@ -115,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1001193648865114}
   m_LocalRotation: {x: 0, y: 0.7072302, z: 0.7069834, w: 0}
-  m_LocalPosition: {x: -2.9994192, y: 0.0000019073486, z: 26.210228}
+  m_LocalPosition: {x: 38.56, y: -2.499557, z: 214.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4069041985415662}
@@ -273,6 +277,58 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.067456, y: 2.0040815, z: 2.0000007}
   m_Center: {x: 0, y: -0.002023697, z: 1.0000011}
+--- !u!114 &114490832557301820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001193648865114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: Fix the generator (Nothing after this yet)
+  isTriggered: 0
+  onEnter: 0
+  triggerTags: []
+  parent: {fileID: 0}
+  subObjectives: []
+  events:
+  - {fileID: 114932632235700870}
+  - {fileID: 114768946414939632}
+  destroyTriggerOnComplete: 0
+--- !u!114 &114730869758641130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001193648865114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283caf9e0decb9b48a1252dcf6e31d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 4
+  generator: {fileID: 114788738347882236}
+  stayOn: 0
+--- !u!114 &114768946414939632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001193648865114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25e18ab6496e344a9e2ede496f93f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 0.5
+  autoSwitchPaths: 1
+  pathName: BasementPath
+  pathIndex: -1
+  enemies:
+  - {fileID: 0}
 --- !u!114 &114788738347882236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,12 +340,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb68d5037fec4e7fa57e931819fe91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLightsOn: 0
-  debugLightsOnLKey: 0
+  startLightsOn: 1
+  debugLightsOnLKey: 1
   isFixed: 0
   currentlyFixing: 0
   hasGas: 0
   objectiveToFillWithGas: {fileID: 0}
-  objectiveToFixGenerator: {fileID: 0}
-  maxTime: 60
+  objectiveToFixGenerator: {fileID: 114490832557301820}
+  maxTime: 300
   gasMonitor: {fileID: 1165667316839512}
+--- !u!114 &114932632235700870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001193648865114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcb03f0060e9304a991885c5c782dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 0.5
+  enemiesToWarp:
+  - {fileID: 0}
+  locationToWarpTo: {fileID: 0}
+  delayIncrease: 0.5
+  target: {fileID: 0}
+  willRun: 0
+  willResumeMotion: 1
