@@ -637,6 +637,8 @@ public class PlayerController : MonoBehaviour
 		anim.SetFloat("Speed", speed);
 		// Crouching state
 		anim.SetInteger("CrouchState", crouchState);
+        //set follow script crouch state to be the same --> for other followers
+        followScript.CrouchState = crouchState;
 		// Angle Between forward facing direction and velocity direction
 		float angleBetween = Vector3.Angle(anim.transform.forward, velocity);
 		anim.SetFloat("Angle", angleBetween);

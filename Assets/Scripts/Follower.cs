@@ -46,6 +46,15 @@ public class Follower : MonoBehaviour {
     }
     GameObject leader;
     Vector3 goToTarget;
+    int crouchState;
+    public int CrouchState
+    {
+        get { return crouchState; }
+        set
+        {
+            crouchState = value;
+        }
+    }
 
 
     // Use this for initialization
@@ -60,6 +69,8 @@ public class Follower : MonoBehaviour {
 
         following = false;
         goTo = false;
+
+        crouchState = 3; //Standing
 
         anim = GetComponentInChildren<Animator>();
         if (anim == null)
@@ -182,6 +193,15 @@ public class Follower : MonoBehaviour {
         // Angle Between forward facing direction and velocity direction
         float angleBetween = Vector3.Angle(anim.transform.forward, agent.velocity);
         anim.SetFloat("Angle", angleBetween);
+        // Crouching state -- match to leader
+        if (leader != null)
+        {
+            anim.SetInteger("CrouchState", leader.GetComponentInChildren<Follower>().CrouchState);
+        }
+        else
+        {
+            anim.SetInteger("CrouchState", crouchState);
+        }
         // Right Vector Dot Product (determines whether velocity is moving to right)
         float rightDot = Vector3.Dot(anim.transform.right, agent.velocity);
         anim.SetFloat("RightDot", rightDot);
