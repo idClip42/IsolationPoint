@@ -11,8 +11,9 @@ public class Helicopter : MonoBehaviour
 	public Vector3 startRotation;
 	public float speed;
 	public float accel;
-	public float minHeight;
-	public float turnWithSpeedCutoff = 1.0f;
+	//public float minHeight;
+	//public float turnWithSpeedCutoff = 1.0f;
+	public bool debugHKey = false;
 	Vector3 velocity;
 	Vector3 acceleration;
 	bool landed;
@@ -38,6 +39,9 @@ public class Helicopter : MonoBehaviour
 	
 	void Update () 
 	{
+		if(debugHKey && Input.GetKeyDown(KeyCode.H))
+			heliModel.SetActive(true);
+
 		if(heliModel.activeSelf == false) return;
 		Move();
 		Animate();
@@ -68,7 +72,7 @@ public class Helicopter : MonoBehaviour
 		heliModel.transform.position += velocity * Time.deltaTime;
 
 		// Aim and tilt helicopter 
-		if(velocity.magnitude > turnWithSpeedCutoff)
+		//if(velocity.magnitude > turnWithSpeedCutoff)
 			heliModel.transform.LookAt(
 				heliModel.transform.position + Vector3.ProjectOnPlane(acceleration + velocity, Vector3.up),
 				Vector3.up + -velocity
