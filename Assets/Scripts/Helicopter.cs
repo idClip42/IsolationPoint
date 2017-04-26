@@ -5,14 +5,17 @@ using UnityEngine;
 public class Helicopter : MonoBehaviour 
 {
 	public GameObject heliModel;
-	public GameObject rotors;
+	public GameObject rotor;
+	public GameObject rearRotor;
 	public Vector3 startOffset;
+	public Vector3 startRotation;
 	public float speed;
 	public float accel;
 	public float minHeight;
 	public float turnWithSpeedCutoff = 1.0f;
 	Vector3 velocity;
 	Vector3 acceleration;
+	bool landed;
 
 	float initialDist;
 
@@ -24,8 +27,10 @@ public class Helicopter : MonoBehaviour
 		acceleration = Vector3.zero;
 
 		heliModel.transform.LookAt(this.transform, Vector3.up);
-		heliModel.transform.Rotate(-10, 45, 10);
+		heliModel.transform.Rotate(startRotation);
 		velocity = heliModel.transform.forward * speed;
+
+		landed = false;
 
 		initialDist = startOffset.magnitude;
 
@@ -42,60 +47,49 @@ public class Helicopter : MonoBehaviour
 	{
 		// Gets the distance from the target position
 		Vector3 dist = (transform.position - heliModel.transform.position);
-		float distPercentage = dist.magnitude/initialDist;
+		float distMag = dist.magnitude;
+		float distPercentage = distMag/initialDist;
 
 		// Adjusts acceleration towards target
-		Vector3 desiredVelocity = Vector3.ClampMagnitude(transform.position - heliModel.transform.position, speed);
+		Vector3 desiredVelocity = Vector3.ClampMagnitude(dist, speed);
 		Vector3 velocityAdd = desiredVelocity - velocity;
-		acceleration = Vector3.ClampMagnitude(acceleration + velocityAdd, accel);
-		// Lowers acceleration based on distance
-		acceleration -= (1-distPercentage) * accel * dist.normalized;
+		acceleration += velocityAdd;
+		acceleration = Vector3.ClampMagnitude(acceleration, accel);
 
 		// adds acceleration to velocity
 		velocity += acceleration * Time.deltaTime;
 		velocity = Vector3.ClampMagnitude(velocity, speed);
+		if(distPercentage < 0.1f)
+			velocity = Vector3.ClampMagnitude(velocity, speed * (distPercentage/0.1f * distPercentage/0.1f));
+		else
+			velocity = Vector3.ClampMagnitude(velocity, speed);
 
-		// Adds drag to velocity
-		velocity -= velocity * 0.1f * Time.deltaTime;
-
-		// Adds velocity to position
+		// add velocity to position
 		heliModel.transform.position += velocity * Time.deltaTime;
 
-		// Keeps the helicopter above a given height
-		if(heliModel.transform.localPosition.y < minHeight)
-		{
-			Vector3 pos = heliModel.transform.localPosition;
-			pos.y = minHeight;
-			heliModel.transform.localPosition = pos;
-			velocity.y = 0;
-		}
-
-		// Aims the helicopter and tilts it with turns
+		// Aim and tilt helicopter 
 		if(velocity.magnitude > turnWithSpeedCutoff)
-		{
-			Vector3 tiltVector = Vector3.ProjectOnPlane(acceleration, Vector3.ProjectOnPlane(heliModel.transform.forward, Vector3.up));
-			tiltVector.y += 2;
-
 			heliModel.transform.LookAt(
-				heliModel.transform.position + Vector3.Lerp(
-					heliModel.transform.forward,
-					Vector3.ProjectOnPlane(acceleration + velocity, Vector3.up),
-					0.1f),
-				tiltVector
+				heliModel.transform.position + Vector3.ProjectOnPlane(acceleration + velocity, Vector3.up),
+				Vector3.up + -velocity
 			);
-		} else {
-			heliModel.transform.up = Vector3.Lerp(
-				heliModel.transform.up,
-				Vector3.up,
-				0.1f
-			);
-		}
+
+		if(landed == false && distMag < 5)
+			MakeEscape();
 
 	}
 
 	void Animate()
 	{
-		rotors.transform.Rotate(0, Time.deltaTime * 1000, 0);
+		rotor.transform.Rotate(0, 0, Time.deltaTime * 1000);
+		rearRotor.transform.Rotate(0, 0, Time.deltaTime * 1000);
+	}
+
+	void MakeEscape()
+	{
+		heliModel.tag = "Escape";
+		heliModel.AddComponent<Escape>();
+		landed = true;
 	}
 
 	public void TriggerHelicopter()

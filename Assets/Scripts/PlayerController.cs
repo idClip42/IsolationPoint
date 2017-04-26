@@ -754,6 +754,11 @@ public class PlayerController : MonoBehaviour
 		crouchState = anim.GetInteger("CrouchState");
 	}
 
+	public void SwapToNextChar()
+	{
+		SwapCharacters(-1);
+	}
+
 
 
 
