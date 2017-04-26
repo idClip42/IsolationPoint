@@ -197,7 +197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1711641072363412
 GameObject:
   m_ObjectHideFlags: 1
@@ -1243,7 +1243,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1251,20 +1251,26 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0
+      time: 0.002
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -6.9992633
+      outSlope: -6.9992633
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.04435697
+      value: 0.7816446
+      inSlope: -2.5752995
+      outSlope: -2.5752995
       tangentMode: 0
     - serializedVersion: 2
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.021371562
+      outSlope: -0.021371562
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1353,8 +1359,7 @@ MonoBehaviour:
   startRotation: {x: 15, y: 40, z: 0}
   speed: 30
   accel: 2
-  minHeight: 2
-  turnWithSpeedCutoff: 1
+  debugHKey: 1
 --- !u!136 &136207553527641872
 CapsuleCollider:
   m_ObjectHideFlags: 1
