@@ -2625,6 +2625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWorking: 0
 --- !u!114 &114318938274108536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3048,7 +3049,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300026, guid: f3155b83cab154b0cb93a191d29b3d2a, type: 3}
   m_Bones:

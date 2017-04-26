@@ -2766,6 +2766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWorking: 0
 --- !u!114 &114539941292559888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3092,7 +3093,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300012, guid: 484d04a456bce4c27a76b5a4acffbcb8, type: 3}
   m_Bones:
@@ -3186,7 +3187,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300010, guid: 484d04a456bce4c27a76b5a4acffbcb8, type: 3}
   m_Bones:
