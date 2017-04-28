@@ -52,12 +52,25 @@ public class Radio : MonoBehaviour, IInteractable {
 			UIScript.StartRadioFix ();
 		}
 
+        Radio_Pieces rPiece = GetCurrentRadioPiece();
+        if (rPiece == null) return;
+
 		foreach (Radio_Pieces piece in radioPieces) {
-			if (piece.pickedUp == true) {
+			if (piece == rPiece) {//only use the one in the character's hand
 				fixedPieces++;
 				piece.pickedUp = false;
 				Destroy (piece.gameObject);
 			}
 		}
 	}
+
+    Radio_Pieces GetCurrentRadioPiece()
+    {
+        CharacterController currentPlayer = PlayerController.controller.Player;
+        Pickup_Drop_Items pickupScript = currentPlayer.GetComponent<Pickup_Drop_Items>();
+        GameObject item = pickupScript.LeftHandItem;
+        if (item == null) return null;
+        Radio_Pieces piece = item.GetComponent<Radio_Pieces>();
+        return piece;
+    }
 }

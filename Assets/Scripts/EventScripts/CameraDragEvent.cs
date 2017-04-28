@@ -38,7 +38,7 @@ public class CameraDragEvent : Event {
             location = target.position;
         //if (timeToComplete <= stareTime) return;
 
-        if (moveLocation)
+        if (moveLocation && timeToComplete > stareTime)
         {
             cam.transform.position += moveDir * moveSpeed * Time.deltaTime;
         }
