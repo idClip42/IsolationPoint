@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Health : MonoBehaviour {
 
@@ -128,6 +129,9 @@ public class Health : MonoBehaviour {
 			Destroy(GetComponent<Pickup_Drop_Items>());
 		}
 		Destroy(GetComponent<Combat>());
+
+		if(GetComponent<NavMeshAgent>() != null)
+			GetComponent<NavMeshAgent>().enabled = false;
 
 		// TODO: angle body with floor normal
 
