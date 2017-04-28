@@ -15,6 +15,8 @@ public class Radio : MonoBehaviour, IInteractable {
 
 	const int TOTAL_PIECES = 4;
 
+    public Objective onFixObj;  //Actually gets completed in UI...
+
 	// Use this for initialization
 	void Start () {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();

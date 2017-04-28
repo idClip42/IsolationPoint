@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour {
     float searchTimer;                  //Current time spent searching
     float waitTime;                     //Used to set the location after a warp
     float trapTimer;                    //Used for immobilizing
+    public float lookTime = 5.0f;              //Time spent at a location before moving on, reuse searchTimer
     Vector3 afterWarp;
 
     public float startAttackDistance = 0.5f;   //Distance from player at which the enemy will start its attack
@@ -209,7 +210,12 @@ public class Enemy : MonoBehaviour {
             }
             else
             {
-                NewLocation();
+                searchTimer += Time.deltaTime;
+                if (searchTimer >= lookTime)
+                {
+                    searchTimer = 0;
+                    NewLocation();
+                }
             }
 
         }

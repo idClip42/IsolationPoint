@@ -44,7 +44,7 @@ public class GasSource : MonoBehaviour, IInteractable
         if (!IsFilling) return;
 
         timer += Time.deltaTime;
-        UI_Manager.UIManager.UpdateBar(timer / fillTime);
+        UI_Manager.UIManager.UpdateBar(timer / fillTime, worker);
         if(timer > fillTime)
         {
             isFull = true;

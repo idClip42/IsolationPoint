@@ -10,6 +10,7 @@ public class EnemyWarpEvent : Event {
     public Transform target;            //Location to go to after warp
     public bool willRun = false;        //Is the target 'seen' as a player?
     public bool willResumeMotion = true;    //Affects the nav agent, false will keep it in one place, true will set it to move
+    public bool cannotLose = false;
 
 
     // Use this for initialization
@@ -57,15 +58,38 @@ public class EnemyWarpEvent : Event {
 
     void Warp(GameObject g)
     {
-        g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
-        if (willRun)
+        if(locationToWarpTo)
+            g.GetComponent<NavMeshAgent>().Warp(locationToWarpTo.position);
+        if (target)
         {
-            if (target != null)
-                g.GetComponent<Enemy>().ChaseTarget(target.position);
-        }
-        else {
-            if (target != null)
-                g.GetComponent<Enemy>().SetTarget(target.position, true);
+            if (willRun)
+            {
+                if (target != null)
+                {
+                    if (cannotLose)
+                    {
+                        g.GetComponent<Enemy>().target = target;
+                    }
+                    else
+                    {
+                        g.GetComponent<Enemy>().ChaseTarget(target.position);
+                    }
+                }
+            }
+            else
+            {
+                if (target != null)
+                {
+                    if (cannotLose)
+                    {
+                        g.GetComponent<Enemy>().target = target;
+                    }
+                    else
+                    {
+                        g.GetComponent<Enemy>().SetTarget(target.position, true);
+                    }
+                }
+            }
         }
         g.GetComponent<Enemy>().CanMove = willResumeMotion;
     }

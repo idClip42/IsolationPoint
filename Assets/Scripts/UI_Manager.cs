@@ -200,6 +200,7 @@ public class UI_Manager : MonoBehaviour {
 			bar.enabled = false;
 			rScript.isFixing = false;
 			rScript.isFixed = true;
+            rScript.onFixObj.IsCompleted = true;
             return;
 		}
 
@@ -219,7 +220,7 @@ public class UI_Manager : MonoBehaviour {
     /// Call from other scripts that have their own timers. Should allow for this one function to be used for all bar related timers.
     /// </summary>
     /// <param name="fill">How full the bar is</param>
-    public void UpdateBar(float fill)
+    public void UpdateBar(float fill, Follower worker)
     {
         bar.fillAmount = fill;
 
@@ -231,7 +232,7 @@ public class UI_Manager : MonoBehaviour {
         }
 
         //Only show the bar if the currect character is working on something (doing the thing that needs the bar)
-        if (!PlayerController.controller.FollowScript.IsWorking)
+        if (PlayerController.controller.FollowScript != worker)
         {
             barPrefab.enabled = false;
             bar.enabled = false;
