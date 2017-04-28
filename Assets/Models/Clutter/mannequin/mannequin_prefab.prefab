@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 95638417146285348}
   - component: {fileID: 54425458916270472}
   - component: {fileID: 64451411395196186}
+  - component: {fileID: 114237791058223854}
   m_Layer: 0
   m_Name: mannequin_prefab
   m_TagString: Untagged
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529003374994864}
   m_LocalRotation: {x: -0, y: 0.7952808, z: -0, w: 0.6062413}
-  m_LocalPosition: {x: -2.46, y: 6.5, z: 206.063}
+  m_LocalPosition: {x: -9.732257, y: -5.7810264, z: 45.489746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -95,7 +96,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!64 &64451411395196186
 MeshCollider:
@@ -128,3 +129,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114237791058223854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529003374994864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c5726130ba7d1498596171a6facbf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
