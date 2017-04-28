@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     int crouchState;                    // Whether the players is standing (3), crouching (2), or crawling (1)
     bool firstPerson;                   // Whether the player is in first-person mode (true), or third-person mode (false)
 
-    int playerNum;                      // The index of the current player character
+    public int playerNum;                      // The index of the current player character
 
 
     int bitFieldAllLayers;              // The bitfield used to signify all layers

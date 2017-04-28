@@ -13,6 +13,8 @@ public class UI_Manager : MonoBehaviour {
 
 	public Sprite redDot;
 	public Sprite redCross;
+	public Sprite greenCircle;
+	public Sprite redCircle;
 
 	List<Health> healthList;
 	List<Image> healthBarList;
@@ -33,8 +35,11 @@ public class UI_Manager : MonoBehaviour {
 	float pTimer;
     float fTimer;
 
+	int playerIndex;
+
 	void Start () {
         UIManager = this;
+		playerIndex = GameObject.Find ("PlayerController").GetComponent<PlayerController>().playerNum;
 		gScript = GameObject.Find ("Generator").GetComponent<Generator> ();
 		rScript = GameObject.Find ("Radio").GetComponent<Radio> ();
 		crosshairDefault = new Vector2 (0.5f, 0.5f);
@@ -85,7 +90,8 @@ public class UI_Manager : MonoBehaviour {
 		if (fixingRadio) {
 			UpdateRBar ();
 		}
-		
+
+		UpdateCurrentPlayer ();
 	}
 
 	/// <summary>
@@ -243,4 +249,19 @@ public class UI_Manager : MonoBehaviour {
             bar.enabled = true;
         }
     }
+
+	void UpdateCurrentPlayer(){
+		// Gets the current player index
+		playerIndex = GameObject.Find ("PlayerController").GetComponent<PlayerController>().playerNum;
+
+		// Makes all UI circles red
+		for (int  i = 0; i < 4; i++){
+			healthBarList [i].sprite = redCircle;
+			healthBarList [i].color = Color.red;
+		}
+
+		// Updates the current UI to a green circle health bar
+		healthBarList [playerIndex].sprite = greenCircle;
+		healthBarList [playerIndex].color = Color.green;
+	}
 }
