@@ -87,7 +87,7 @@ public class Generator : MonoBehaviour, IInteractable {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
 		isFixed = false;
 		currentlyFixing = false;
-        hasGas = true;
+        //hasGas = true;
         flickerEvent = GetComponent<LightFlickerEvent>();
         if (flickerEvent)
         {
