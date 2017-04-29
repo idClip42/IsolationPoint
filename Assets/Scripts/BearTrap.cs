@@ -124,7 +124,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
     {
         if (!isOpen)
         {
-            if (caughtEntity != null && caughtEntity != PlayerController.controller.Player.gameObject)
+            if (caughtEntity != null && caughtEntity != PlayerController.controller.Player.gameObject && caughtEntity.tag != "Enemy")
             {
                 caughtEntity.GetComponentInChildren<NavMeshAgent>().enabled = false;
             }

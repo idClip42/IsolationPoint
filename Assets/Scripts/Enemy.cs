@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
     public float angleOfVision;         //Cone representing field of view
     public float visionDistance;        //Distance the enemy can see at
     public float searchDuration;        //How long the enemy searches for players near the last seen location
-    public float trapTime;              //How long an enemy will be immobilized by a trap
+    public float trapTime = 5.0f;              //How long an enemy will be immobilized by a trap
 
     public Transform target;            //Destination
     Vector3 lastSeen;                   //Last seen location of player
@@ -140,12 +140,17 @@ public class Enemy : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //gameover / cannot move
-        if (gm.PauseInput)
+        if (agent.enabled)
         {
-            agent.Stop();
-        }else
-        {
-            agent.Resume();
+            if (gm.PauseInput)
+            {
+                agent.Stop();
+                return;
+            }
+            else
+            {
+                agent.Resume();
+            }
         }
 
         if (healthScript.health <= 0)
@@ -160,7 +165,7 @@ public class Enemy : MonoBehaviour {
             if(waitTime < 0)
             {
                 target.position = afterWarp;
-                agent.SetDestination(target.position);
+                if (agent.enabled) agent.SetDestination(target.position);
             }
         }
 
@@ -169,8 +174,7 @@ public class Enemy : MonoBehaviour {
             trapTimer += Time.deltaTime;
             if(trapTimer >= trapTime)
             {
-                isImmobilized = false;
-                agent.Resume();
+                Free();
             }
         }
 
@@ -190,7 +194,8 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        if (agent.remainingDistance <= agent.stoppingDistance + startAttackDistance && !searching)
+        float dist = Vector3.Distance(transform.position, target.position);
+        if (dist <= agent.stoppingDistance + startAttackDistance && !searching)
         {
             if (targetingPlayer)
             {
@@ -233,7 +238,7 @@ public class Enemy : MonoBehaviour {
         CheckView();
 
         if (targetingPlayer) FaceTarget();
-        if (target != null) agent.SetDestination(target.position);
+        if (target != null && agent.enabled) agent.SetDestination(target.position);
     }
 
     /// <summary>
@@ -533,6 +538,7 @@ public class Enemy : MonoBehaviour {
     {
         isImmobilized = false;
         trapTimer = 0;
+        agent.enabled = true;
         agent.Resume();
     }
 
@@ -543,6 +549,7 @@ public class Enemy : MonoBehaviour {
     {
         trapTimer = 0;
         isImmobilized = true;
-        agent.Stop();
+        if (agent.enabled) agent.Stop();
+        agent.enabled = false;
     }
 }
