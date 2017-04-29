@@ -140,6 +140,14 @@ public class Enemy : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //gameover / cannot move
+        if (gm.PauseInput)
+        {
+            agent.Stop();
+        }else
+        {
+            agent.Resume();
+        }
+
         if (healthScript.health <= 0)
         {
             gm.gameover = true;

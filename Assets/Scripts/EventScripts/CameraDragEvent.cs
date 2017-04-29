@@ -7,7 +7,7 @@ public class CameraDragEvent : Event {
     public float dragTime = 1.0f;   //Time it takes to drag the camera to the desired angle
     public float stareTime = 5.0f;  //Time the camera is staring at the desired location
     public Vector3 location;    //Location to stare at
-    bool restrictPlayerControl = true;  //Prevent the player from moving their character or camera?
+    public bool restrictPlayerControl = false;  //Prevent the player from moving their character or camera?
     float maxRadiansPerSecond;
     float moveSpeed;
     Vector3 moveDir;
@@ -33,7 +33,10 @@ public class CameraDragEvent : Event {
     protected override void Update () {
         if (!IsPlaying) return;
         base.Update();
-        if (IsFinished && restrictPlayerControl) gm.PauseInput = false;
+        if (IsFinished) {
+            if (restrictPlayerControl) gm.PauseInput = false;
+            gm.FreezeCam = false;
+        }
         if (target)
             location = target.position;
         //if (timeToComplete <= stareTime) return;
@@ -55,6 +58,7 @@ public class CameraDragEvent : Event {
             location = target.position;
         //restrict input if wanted
         gm.PauseInput = restrictPlayerControl;
+        gm.FreezeCam = true;
         //calculate the radians to turn in the specified time
         float angle = Vector3.Angle(cam.transform.forward, location - cam.transform.position);
         maxRadiansPerSecond = Mathf.Deg2Rad * angle / dragTime;

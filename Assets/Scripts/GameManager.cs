@@ -24,7 +24,13 @@ public class GameManager : MonoBehaviour {
         set { pauseInput = value; }
     }
 
-    //SunSetting sunset;
+    bool freezeCam;
+    public bool FreezeCam
+    {
+        get { return freezeCam; }
+        set { freezeCam = value; }
+    }
+
     Text objText;
 
     public bool gameover;
@@ -53,8 +59,8 @@ public class GameManager : MonoBehaviour {
         //night = false;
         gameover = false;
         pauseInput = false;
+        freezeCam = false;
 
-        //sunset = GameObject.Find("Sun").GetComponent<SunSetting>();
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         objText = GameObject.Find("Objective Text").GetComponent<Text>();
         //set to transparent

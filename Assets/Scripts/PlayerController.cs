@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
         {
             // If camera is smoothly following player around in third-person,
             // updates it here in Fixed Update
-            if (!firstPerson) CameraTurn();
+            if (!firstPerson && !gm.FreezeCam) CameraTurn();
 
             // Ends if there is no health or no health script, which means the player is dead
             if (healthScript != null && healthScript.health <= 0) return;
@@ -238,12 +238,12 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
         if (gm.PauseInput) return;
-		// If camera is in player's head in third person,
-		// updates it here in Update 
-		if(firstPerson) CameraTurn();
+        // If camera is in player's head in third person,
+        // updates it here in Update 
+        if (firstPerson && !gm.FreezeCam) CameraTurn();
 
-		// Switch between player characters
-		SwapCharactersInput();
+        // Switch between player characters
+        if (!gm.FreezeCam) SwapCharactersInput();
 
 		if(Input.GetMouseButtonDown(0))
 			LockMouse();
@@ -256,14 +256,14 @@ public class PlayerController : MonoBehaviour
         if (!followScript.IsWorking)
         {
             // User input to toggle crouching
-            CrouchInput();
+            if (!gm.FreezeCam) CrouchInput();
 
             // User input to attack
             AttackInput();
         }
 
 		// User input to switch between first and third person
-		SwapFirstThirdPerson();
+		if (!gm.FreezeCam) SwapFirstThirdPerson();
 	}
 
 	/*

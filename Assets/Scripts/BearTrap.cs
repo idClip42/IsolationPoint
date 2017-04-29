@@ -50,9 +50,11 @@ public class BearTrap : MonoBehaviour, IInteractable {
     public float snapTime = 0.5f;
     public float damage = 50.0f;                //Change this -- I dont do balance D:
     public bool drawBlood = true;				// Whether the trap draws blood
+    public float damagePerSecond = 1.0f;        //Damage taken when in trap
     AudioSource src;
     float timer;
     float restTime;
+    float sprayTimer;
 
     bool isSetting;
     bool IsSetting
@@ -107,6 +109,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
         isSetting = false;
         timer = 0.0f;
         restTime = 0.25f;
+        sprayTimer = 5.0f;
         src = GetComponentInChildren<AudioSource>();
         rb = GetComponentInChildren<Rigidbody>();
         worker = null;
@@ -122,7 +125,32 @@ public class BearTrap : MonoBehaviour, IInteractable {
         if (!isOpen)
         {
             if (caughtEntity != null && caughtEntity != PlayerController.controller.Player.gameObject)
+            {
                 caughtEntity.GetComponentInChildren<NavMeshAgent>().enabled = false;
+            }
+            if (caughtEntity != null && caughtEntity.tag == "Player")
+            {
+                sprayTimer -= Time.deltaTime;
+                bool spray = false;
+                if(sprayTimer <= 0)
+                {
+                    spray = true;
+                    sprayTimer = 5.0f;
+                }
+                // Gets the health script of the target
+                Health healthScript = caughtEntity.GetComponent<Health>();
+                Health_Part healthPartScript = caughtEntity.GetComponent<Health_Part>();
+                // If there's no health scripts, returns
+                if (healthScript == null && healthPartScript == null) return;
+
+                // If colliding with another character, does damage
+                Vector3 point = caughtEntity.GetComponentInChildren<Collider>().ClosestPointOnBounds(transform.position);
+                Vector3 normal = Vector3.up;    // Perhaps this should be the dif between the closest point and the transform from above
+                if (healthScript != null)
+                    healthScript.Hit(damagePerSecond * Time.deltaTime, spray, point, normal, null);
+                else if (healthPartScript != null)
+                    healthPartScript.Hit(damagePerSecond * Time.deltaTime, spray, point, normal);
+            }
         }
 
         if (isSetting)
