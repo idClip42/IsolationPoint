@@ -18,6 +18,8 @@ public class Follower : MonoBehaviour {
     }
     Animator anim;
     Health healthScript;
+    CharacterController player;
+    Transform cameraAxis;
 
     bool following;
     bool goTo;
@@ -52,6 +54,26 @@ public class Follower : MonoBehaviour {
         get { return crouchState; }
         set
         {
+            if (player != PlayerController.controller.Player)
+            {
+                float camCrouchOffset = 0.5f;
+
+
+                if (crouchState == 3 && value != 3)        // If intending to crouch and currently standing
+                {
+                    player.height /= 3;                             // Halve player height and
+                    player.center -= new Vector3(0, player.height, 0);  // Move the collider center down
+                    value = 2;
+                    cameraAxis.transform.position -= Vector3.up * camCrouchOffset;
+                }
+                else if (crouchState != 3 && value == 3)       // If intending to stand and currently crouching
+                {                                                   // Return player height and center to normal
+                    player.center += new Vector3(0, player.height, 0);
+                    player.height *= 3;
+                    value = 3;
+                    cameraAxis.transform.position += Vector3.up * camCrouchOffset;
+                }
+            }
             crouchState = value;
         }
     }
@@ -80,6 +102,9 @@ public class Follower : MonoBehaviour {
         healthScript = GetComponent<Health>();
         if (healthScript == null)
             Debug.Log("Player needs a Health script");
+
+        player = GetComponent<CharacterController>();
+        cameraAxis = player.transform.FindChild("CameraAxis");
     }
 
     /// <summary>
@@ -119,6 +144,7 @@ public class Follower : MonoBehaviour {
     public void SetLeader(GameObject target)
     {
         following = true;
+        obst.enabled = false;
         leader = target;
         agent.SetDestination(leader.transform.position);
     }
@@ -196,12 +222,9 @@ public class Follower : MonoBehaviour {
         // Crouching state -- match to leader
         if (leader != null)
         {
-            anim.SetInteger("CrouchState", leader.GetComponentInChildren<Follower>().CrouchState);
+            CrouchState = leader.GetComponentInChildren<Follower>().CrouchState;
         }
-        else
-        {
-            anim.SetInteger("CrouchState", crouchState);
-        }
+        if (player != PlayerController.controller.Player) anim.SetInteger("CrouchState", crouchState);
         // Right Vector Dot Product (determines whether velocity is moving to right)
         float rightDot = Vector3.Dot(anim.transform.right, agent.velocity);
         anim.SetFloat("RightDot", rightDot);
