@@ -23,7 +23,7 @@ public class UI_Manager : MonoBehaviour {
 	public Image bar;
 	Image barPrefab;
 
-	Text pauseMenu;
+	Image pauseMenu;
 
 	Vector2 crosshairDefault;
 
@@ -129,10 +129,10 @@ public class UI_Manager : MonoBehaviour {
 	}
 
 	void GetPauseMenu(){
-		Text[] texts = UI.GetComponentsInChildren<Text> ();
-		foreach (Text text in texts) {
-			if (text.name == "PauseMenu")
-				pauseMenu = text;
+		Image[] images = UI.GetComponentsInChildren<Image> ();
+		foreach (Image image in images) {
+			if (image.name == "PauseMenu")
+				pauseMenu = image;
 		}
 	}
 
