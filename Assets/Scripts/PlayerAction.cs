@@ -51,18 +51,25 @@ public class PlayerAction : MonoBehaviour {
         GameObject obj = CheckForTag();
         if (obj != null)
         {
-            //get script type
-            System.Type t = componentDict[obj.tag];
-            //check if interactable --> should always be but just in case
-            if (obj.GetComponent(t) is IInteractable)
+            if (obj.tag == "Weapon" || obj.tag == "Left_Object")
             {
-                //set interaction text
-                text.text = (obj.GetComponent(t) as IInteractable).ActionDescription();
-
-                //check for button press
-                if (Input.GetButtonDown("Action"))
+                text.text = "Pick up";
+            }
+            else
+            {
+                //get script type
+                System.Type t = componentDict[obj.tag];
+                //check if interactable --> should always be but just in case
+                if (obj.GetComponent(t) is IInteractable)
                 {
-                    (obj.GetComponent(t) as IInteractable).Action();
+                    //set interaction text
+                    text.text = (obj.GetComponent(t) as IInteractable).ActionDescription();
+
+                    //check for button press
+                    if (Input.GetButtonDown("Action"))
+                    {
+                        (obj.GetComponent(t) as IInteractable).Action();
+                    }
                 }
             }
         }
@@ -149,6 +156,10 @@ public class PlayerAction : MonoBehaviour {
                 {
                     return hit.transform.gameObject;
                 }
+            }
+            if(hit.transform.tag == "Weapon" || hit.transform.tag == "Left_Object")
+            {
+                return hit.transform.gameObject;
             }
         }
         return null;
