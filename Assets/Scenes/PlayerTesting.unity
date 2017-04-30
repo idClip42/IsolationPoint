@@ -5210,6 +5210,8 @@ MonoBehaviour:
   objectiveToFillWithGas: {fileID: 0}
   objectiveToFixGenerator: {fileID: 0}
   maxTime: 60
+  timer: 0
+  flickerStartTimes: []
   gasMonitor: {fileID: 1138180681}
 --- !u!1001 &689495706
 Prefab:
@@ -7920,7 +7922,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00000039115554, y: 0.21885729, z: 0.000000014901161}
+  m_ConnectedAnchor: {x: -0.0000004060567, y: 0.21885729, z: -0.000000059604645}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -8461,6 +8463,18 @@ Prefab:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 114182312421622470, guid: 3ce416c4c561c364e8e2be0668bd22f1,
+        type: 2}
+      propertyPath: greenCircle
+      value: 
+      objectReference: {fileID: 21300000, guid: bb5cfef2bfd723d48a831b263c2a666e,
+        type: 3}
+    - target: {fileID: 114182312421622470, guid: 3ce416c4c561c364e8e2be0668bd22f1,
+        type: 2}
+      propertyPath: redCircle
+      value: 
+      objectReference: {fileID: 21300000, guid: 9022ed1ae544a3848974596003547968,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ce416c4c561c364e8e2be0668bd22f1, type: 2}
   m_IsPrefabParent: 0
@@ -11761,7 +11775,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.17156412, y: 0.38075203, z: -0.069736}
+  m_ConnectedAnchor: {x: -0.17156412, y: 0.3807525, z: -0.06973609}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -12035,6 +12049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFixed: 0
   isFixing: 0
+  onFixObj: {fileID: 0}
 --- !u!1 &1615524802
 GameObject:
   m_ObjectHideFlags: 0
