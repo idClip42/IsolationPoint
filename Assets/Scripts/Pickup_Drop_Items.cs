@@ -82,7 +82,6 @@ public class Pickup_Drop_Items : MonoBehaviour {
 			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "Left_Object") {
 				if (leftHandItem != null) {
 					DropItem (true);
-					leftHandItem.GetComponent<Collider>().enabled = true;
 				}
 				leftHandItem = hit.transform.gameObject;
 				leftHandItem.GetComponent<Collider>().enabled = false;
@@ -190,6 +189,9 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				Rigidbody rb = leftHandItem.GetComponent<Rigidbody> ();
 				rb.velocity = (Camera.main.transform.forward + Camera.main.transform.up) * 100f;
 				rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAX_DROP_SPEED);
+
+				Debug.Log(leftHandItem.GetComponent<Collider>());
+				leftHandItem.GetComponent<Collider>().enabled = true;
 
 				leftHandItem = null;
 			}
