@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -41,6 +41,8 @@ public class Enemy : MonoBehaviour {
     float searchTimer;                  //Current time spent searching
     float waitTime;                     //Used to set the location after a warp
     float trapTimer;                    //Used for immobilizing
+    float warpTimer;
+    public float warpTime = 180;
     public float lookTime = 5.0f;              //Time spent at a location before moving on, reuse searchTimer
     Vector3 afterWarp;
 
@@ -63,6 +65,8 @@ public class Enemy : MonoBehaviour {
     }
 
     public bool autoChangePath = true;
+    public EnemyWarpEvent warpEvent;
+    public SetEnemyPathEvent pathEvent;
 
 
     // Use this for initialization
@@ -118,6 +122,7 @@ public class Enemy : MonoBehaviour {
 
         waitTime = 0;
         trapTimer = 0;
+        warpTime = 0;
 
         CanMove = canMove;
 
@@ -169,6 +174,16 @@ public class Enemy : MonoBehaviour {
             }
         }
 
+/*
+        warpTimer += Time.deltaTime;
+        if (warpTimer >= warpTime)
+        {
+            if (!GetComponent<Renderer>().isVisible && !targetingPlayer && !isImmobilized)
+            {
+                EnemyWarp();
+            }
+        }
+*/
         if (isImmobilized)
         {
             trapTimer += Time.deltaTime;
@@ -551,5 +566,16 @@ public class Enemy : MonoBehaviour {
         isImmobilized = true;
         if (agent.enabled) agent.Stop();
         agent.enabled = false;
+    }
+
+    void EnemyWarp()
+    {
+        Transform nearWarp = gm.NearestWarp(transform.position);
+        Transform nearTarget = gm.NearestPathPoint(PlayerController.controller.Player.gameObject.transform.position);
+        //set warp location in event
+        //set path in event -- do i need, all methods should be here
+        int index = gm.NearestPath(nearTarget);
+        SetPath(index);
+        warpTimer = 0;
     }
 }

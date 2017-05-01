@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour {
                 DisplayObjective();
             }
         }
+
 	}
 
     /// <summary>
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <param name="location">Location to find close to.</param>
     /// <returns>The transform of the nearest warp spot.</returns>
-    Transform NearestWarp(Vector3 location)
+    public Transform NearestWarp(Vector3 location)
     {
         Transform nearest = null;
         float dist = 1000;
@@ -188,7 +189,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <param name="location">Point to find the closest path point from.</param>
     /// <returns>Transform of the nearest path point.</returns>
-    Transform NearestPathPoint(Vector3 location)
+    public Transform NearestPathPoint(Vector3 location)
     {
         Transform nearest = null;
         float dist = 1000;
@@ -221,7 +222,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     /// <param name="point">Path point to find in a path.</param>
     /// <returns>The index of the path with the point.</returns>
-    int NearestPath(Transform point)
+    public int NearestPath(Transform point)
     {
         for(int i = 0; i < locations.Length; i++)
         {
@@ -234,4 +235,5 @@ public class GameManager : MonoBehaviour {
         //this should hopefully never happen
         return 0;
     }
+
 }
