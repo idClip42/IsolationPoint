@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
     public int activePlayers;           //score at the end
     public GameObject[] locations;      //lists of locations the enemy can wander to -> nodes for AI
                                         //2nd layer that holds nodes within a location to wander between
+
+    public GameObject[] warps;          //warp locations
     public Transform[] enemyStart;
     public GameObject[] enemies;
 
@@ -151,5 +153,85 @@ public class GameManager : MonoBehaviour {
         //fade out prev objective
         isFadingText = true;
         objText.CrossFadeAlpha(0.01f, textFadeTime, false);
+    }
+
+    /// <summary>
+    /// Find the nearest warp location.
+    /// </summary>
+    /// <param name="location">Location to find close to.</param>
+    /// <returns>The transform of the nearest warp spot.</returns>
+    Transform NearestWarp(Vector3 location)
+    {
+        Transform nearest = null;
+        float dist = 1000;
+        foreach(GameObject g in warps)
+        {
+            if (nearest == null)
+            {
+                nearest = g.transform;
+                dist = Vector3.Distance(nearest.position, location);
+            }else
+            {
+                float temp = Vector3.Distance(g.transform.position, location);
+                if(temp < dist)
+                {
+                    nearest = g.transform;
+                    dist = temp;
+                }
+            }
+        }
+        return nearest;
+    }
+
+    /// <summary>
+    /// Find the nearest path point.
+    /// </summary>
+    /// <param name="location">Point to find the closest path point from.</param>
+    /// <returns>Transform of the nearest path point.</returns>
+    Transform NearestPathPoint(Vector3 location)
+    {
+        Transform nearest = null;
+        float dist = 1000;
+        foreach(GameObject list in locations)
+        {
+            LocationList locList = list.GetComponent<LocationList>();
+            foreach (Transform l in locList.locations)
+            {
+                if(nearest == null)
+                {
+                    nearest = l;
+                    dist = Vector3.Distance(nearest.position, location);
+                }else
+                {
+                    float temp = Vector3.Distance(l.position, location);
+                    if(temp < dist)
+                    {
+                        nearest = l;
+                        dist = temp;
+                    }
+                }
+            }
+        }
+
+        return nearest;
+    }
+
+    /// <summary>
+    /// Get the first path index that includes the given transform.
+    /// </summary>
+    /// <param name="point">Path point to find in a path.</param>
+    /// <returns>The index of the path with the point.</returns>
+    int NearestPath(Transform point)
+    {
+        for(int i = 0; i < locations.Length; i++)
+        {
+            LocationList locList = locations[i].GetComponent<LocationList>();
+            foreach(Transform l in locList.locations)
+            {
+                if (l == point) return i;
+            }
+        }
+        //this should hopefully never happen
+        return 0;
     }
 }
