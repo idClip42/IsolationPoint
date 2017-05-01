@@ -24,6 +24,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 	Flashlight flashScript;
 
+	public const float MAX_DROP_SPEED = 3.0f;
+
 	void Start () {
 		bladeRotation = new Quaternion (0, 45f, 0, 0);
 		//playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
@@ -155,7 +157,15 @@ public class Pickup_Drop_Items : MonoBehaviour {
 
 		if (!leftHand) {
 			if (currentItem != null) {
+				// unparents object
 				currentItem.transform.parent = null;
+
+				// applies a velocity to move the object in the direction the main camera is facing
+				Rigidbody rb = currentItem.GetComponent<Rigidbody> ();
+				rb.velocity = (Camera.main.transform.forward + Camera.main.transform.up) * 100f;
+				rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAX_DROP_SPEED);
+
+				// resets current item
 				currentItem = null;
 			}
 		}
@@ -175,6 +185,12 @@ public class Pickup_Drop_Items : MonoBehaviour {
                 if (bearTrap != null) bearTrap.PickUpPutDown(false, cc);
 
                 leftHandItem.transform.parent = null;
+
+				// applies a velocity to move the object in the direction the main camera is facing
+				Rigidbody rb = leftHandItem.GetComponent<Rigidbody> ();
+				rb.velocity = (Camera.main.transform.forward + Camera.main.transform.up) * 100f;
+				rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAX_DROP_SPEED);
+
 				leftHandItem = null;
 			}
 		}

@@ -74,7 +74,8 @@ public class Generator : MonoBehaviour, IInteractable {
     Follower worker;
 
     public float maxTime;
-	float timer;
+	public float timer;
+    public float[] flickerStartTimes;
 
 	const float MAX_TIME = 60.0f * 5.0f;
 
@@ -87,6 +88,7 @@ public class Generator : MonoBehaviour, IInteractable {
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager>();
 		isFixed = false;
 		currentlyFixing = false;
+        timer = maxTime;
         //hasGas = true;
         flickerEvent = GetComponent<LightFlickerEvent>();
         if (flickerEvent)
@@ -172,12 +174,29 @@ public class Generator : MonoBehaviour, IInteractable {
         //only update if the lights are on and generator fixed
         if (!lightsOn || !isFixed) return;
 
+        foreach(float f in flickerStartTimes)
+        {
+            if(timer < f)
+            {
+                timer += Time.deltaTime;
+                if(timer > f)
+                {
+                    if(flickerEvent != null)
+                    {
+                        flickerEvent.stayOn = true;
+                        flickerEvent.PlayEvent();
+                    }
+                }
+                timer -= Time.deltaTime;
+            }
+        }
 		timer += Time.deltaTime;
 
 		if (timer > maxTime - 4) {
             if (flickerEvent != null)
             {
                 //play the flicker event -- will control lightsOn
+                flickerEvent.stayOn = false;
                 flickerEvent.PlayEvent();
                 //By the time event completes and changes(or not) lightsOn timer should be 0ish again
                 //timer = -flickerEvent.timeToComplete;
