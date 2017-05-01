@@ -24,6 +24,8 @@ public class UI_Manager : MonoBehaviour {
 	Image barPrefab;
 
 	Image pauseMenu;
+	Image controls;
+	Image quit;
 
 	Vector2 crosshairDefault;
 
@@ -77,11 +79,9 @@ public class UI_Manager : MonoBehaviour {
 		}
 
 		if (pauseGame) {
-			pauseMenu.enabled = true;
-			Time.timeScale = 0.0f;
+			EnablePauseMenu ();
 		} else {
-			pauseMenu.enabled = false;
-			Time.timeScale = 1.0f;
+			DisablePauseMenu ();
 		}
 
 		if (fixingGenerator) {
@@ -131,8 +131,15 @@ public class UI_Manager : MonoBehaviour {
 	void GetPauseMenu(){
 		Image[] images = UI.GetComponentsInChildren<Image> ();
 		foreach (Image image in images) {
-			if (image.name == "PauseMenu")
+			if (image.name == "PauseMenu") {
 				pauseMenu = image;
+			}
+			if (image.name == "Controls") {
+				controls = image;
+			}
+			if (image.name == "Quit") {
+				quit = image;
+			}
 		}
 	}
 
@@ -263,5 +270,19 @@ public class UI_Manager : MonoBehaviour {
 		// Updates the current UI to a green circle health bar
 		healthBarList [playerIndex].sprite = greenCircle;
 		healthBarList [playerIndex].color = Color.green;
+	}
+
+	void EnablePauseMenu(){
+		pauseMenu.enabled = true;
+		controls.enabled = true;
+		quit.enabled = true;
+		Time.timeScale = 0.0f;
+	}
+
+	void DisablePauseMenu(){
+		pauseMenu.enabled = false;
+		controls.enabled = false;
+		quit.enabled = false;
+		Time.timeScale = 1.0f;
 	}
 }
