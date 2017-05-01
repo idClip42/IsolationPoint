@@ -84,7 +84,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 					DropItem (true);
 				}
 				leftHandItem = hit.transform.gameObject;
-				leftHandItem.GetComponent<Collider>().enabled = false;
+				leftHandItem.GetComponentInChildren<Collider>().enabled = false;
 				return true;
 			}
 		}
@@ -191,7 +191,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAX_DROP_SPEED);
 
 				Debug.Log(leftHandItem.GetComponent<Collider>());
-				leftHandItem.GetComponent<Collider>().enabled = true;
+				leftHandItem.GetComponentInChildren<Collider>().enabled = true;
 
 				leftHandItem = null;
 			}
