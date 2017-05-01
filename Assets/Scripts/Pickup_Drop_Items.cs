@@ -80,8 +80,10 @@ public class Pickup_Drop_Items : MonoBehaviour {
 			if(Vector3.Distance(playerTransform.position, hit.transform.position) <= 2 && hit.transform.tag == "Left_Object") {
 				if (leftHandItem != null) {
 					DropItem (true);
+					leftHandItem.GetComponent<Collider>().enabled = true;
 				}
 				leftHandItem = hit.transform.gameObject;
+				leftHandItem.GetComponent<Collider>().enabled = false;
 				return true;
 			}
 		}
