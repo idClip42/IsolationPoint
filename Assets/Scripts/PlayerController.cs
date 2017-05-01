@@ -738,7 +738,8 @@ public class PlayerController : MonoBehaviour
 			if(playerNum < 0) playerNum = playerList.Length - 1;
 		} else {
 			// Or selects one
-			playerNum = whichChar;
+			if(playerList[whichChar] != null)
+				playerNum = whichChar;
 		}
 
         if (playerNum >= playerList.Length) return;
@@ -756,7 +757,17 @@ public class PlayerController : MonoBehaviour
 
 	public void SwapToNextChar()
 	{
-		SwapCharacters(-1);
+		int count = 0;	// The count makes sure there is never an infinite loop
+		while(player != null)
+		{
+			SwapCharacters(-1);
+			count++;
+			if(count > playerList.Length)
+			{
+				Debug.Log("All players in list are null. This shouldn't happen I think.");
+				break;
+			}
+		}
 	}
 
 
@@ -797,6 +808,15 @@ public class PlayerController : MonoBehaviour
 	public void RemovePlayerFromList(CharacterController deadPlayer)
 	{
 		if(playerList.Length == 1) return;
+		for(int n = 0; n < playerList.Length; ++n)
+		{
+			if(playerList[n] == deadPlayer)
+			{
+				playerList[n] = null;
+				break;
+			}
+		}
+		/*
 		CharacterController[] newList = new CharacterController[playerList.Length - 1];
 		int count = 0;
 		for(int n = 0; n < playerList.Length; ++n)
@@ -811,6 +831,7 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 		playerList = newList;
+		*/
 	}
 
 
