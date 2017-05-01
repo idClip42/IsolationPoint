@@ -733,12 +733,18 @@ public class PlayerController : MonoBehaviour
 		{
 			// Moves to the next player
 			//++playerNum;
-			playerNum += (whichChar == -1) ? 1 : -1;
-			if(playerNum >= playerList.Length) playerNum = 0;
-			if(playerNum < 0) playerNum = playerList.Length - 1;
+			int count = 0;	// count prevents infinite loop
+			do {
+				playerNum += (whichChar == -1) ? 1 : -1;
+				if(playerNum >= playerList.Length) playerNum = 0;
+				if(playerNum < 0) playerNum = playerList.Length - 1;
+				count++;
+				if(count > playerList.Length)
+					break;
+			} while (playerList[playerNum].gameObject.activeSelf == false);
 		} else {
 			// Or selects one
-			if(playerList[whichChar] != null)
+			if(playerList[whichChar].gameObject.activeSelf == true)
 				playerNum = whichChar;
 		}
 
@@ -758,7 +764,7 @@ public class PlayerController : MonoBehaviour
 	public void SwapToNextChar()
 	{
 		int count = 0;	// The count makes sure there is never an infinite loop
-		while(player != null)
+		while(player.gameObject.activeSelf == false)
 		{
 			SwapCharacters(-1);
 			count++;
@@ -807,12 +813,20 @@ public class PlayerController : MonoBehaviour
 	/// <param name="deadPlayer">Dead player.</param>
 	public void RemovePlayerFromList(CharacterController deadPlayer)
 	{
-		if(playerList.Length == 1) return;
+		//if(playerList.Length == 1) return;
+		int charactersLeft = 0;
+		for(int n = 0; n < playerList.Length; ++n)
+			if(playerList[n].gameObject.activeSelf == true)
+				++charactersLeft;
+		if(charactersLeft == 1)
+			return;
+
 		for(int n = 0; n < playerList.Length; ++n)
 		{
 			if(playerList[n] == deadPlayer)
 			{
-				playerList[n] = null;
+				//playerList[n] = null;
+				playerList[n].gameObject.SetActive(false);
 				break;
 			}
 		}
@@ -837,6 +851,6 @@ public class PlayerController : MonoBehaviour
 
     void SetFollowScript()
     {
-        followScript = player.gameObject.GetComponent<Follower>();
+		followScript = player.gameObject.GetComponent<Follower>();
     }
 }
