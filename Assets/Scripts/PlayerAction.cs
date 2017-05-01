@@ -65,8 +65,11 @@ public class PlayerAction : MonoBehaviour {
                     //set interaction text
                     text.text = (obj.GetComponent(t) as IInteractable).ActionDescription();
 
+					GameObject currentPlayer = GetComponent<PlayerController>().Player.gameObject;
+
                     //check for button press
-                    if (Input.GetButtonDown("Action"))
+                    if (Input.GetButtonDown("Action") &&
+						currentPlayer.GetComponent<Health>() != null)
                     {
                         (obj.GetComponent(t) as IInteractable).Action();
                     }
