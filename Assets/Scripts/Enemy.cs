@@ -65,8 +65,6 @@ public class Enemy : MonoBehaviour {
     }
 
     public bool autoChangePath = true;
-    public EnemyWarpEvent warpEvent;
-    public SetEnemyPathEvent pathEvent;
 
 
     // Use this for initialization
@@ -568,14 +566,17 @@ public class Enemy : MonoBehaviour {
         agent.enabled = false;
     }
 
+    /// <summary>
+    /// Warp the enemy to a warp point near the current controlled player and set the path to one that includes the nearest path point.
+    /// </summary>
     void EnemyWarp()
     {
         Transform nearWarp = gm.NearestWarp(transform.position);
         Transform nearTarget = gm.NearestPathPoint(PlayerController.controller.Player.gameObject.transform.position);
-        //set warp location in event
-        //set path in event -- do i need, all methods should be here
         int index = gm.NearestPath(nearTarget);
         SetPath(index);
+        SetTarget(PlayerController.controller.Player.gameObject.transform.position, true);//will go straight to the player at a walk
+        agent.Warp(nearWarp.position);
         warpTimer = 0;
     }
 }

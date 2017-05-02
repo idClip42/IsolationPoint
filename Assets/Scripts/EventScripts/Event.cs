@@ -46,4 +46,13 @@ public class Event : MonoBehaviour {
         IsFinished = false;
         timeToComplete = startTime;
     }
+
+    /// <summary>
+    /// Manually set the start times when reusing events.
+    /// </summary>
+    /// <param name="time">New start time.</param>
+    public void SetStartTime(float time)
+    {
+        startTime = time;
+    }
 }

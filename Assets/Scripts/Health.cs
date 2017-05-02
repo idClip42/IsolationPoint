@@ -45,6 +45,13 @@ public class Health : MonoBehaviour {
 		}
 
 		gameUI.UpdateHealthBars ();
+
+        if(gameObject == PlayerController.controller.Player.gameObject)
+        {
+            //screen goes red
+            gameUI.FadeEvent.SetStartTime(0.5f);
+            gameUI.FadeEvent.PlayEvent();
+        }
 	}
 
 	/// <summary>

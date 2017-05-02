@@ -8,6 +8,7 @@ public class ScreenFadeEvent : Event {
 
     Image img;
     public float alpha = 1.0f;
+    public Color color;
 
 	// Use this for initialization
 	protected override void Start () {
@@ -31,6 +32,8 @@ public class ScreenFadeEvent : Event {
     public override void PlayEvent()
     {
         base.PlayEvent();
+        img.canvasRenderer.SetAlpha(1.0f);
+        img.color = color;
         Fade(alpha, timeToComplete);
     }
 }

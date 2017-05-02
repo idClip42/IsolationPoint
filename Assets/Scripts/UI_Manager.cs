@@ -11,6 +11,12 @@ public class UI_Manager : MonoBehaviour {
 	Generator gScript;
 	Radio rScript;
 
+    ScreenFadeEvent fadeEvent;
+    public ScreenFadeEvent FadeEvent
+    {
+        get { return fadeEvent; }
+    }
+
 	public Sprite redDot;
 	public Sprite redCross;
 	public Sprite greenCircle;
@@ -44,6 +50,7 @@ public class UI_Manager : MonoBehaviour {
 		playerIndex = GameObject.Find ("PlayerController").GetComponent<PlayerController>().playerNum;
 		gScript = GameObject.Find ("Generator").GetComponent<Generator> ();
 		rScript = GameObject.Find ("Radio").GetComponent<Radio> ();
+        fadeEvent = GetComponentInChildren<ScreenFadeEvent>();
 		crosshairDefault = new Vector2 (0.5f, 0.5f);
 		healthList = new List<Health> ();
 		healthBarList = new List<Image> ();

@@ -176,9 +176,15 @@ public class Gun : MonoBehaviour
 	void GunshotSound(GameObject muzzleFlash)
 	{
 		AudioSource a = muzzleFlash.AddComponent<AudioSource>();
-		a.clip = shotSound;
+        a.clip = shotSound;
 		a.time = audioDelay;
-		a.Play();
+
+        //Enemies can hear guns
+        SoundBubble b = muzzleFlash.AddComponent<SoundBubble>();
+        b.maxSize = 200;
+        b.willChase = true;
+
+        a.Play();
 	}
 
 
