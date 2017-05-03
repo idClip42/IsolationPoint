@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public bool autoChangePath = true;
+    public bool canWarp = false;
 
 
     // Use this for initialization
@@ -120,7 +121,7 @@ public class Enemy : MonoBehaviour {
 
         waitTime = 0;
         trapTimer = 0;
-        warpTime = 0;
+        warpTimer = 0;
 
         CanMove = canMove;
 
@@ -172,16 +173,15 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-/*
-        warpTimer += Time.deltaTime;
+        if (canWarp) warpTimer += Time.deltaTime;
         if (warpTimer >= warpTime)
         {
-            if (!GetComponent<Renderer>().isVisible && !targetingPlayer && !isImmobilized)
+            if (!GetComponentInChildren<Renderer>().isVisible && !targetingPlayer && !isImmobilized)
             {
                 EnemyWarp();
             }
         }
-*/
+
         if (isImmobilized)
         {
             trapTimer += Time.deltaTime;
@@ -208,6 +208,10 @@ public class Enemy : MonoBehaviour {
         }
 
         float dist = Vector3.Distance(transform.position, target.position);
+        if (agent.enabled)
+        {
+            dist = agent.remainingDistance;
+        }
         if (dist <= agent.stoppingDistance + startAttackDistance && !searching)
         {
             if (targetingPlayer)
@@ -571,11 +575,11 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void EnemyWarp()
     {
-        Transform nearWarp = gm.NearestWarp(transform.position);
-        Transform nearTarget = gm.NearestPathPoint(PlayerController.controller.Player.gameObject.transform.position);
+        Transform nearWarp = gm.NearestWarp(PlayerController.controller.Player.transform.position);
+        Transform nearTarget = gm.NearestPathPoint(PlayerController.controller.Player.transform.position);
         int index = gm.NearestPath(nearTarget);
         SetPath(index);
-        SetTarget(PlayerController.controller.Player.gameObject.transform.position, true);//will go straight to the player at a walk
+        SetTarget(PlayerController.controller.Player.transform.position, true);//will go straight to the player at a walk
         agent.Warp(nearWarp.position);
         warpTimer = 0;
     }

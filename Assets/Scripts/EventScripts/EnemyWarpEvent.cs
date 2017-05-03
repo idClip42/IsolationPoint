@@ -11,6 +11,7 @@ public class EnemyWarpEvent : Event {
     public bool willRun = false;        //Is the target 'seen' as a player?
     public bool willResumeMotion = true;    //Affects the nav agent, false will keep it in one place, true will set it to move
     public bool cannotLose = false;
+    public bool canAutoWarp = true;
 
 
     // Use this for initialization
@@ -92,6 +93,7 @@ public class EnemyWarpEvent : Event {
             }
         }
         g.GetComponent<Enemy>().CanMove = willResumeMotion;
+        g.GetComponent<Enemy>().canWarp = canAutoWarp;
     }
 
 }
