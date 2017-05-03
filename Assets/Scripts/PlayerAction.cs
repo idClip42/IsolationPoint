@@ -53,7 +53,7 @@ public class PlayerAction : MonoBehaviour {
         {
             if (obj.tag == "Weapon" || obj.tag == "Left_Object")
             {
-                text.text = "Pick up";
+                text.text = "Pick up " + obj.name;
             }
             else
             {
