@@ -7,12 +7,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public GameObject[] players;        //list of players -> access positions and alive status
-    public int activePlayers;           //score at the end
     public GameObject[] locations;      //lists of locations the enemy can wander to -> nodes for AI
                                         //2nd layer that holds nodes within a location to wander between
 
     public GameObject[] warps;          //warp locations
-    public Transform[] enemyStart;
     public GameObject[] enemies;
 
     public Objective[] objectives;     //list of objectives, in order, for the player to complete
@@ -57,7 +55,6 @@ public class GameManager : MonoBehaviour {
     void InitializeVariables()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
-        activePlayers = players.Length;
         //night = false;
         gameover = false;
         pauseInput = false;
@@ -99,6 +96,15 @@ public class GameManager : MonoBehaviour {
             //end game screen
             return;
         }
+
+        //check for character controllers enabled for gameOver stuff
+        int numLeft = players.Length;
+        foreach(GameObject g in players)
+        {
+            CharacterController cc = g.GetComponentInChildren<CharacterController>();
+            if (!cc.enabled) numLeft--;
+        }
+        if (numLeft == 0) gameover = true;
 
         //fade in the objective text
         if (!IsPlayingEvent && isFadingText)
@@ -234,6 +240,17 @@ public class GameManager : MonoBehaviour {
         }
         //this should hopefully never happen
         return 0;
+    }
+
+    public int playersAlive()
+    {
+        int alive = 0;
+        foreach(GameObject g in players)
+        {
+            Health h = g.GetComponentInChildren<Health>();
+            if (h.health > 0) alive++;
+        }
+        return alive;
     }
 
 }

@@ -146,7 +146,7 @@ public class Follower : MonoBehaviour {
         following = true;
         obst.enabled = false;
         leader = target;
-        agent.SetDestination(leader.transform.position);
+        if (agent.enabled) agent.SetDestination(leader.transform.position);
     }
 
     /// <summary>

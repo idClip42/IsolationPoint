@@ -579,7 +579,7 @@ public class Enemy : MonoBehaviour {
         Transform nearTarget = gm.NearestPathPoint(PlayerController.controller.Player.transform.position);
         int index = gm.NearestPath(nearTarget);
         SetPath(index);
-        SetTarget(PlayerController.controller.Player.transform.position, true);//will go straight to the player at a walk
+        SetTarget(nearTarget.position, true);
         agent.Warp(nearWarp.position);
         warpTimer = 0;
     }
