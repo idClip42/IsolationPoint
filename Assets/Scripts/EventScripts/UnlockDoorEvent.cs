@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +11,8 @@ public class UnlockDoorEvent : Event {
     {
         foreach(GameObject g in doors)
         {
-            DoorMovement d = g.GetComponent<DoorMovement>();
-            d.IsLocked = unlock;
+            DoorMovement d = g.GetComponentInChildren<DoorMovement>();
+            d.IsLocked = !unlock;
         }
         base.PlayEvent();
     }
