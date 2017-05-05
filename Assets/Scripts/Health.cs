@@ -150,7 +150,7 @@ public class Health : MonoBehaviour {
 		CharacterController cc = GetComponent<CharacterController>();
 		if(cc != null)
 		{
-			PlayerController.controller.RemovePlayerFromList(cc);
+			PlayerController.controller.RemovePlayerFromList(cc, true);
 			//Destroy(cc);
 			cc.enabled = false;
 		}
