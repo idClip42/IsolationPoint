@@ -741,10 +741,10 @@ public class PlayerController : MonoBehaviour
 				count++;
 				if(count > playerList.Length)
 					break;
-			} while (playerList[playerNum].gameObject.activeSelf == false);
+			} while (playerList[playerNum].gameObject.activeSelf == false || playerList[playerNum].GetComponent<Health>() == null);
 		} else {
 			// Or selects one
-			if(playerList[whichChar].gameObject.activeSelf == true)
+			if(playerList[whichChar].gameObject.activeSelf == true && playerList[whichChar].GetComponent<Health>() != null)
 				playerNum = whichChar;
 		}
 
@@ -764,7 +764,7 @@ public class PlayerController : MonoBehaviour
 	public void SwapToNextChar()
 	{
 		int count = 0;	// The count makes sure there is never an infinite loop
-		while(player.gameObject.activeSelf == false)
+		while(player.gameObject.activeSelf == false || player.GetComponent<Health>() == null)
 		{
 			SwapCharacters(-1);
 			count++;
@@ -811,12 +811,12 @@ public class PlayerController : MonoBehaviour
 	/// Removes the player from playerList.
 	/// </summary>
 	/// <param name="deadPlayer">Dead player.</param>
-	public void RemovePlayerFromList(CharacterController deadPlayer)
+	public void RemovePlayerFromList(CharacterController deadPlayer, bool isDead)
 	{
 		//if(playerList.Length == 1) return;
 		int charactersLeft = 0;
 		for(int n = 0; n < playerList.Length; ++n)
-			if(playerList[n].gameObject.activeSelf == true)
+			if(playerList[n].gameObject.activeSelf == true && player.GetComponent<Health>() != null)
 				++charactersLeft;
 		if(charactersLeft == 1)
 			return;
@@ -826,7 +826,8 @@ public class PlayerController : MonoBehaviour
 			if(playerList[n] == deadPlayer)
 			{
 				//playerList[n] = null;
-				playerList[n].gameObject.SetActive(false);
+				if(!isDead)
+					playerList[n].gameObject.SetActive(false);
 				break;
 			}
 		}
