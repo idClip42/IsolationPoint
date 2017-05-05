@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void NextObjective()
     {
+        if (objectives.Length == 0) return;
         if(currentObjective+1 < objectives.Length)
         {            
             //enable next set of objectives
