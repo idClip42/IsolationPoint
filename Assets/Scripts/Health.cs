@@ -51,6 +51,9 @@ public class Health : MonoBehaviour {
             //screen goes red
             gameUI.FadeEvent.SetStartTime(0.5f);
             gameUI.FadeEvent.PlayEvent();
+        }else if(gameObject.tag == "Enemy")
+        {
+            gameObject.GetComponent<Enemy>().IsStunned = true;
         }
 	}
 
@@ -66,7 +69,18 @@ public class Health : MonoBehaviour {
 		if(health <= 0) Die();
 
 		gameUI.UpdateHealthBars ();
-	}
+
+        if (gameObject == PlayerController.controller.Player.gameObject)
+        {
+            //screen goes red
+            gameUI.FadeEvent.SetStartTime(0.5f);
+            gameUI.FadeEvent.PlayEvent();
+        }
+        else if (gameObject.tag == "Enemy")
+        {
+            gameObject.GetComponent<Enemy>().IsStunned = true;
+        }
+    }
 
 
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Health))]
-[RequireComponent(typeof(Combat))]
+//[RequireComponent(typeof(NavMeshAgent))]
+//[RequireComponent(typeof(Health))]
+//[RequireComponent(typeof(Combat))]
 public class Enemy : MonoBehaviour {
 
     public GameManager gm;              //for general game info such as players and their locations
@@ -67,6 +67,21 @@ public class Enemy : MonoBehaviour {
     public bool autoChangePath = true;
     public bool canWarp = false;
 
+    public float stunDuration = 2.0f;
+    float stunTimer;
+    bool isStunned;
+    public bool IsStunned
+    {
+        get { return isStunned; }
+        set {
+            isStunned = value;
+            if (!isStunned)
+            {
+                stunTimer = 0;
+            }
+        }
+    }
+
 
     // Use this for initialization
     void Start () {
@@ -122,8 +137,10 @@ public class Enemy : MonoBehaviour {
         waitTime = 0;
         trapTimer = 0;
         warpTimer = 0;
+        stunTimer = 0;
 
         CanMove = canMove;
+        isStunned = false;
 
 		anim.SetLayerWeight(anim.GetLayerIndex("HeadLayer"), 0);
 		anim.SetLayerWeight(anim.GetLayerIndex("LeftHandLayer"), 0);
@@ -144,9 +161,24 @@ public class Enemy : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //gameover / cannot move
+        if (healthScript.health <= 0)
+        {
+            gm.gameover = true;
+            return;
+        }
+
+        if (isStunned)
+        {
+            stunTimer += Time.deltaTime;
+            if (stunTimer >= stunDuration)
+            {
+                IsStunned = false;
+            }
+        }
+
         if (agent.enabled)
         {
-            if (gm.PauseInput)
+            if (gm.PauseInput || isStunned)
             {
                 agent.Stop();
                 return;
@@ -157,13 +189,7 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        if (healthScript.health <= 0)
-        {
-            gm.gameover = true;
-            return;
-        }
-
-        if(waitTime > 0)
+        if (waitTime > 0)
         {
             waitTime -= Time.deltaTime;
             if(waitTime < 0)
