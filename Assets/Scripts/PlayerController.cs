@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -749,7 +749,7 @@ public class PlayerController : MonoBehaviour
 		}
 
         if (playerNum >= playerList.Length) return;
-        if (crouchState != 1 && player.enabled)
+        if (followScript.Agent.isOnNavMesh && player.enabled)
             followScript.EnableAgent();
         player = playerList[playerNum];
         SetFollowScript();
