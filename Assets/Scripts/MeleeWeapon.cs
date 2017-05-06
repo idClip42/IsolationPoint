@@ -17,6 +17,13 @@ public class MeleeWeapon : MonoBehaviour {
 	float timer;								// used with wait variable
 	int currentAnimIndex;						// The current animation to be played from attackAnimations
 
+
+
+	BloodyKiller bloodyKiller;
+	public BloodyKiller BloodyKiller { set { bloodyKiller = value; } }
+
+
+
 	void Start () 
 	{
 		// Gets the collider, makes sure it's NOT a trigger
@@ -134,5 +141,8 @@ public class MeleeWeapon : MonoBehaviour {
 			healthScript.Hit(damage, drawBlood, point, normal, null);
 		else if(healthPartScript != null)
 			healthPartScript.Hit(damage, drawBlood, point, normal);
+
+		if(bloodyKiller != null)
+			bloodyKiller.doBlood();
 	}
 }
