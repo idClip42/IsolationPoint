@@ -64,7 +64,7 @@ public class Flashlight : MonoBehaviour
 			*/
 
         //Check if an enemy is within the light
-        CheckEnemyInLight();
+        //CheckEnemyInLight();
 
 		// Animates player with flashlight
 		if(charAnim == null) return;
