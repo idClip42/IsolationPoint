@@ -1324,7 +1324,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942566859564808}
-  m_LocalRotation: {x: 0.30384073, y: -0.64503866, z: 0.31283832, w: 0.6274855}
+  m_LocalRotation: {x: 0.30384076, y: -0.6450387, z: 0.31283835, w: 0.6274856}
   m_LocalPosition: {x: -0.0000000053551044, y: 0.47874445, z: 0.000000007945345}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.9999998}
   m_Children:
@@ -2855,6 +2855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162b460e27f206441b5f237b1a836e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWorking: 0
 --- !u!136 &136311624719841428
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3573,7 +3574,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922511413200784}
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
@@ -3595,7 +3596,7 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.3, y: 1, z: 0.3}
+  m_Extents: {x: 0.25, y: 1, z: 0.25}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1

@@ -31,7 +31,7 @@ public class MeleeWeapon : MonoBehaviour {
 		if(col == null) col = GetComponentInChildren<Collider>();
 		//Debug.Log(col);
 		//col.isTrigger = true;
-		col.isTrigger = false;
+		//col.isTrigger = false;
 
 		// Will only collide with character hit boxes
 		gameObject.layer = 9;
@@ -127,6 +127,8 @@ public class MeleeWeapon : MonoBehaviour {
 
 		// Ends the animation and attacking
 		timer = 0;
+
+		//Debug.Log(name + " hit " + c.gameObject.name);
 
 		// Gets the health script of the target
 		Health healthScript = c.gameObject.GetComponent<Health>();

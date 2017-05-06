@@ -34,7 +34,7 @@ public class BloodyKiller : MonoBehaviour
 
 	public void doBlood()
 	{
-		Debug.Log("doBlood()");
+		//Debug.Log("doBlood()");
 		++index;
 		if(index < bloodTexs.Length)
 		{
