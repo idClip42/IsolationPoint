@@ -29,6 +29,7 @@ public class MeleeWeapon : MonoBehaviour {
 		// Gets the collider, makes sure it's NOT a trigger
 		col = GetComponent<Collider>();
 		if(col == null) col = GetComponentInChildren<Collider>();
+		//Debug.Log(col);
 		//col.isTrigger = true;
 		col.isTrigger = false;
 
@@ -86,7 +87,9 @@ public class MeleeWeapon : MonoBehaviour {
 
 	public void IsHeld(bool value)
 	{
-		col.isTrigger = value;
+		//col.isTrigger = value;
+		GetComponentInChildren<Collider>().isTrigger = value;
+
 		GetComponent<Rigidbody>().isKinematic = value;
 	}
 

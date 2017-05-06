@@ -31,11 +31,14 @@ public class Combat : MonoBehaviour {
 
 	void Start () 
 	{
+		//Debug.Log("I am a combat script");
 		UIScript = GameObject.Find ("UI").GetComponent<UI_Manager> ();
 		// Equips any weapon that is already in the public variable in the inspector
 		PickUpWeapon(weapon);
 
 		anim = GetComponentInChildren<Animator>();
+		//Debug.Log("Enemy: " + gameObject.tag == "Enemy");
+		//Debug.Log(anim);
 		cam = Camera.main;
 		timer = 0;
 		currentMaxTime = 0;

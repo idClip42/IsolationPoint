@@ -1462,7 +1462,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958284686485680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.672989, y: -0.19999953, z: 30.020039}
+  m_LocalPosition: {x: 16.103825, y: -49.37, z: 146.16248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430646111616324}
@@ -2689,7 +2689,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -2926,19 +2926,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
-  walkSpeed: 2
-  runSpeed: 4
-  searchSpeed: 1
+  walkSpeed: 4
+  runSpeed: 7
+  searchSpeed: 2
   angleOfVision: 100
   visionDistance: 20
   searchDuration: 5
   trapTime: 5
-  target: {fileID: 4430646111616324}
+  target: {fileID: 0}
   warpTime: 90
   lookTime: 2
   startAttackDistance: 0.5
   canMove: 1
-  autoChangePath: 0
+  autoChangePath: 1
   canWarp: 0
   stunDuration: 2
 --- !u!114 &114271817916992556
@@ -3314,8 +3314,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4801814791017988}
   m_AABB:
-    m_Center: {x: 0.0037345886, y: -0.2144494, z: 1.4320145}
-    m_Extent: {x: 0.030042686, y: 0.1974006, z: 0.14375333}
+    m_Center: {x: 0.0037326813, y: -0.21445084, z: 1.4320221}
+    m_Extent: {x: 0.030042686, y: 0.19739988, z: 0.14375693}
   m_DirtyAABB: 0
 --- !u!137 &137570528717780212
 SkinnedMeshRenderer:
