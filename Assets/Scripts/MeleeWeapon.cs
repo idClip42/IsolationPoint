@@ -128,7 +128,7 @@ public class MeleeWeapon : MonoBehaviour {
 		// Ends the animation and attacking
 		timer = 0;
 
-		//Debug.Log(name + " hit " + c.gameObject.name);
+		Debug.Log(name + " hit " + c.gameObject.name);
 
 		// Gets the health script of the target
 		Health healthScript = c.gameObject.GetComponent<Health>();
