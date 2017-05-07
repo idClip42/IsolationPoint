@@ -8,6 +8,7 @@ public class Objective : MonoBehaviour {
     public bool isTriggered;    //can be completed by trigger on collider (ie. go to location)
     public bool onEnter;    //trigger complete upon enter or exit?
     public string[] triggerTags;    //tags that will trigger completion
+    public string[] triggerNames;    //names that will trigger completion
 
     public Objective parent;   //main objective parent, if null find gm
                                 //could be another objective -> subobjectives
@@ -75,13 +76,21 @@ public class Objective : MonoBehaviour {
     {
         if (isTriggered && onEnter && isActiveAndEnabled)
         {
-            bool tagged = false;    //correct tag to trigger?
+            bool tagged = false;    //correct tag or name to trigger?
             foreach (string tag in triggerTags)
             {
                 if (tag == c.tag)
                 {
                     tagged = true;
-                    continue;
+                    break;
+                }
+            }
+            foreach (string name in triggerNames)
+            {
+                if (name == c.name)
+                {
+                    tagged = true;
+                    break;
                 }
             }
 
@@ -108,13 +117,21 @@ public class Objective : MonoBehaviour {
     {
         if (isTriggered && !onEnter && isActiveAndEnabled)
         {
-            bool tagged = false;    //correct tag to trigger?
-            foreach(string tag in triggerTags)
+            bool tagged = false;    //correct tag or name to trigger?
+            foreach (string tag in triggerTags)
             {
-                if(tag == c.tag)
+                if (tag == c.tag)
                 {
                     tagged = true;
-                    continue;
+                    break;
+                }
+            }
+            foreach (string name in triggerNames)
+            {
+                if (name == c.name)
+                {
+                    tagged = true;
+                    break;
                 }
             }
 

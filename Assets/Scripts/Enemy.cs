@@ -8,7 +8,7 @@ using UnityEngine.AI;
 //[RequireComponent(typeof(Combat))]
 public class Enemy : MonoBehaviour {
 
-    public GameManager gm;              //for general game info such as players and their locations
+    GameManager gm;              //for general game info such as players and their locations
 
     public float walkSpeed;             // The speed at which the enemy walks/wanders,
     public float runSpeed;              // runs/sprints/chases,
@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void InitializeVariables()
     {
-        //faceTarget = true;
+        gm = GameObject.Find("GM").GetComponent<GameManager>();
         searching = true;
         targetingPlayer = false;
         isImmobilized = false;
