@@ -18,6 +18,7 @@ public class Quit : MonoBehaviour {
 	}
 
 	public void onclick(){
+		Debug.Log ("Should exit application");
 		Application.Quit ();
 	}
 }
