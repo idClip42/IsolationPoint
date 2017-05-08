@@ -758,7 +758,7 @@ public class PlayerController : MonoBehaviour
 		}
 
         if (playerNum >= playerList.Length) return;
-        if (followScript.Agent.isOnNavMesh && player.enabled)
+        if (followScript.IsOnNavMesh() && player.enabled)
             followScript.EnableAgent();
         player = playerList[playerNum];
         SetFollowScript();
