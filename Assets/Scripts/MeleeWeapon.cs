@@ -130,6 +130,19 @@ public class MeleeWeapon : MonoBehaviour {
 
 		//Debug.Log(name + " hit " + c.gameObject.name);
 
+
+		// Checks to see if this player is the fighter
+		// if so, multiplies the damage
+		float fighterMult = 1;
+		CharacterController[] players = PlayerController.controller.playerList;
+		for(int n = 0; n < players.Length; ++n)
+			if(players[n].GetComponent<Fighter>() != null &&
+				transform.IsChildOf(players[n].transform))
+				fighterMult = 2;
+
+
+
+
 		// Gets the health script of the target
 		Health healthScript = c.gameObject.GetComponent<Health>();
 		Health_Part healthPartScript = c.gameObject.GetComponent<Health_Part>();
@@ -143,9 +156,9 @@ public class MeleeWeapon : MonoBehaviour {
 		Vector3 point = c.ClosestPointOnBounds(transform.position);
 		Vector3 normal = Vector3.up;	// Perhaps this should be the dif between the closest point and the transform from above
 		if(healthScript != null)
-			healthScript.Hit(damage, drawBlood, point, normal, null);
+			healthScript.Hit(damage * fighterMult, drawBlood, point, normal, null);
 		else if(healthPartScript != null)
-			healthPartScript.Hit(damage, drawBlood, point, normal);
+			healthPartScript.Hit(damage * fighterMult, drawBlood, point, normal);
 
 		if(bloodyKiller != null)
 			bloodyKiller.doBlood();
