@@ -230,5 +230,12 @@ public class Follower : MonoBehaviour {
         anim.SetFloat("RightDot", rightDot);
     }
 
+    public bool IsOnNavMesh()
+    {
+        NavMeshHit hit;
+        NavMesh.SamplePosition(transform.position, out hit, agent.baseOffset + 0.1f, NavMesh.AllAreas);
+        return hit.hit;
+    }
+
 
 }
