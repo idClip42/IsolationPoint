@@ -1181,6 +1181,7 @@ GameObject:
   - component: {fileID: 114484081343078550}
   - component: {fileID: 195633053696174942}
   - component: {fileID: 208150562580731066}
+  - component: {fileID: 114879474166221526}
   m_Layer: 0
   m_Name: Player-FighterCold
   m_TagString: Player
@@ -1324,7 +1325,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942566859564808}
-  m_LocalRotation: {x: 0.30384076, y: -0.6450387, z: 0.31283835, w: 0.6274856}
+  m_LocalRotation: {x: 0.30384073, y: -0.64503866, z: 0.31283832, w: 0.6274855}
   m_LocalPosition: {x: -0.0000000053551044, y: 0.47874445, z: 0.000000007945345}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.9999998}
   m_Children:
@@ -2347,8 +2348,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922511413200784}
-  m_LocalRotation: {x: -0, y: -0.6382629, z: -0, w: 0.7698185}
-  m_LocalPosition: {x: 54.49, y: 5, z: 29.25}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.01, y: 0.85, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4232516723350214}
@@ -2856,6 +2857,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWorking: 0
+--- !u!114 &114879474166221526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1922511413200784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d02a71284e8405a8f219b206c249c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136311624719841428
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 114337407667410870}
   - component: {fileID: 195945949677008914}
   - component: {fileID: 208655462422652058}
+  - component: {fileID: 114249665891503922}
   m_Layer: 0
   m_Name: Player-RunnerWarm
   m_TagString: Player
@@ -2744,6 +2745,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114249665891503922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1106470338137622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3502efcd957641cfb9cc06be0424139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114282880159500686
 MonoBehaviour:
   m_ObjectHideFlags: 1

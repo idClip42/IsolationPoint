@@ -293,12 +293,18 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void MovePlayer()
 	{
+		bool isRunner = player.GetComponent<Runner>() != null;
+		float runnerMult = 2f;
+
 		// Updates velocity with user input
-		MoveInput();
+		MoveInput(isRunner, runnerMult);
 
 		// Determines and enforces player speed based on how they are moving
 		bool runInput = Input.GetButton("Run");
-		float maxSpeed = crouchState < 3 ? crouchSpeed : runInput ? runSpeed : walkSpeed;
+		float maxSpeed = (crouchState < 3) ? crouchSpeed : (runInput) ? runSpeed : walkSpeed;
+		if(runInput && isRunner)
+			maxSpeed *= runnerMult;
+
 		if(runInput) Crouch(false);
 		velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
@@ -331,7 +337,7 @@ public class PlayerController : MonoBehaviour
 	/// <summary>
 	/// Takes user input to change player velocity
 	/// </summary>
-	void MoveInput()
+	void MoveInput(bool isRunner, float accelMult)
 	{
 		// Gets the forward and right vectors of the camera
 		Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
@@ -345,9 +351,12 @@ public class PlayerController : MonoBehaviour
 		fwdInput += Input.GetAxisRaw("Joy Vertical");
 		rightInput += Input.GetAxisRaw("Joy Horizontal");
 
+		float accel = acceleration;
+		if(isRunner) accel *= accelMult;
+
 		// Adds input movement to the velocity
 		if(player.isGrounded)
-			velocity += (forward * fwdInput + right * rightInput) * acceleration * Time.fixedDeltaTime;
+			velocity += (forward * fwdInput + right * rightInput) * accel * Time.fixedDeltaTime;
 	}
 
 

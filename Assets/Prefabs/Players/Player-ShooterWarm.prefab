@@ -1189,6 +1189,7 @@ GameObject:
   - component: {fileID: 114124834393934648}
   - component: {fileID: 195529616497541316}
   - component: {fileID: 208959078655458976}
+  - component: {fileID: 114370210852544414}
   m_Layer: 0
   m_Name: Player-ShooterWarm
   m_TagString: Player
@@ -2519,6 +2520,17 @@ MonoBehaviour:
   bloodStains: 1
   bloodStainProjector: {fileID: 1548569733569724, guid: df2f11aa9a4e043269cbe355c008f81f,
     type: 2}
+--- !u!114 &114370210852544414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973415737447108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c764e79b7d6e4309979f55ae26a2fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114421113312322962
 MonoBehaviour:
   m_ObjectHideFlags: 1

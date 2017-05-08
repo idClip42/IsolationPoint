@@ -1089,6 +1089,7 @@ GameObject:
   - component: {fileID: 114653263815083010}
   - component: {fileID: 195036918971269068}
   - component: {fileID: 208001306983892016}
+  - component: {fileID: 114328284922805968}
   m_Layer: 0
   m_Name: Player-RunnerCold
   m_TagString: Player
@@ -2813,6 +2814,17 @@ MonoBehaviour:
   bloodStains: 1
   bloodStainProjector: {fileID: 1548569733569724, guid: df2f11aa9a4e043269cbe355c008f81f,
     type: 2}
+--- !u!114 &114328284922805968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1897821199183556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3502efcd957641cfb9cc06be0424139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114653263815083010
 MonoBehaviour:
   m_ObjectHideFlags: 1
