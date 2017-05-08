@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 33101168930320306}
   - component: {fileID: 23058750309913620}
   - component: {fileID: 136749829420339452}
+  - component: {fileID: 64242119719947916}
   m_Layer: 0
   m_Name: flashlight
   m_TagString: Untagged
@@ -68,8 +69,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214195526188074}
-  m_LocalRotation: {x: -0, y: 0.38854423, z: -0, w: 0.9214302}
-  m_LocalPosition: {x: 27.557, y: 1.23, z: 198.828}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.26, y: 0.9662, z: -2.1904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4697003316497276}
@@ -156,6 +157,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!64 &64242119719947916
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790027950409900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: d8d2eb76cc2fc4cec9b1ba1dacfdea9a, type: 3}
 --- !u!108 &108755431708639060
 Light:
   m_ObjectHideFlags: 1
@@ -209,7 +224,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1790027950409900}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.52169156
   m_Height: 4.39603
   m_Direction: 1
