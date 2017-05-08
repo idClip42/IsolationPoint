@@ -8,6 +8,7 @@ public class LoadLevel : MonoBehaviour {
 
 	Button playButton;
 
+	public int sceneIndex;
 	// Use this for initialization
 	void Start () {
 		playButton = GetComponent<Button> ();
@@ -21,6 +22,6 @@ public class LoadLevel : MonoBehaviour {
 
 	public void onclick(){
 		Debug.Log ("New scene should load");
-		Application.LoadLevel (0);
+		Application.LoadLevel (sceneIndex);
 	}
 }
