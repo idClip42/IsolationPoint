@@ -43,6 +43,9 @@ public class UI_Manager : MonoBehaviour {
 	float pTimer;
     float fTimer;
 
+	float generatorFixTime;
+	float radioFixTime;
+
 	int playerIndex;
 
 	void Start () {
@@ -69,6 +72,9 @@ public class UI_Manager : MonoBehaviour {
 
 		barPrefab.enabled = false;
 		bar.enabled = false;
+
+		generatorFixTime = 5.0f;
+     	radioFixTime = 5.0f;
 	}
 	
 	// Update is called once per frame
@@ -164,12 +170,18 @@ public class UI_Manager : MonoBehaviour {
 	public void StartGeneratorFix(){
 		ResetBar ();
 		fixingGenerator = true;
+
+		if(PlayerController.controller.Player.GetComponent<Engineer>() != null)
+			generatorFixTime /= 2;
 	}
 
 	public void StartRadioFix(){
 		ResetBar ();
 		fixingRadio = true;
 		rScript.isFixing = true;
+
+		if(PlayerController.controller.Player.GetComponent<Engineer>() != null)
+			radioFixTime /= 2;
 	}
 
 	void GetGBar(){
@@ -186,7 +198,8 @@ public class UI_Manager : MonoBehaviour {
 		
 		gTimer += Time.deltaTime;
 
-		bar.fillAmount = (gTimer / 5.0f);
+		//bar.fillAmount = (gTimer / 5.0f);
+		bar.fillAmount = (gTimer / generatorFixTime);
 
 		if (bar.fillAmount == 1.0f) {
 			fixingGenerator = false;
@@ -212,7 +225,8 @@ public class UI_Manager : MonoBehaviour {
 
 		pTimer += Time.deltaTime;
 
-		bar.fillAmount = (pTimer / 5.0f);
+		//bar.fillAmount = (pTimer / 5.0f);
+		bar.fillAmount = (pTimer / radioFixTime);
 
 		if (bar.fillAmount == 1.0f) {
 			fixingRadio = false;
@@ -242,7 +256,7 @@ public class UI_Manager : MonoBehaviour {
     /// <param name="fill">How full the bar is</param>
     public void UpdateBar(float fill, Follower worker)
     {
-        bar.fillAmount = fill;
+		bar.fillAmount = fill;
 
         if (bar.fillAmount == 1.0f)
         {
