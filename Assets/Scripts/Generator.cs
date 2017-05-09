@@ -117,11 +117,26 @@ public class Generator : MonoBehaviour, IInteractable {
 		List <Material> materialList = new List<Material>();
 		for(int n = 0; n < allLights.Length; ++n)
 		{
+			/*
 			allLights[n].GetComponentInChildren<Light>().enabled = lOn;
 			float intensity = 2.0f;
 			if(!lOn)
 				intensity = 0;
             allLights[n].GetComponentInChildren<Light>().intensity = intensity;
+			MeshRenderer m = allLights[n].GetComponentInChildren<MeshRenderer>();
+			if(m != null) m.material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
+
+			*/
+			float intensity = 2.0f;
+			Light lite = allLights[n].GetComponentInChildren<Light>();
+			if(!lOn)
+				intensity = 0;
+			if(lite != null)
+			{
+				lite.enabled = lOn;
+				lite.intensity = intensity;
+			}
+
 			MeshRenderer m = allLights[n].GetComponentInChildren<MeshRenderer>();
 			if(m != null) m.material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
 		}

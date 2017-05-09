@@ -31,9 +31,18 @@ public class LightFlickerEvent : Event {
         //change light intensity
         foreach (GameObject l in generator.AllLights)
         {
+			/*
             l.GetComponentInChildren<Light>().intensity = intensity;
 			MeshRenderer m = l.GetComponentInChildren<MeshRenderer>();
 			if(m != null) m.material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
+			*/
+
+			MeshRenderer m = l.GetComponentInChildren<MeshRenderer>();
+			if(m != null) m.material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
+
+			Light lite = l.GetComponentInChildren<Light>();
+			if(lite == null) return;
+			lite.intensity = intensity;
         }
     }
 
