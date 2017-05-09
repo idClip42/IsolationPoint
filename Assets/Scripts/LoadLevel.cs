@@ -22,6 +22,7 @@ public class LoadLevel : MonoBehaviour {
 
 	public void onclick(){
 		Debug.Log ("New scene should load");
-		Application.LoadLevel (sceneIndex);
+		//Application.LoadLevel (sceneIndex);
+		SceneManager.LoadScene(sceneIndex);
 	}
 }
