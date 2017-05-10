@@ -28,6 +28,7 @@ public class PlayerAction : MonoBehaviour {
 		componentDict.Add("Radio", typeof(Radio));
 		componentDict.Add("BearTrap", typeof(BearTrap));
 		componentDict.Add("Escape", typeof(Escape));
+		componentDict.Add("Ding", typeof(Ding));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 
