@@ -34,6 +34,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
                         //free the enemy
                         caughtEntity.GetComponent<Enemy>().Free();
                     }
+                    caughtEntity = null;
                 }
             }
             else
@@ -56,7 +57,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
     float restTime;
     float sprayTimer;
 
-    bool isSetting;
+    public bool isSetting;
     bool IsSetting
     {
         set
@@ -70,6 +71,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
                 {
                     IsOpen = true;
                 }
+                timer = 0;
             }
         }
     }
@@ -122,7 +124,7 @@ public class BearTrap : MonoBehaviour, IInteractable {
     // Update is called once per frame
     void Update()
     {
-        if (!isOpen)
+        if (!isOpen && !isSetting)
         {
             if (caughtEntity != null && caughtEntity != PlayerController.controller.Player.gameObject && caughtEntity.tag != "Enemy")
             {
