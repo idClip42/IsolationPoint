@@ -28,15 +28,18 @@ public class SetEnemyPathEvent : Event {
             foreach (Enemy e in enemies)
             {
                 e.SetPath(pathName);
-                e.autoChangePath = autoSwitchPaths;
             }
         }else if(pathIndex >= 0)
         {
             foreach (Enemy e in enemies)
             {
                 e.SetPath(pathIndex);
-                e.autoChangePath = autoSwitchPaths;
             }
+        }
+
+        foreach(Enemy e in enemies)
+        {
+            e.autoChangePath = autoSwitchPaths;
         }
     }
 }

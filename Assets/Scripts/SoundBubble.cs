@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundBubble : MonoBehaviour {
 
     AudioSource src;
+    bool wasPlaying;
 	public float maxSize = 10;
     float maxScale;
     GameManager gm;
@@ -14,25 +16,41 @@ public class SoundBubble : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         src = GetComponent<AudioSource>();
+        wasPlaying = false;
         //GetMaxScale();
         gm = GameObject.Find("GM").GetComponent<GameManager>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (src.isPlaying)
+        if (src.isPlaying && !wasPlaying)
         {
+            wasPlaying = true;
+            Debug.Log("Sound");
             for(int i = 0; i < gm.enemies.Length; i++)
             {
                 if((gm.enemies[i].transform.position - transform.position).sqrMagnitude <= Mathf.Pow(maxSize, 2))
                 {
-					if (willChase) {
-						gm.enemies [i].GetComponent<Enemy> ().ChaseTarget (transform.position);
-					} else {
-						gm.enemies [i].GetComponent<Enemy> ().SetTarget (transform.position, false);
-					}
+                    Debug.Log("In Range");
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(transform.position, out hit, 1.5f, NavMesh.AllAreas))
+                    {
+                        if (willChase)
+                        {
+                            gm.enemies[i].GetComponent<Enemy>().ChaseTarget(hit.position);
+                            Debug.Log("Chase");
+                        }
+                        else
+                        {
+                            gm.enemies[i].GetComponent<Enemy>().SetTarget(hit.position, false);
+                            Debug.Log("Walk");
+                        }
+                    }
                 }
             }
+        }else if(wasPlaying && !src.isPlaying)
+        {
+            wasPlaying = false;
         }
 	}
 
