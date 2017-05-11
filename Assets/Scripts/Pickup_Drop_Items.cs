@@ -76,6 +76,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				if(currentItem != null)
 					currentItem.transform.parent = null;
 				currentItem = hit.transform.gameObject;
+                currentItem.tag = "Untagged";
 				combatScript.PickUpWeapon (currentItem);
 				return true;
 			}
@@ -84,6 +85,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 					DropItem (true);
 				}
 				leftHandItem = hit.transform.gameObject;
+                leftHandItem.tag = "Untagged";
 				leftHandItem.GetComponentInChildren<Collider>().enabled = false;
 				return true;
 			}
@@ -164,7 +166,8 @@ public class Pickup_Drop_Items : MonoBehaviour {
 				rb.velocity = (Camera.main.transform.forward + Camera.main.transform.up) * 100f;
 				rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAX_DROP_SPEED);
 
-				// resets current item
+                // resets current item
+                currentItem.tag = "Weapon";
 				currentItem = null;
 
 				combatScript.PickUpWeapon (null);
@@ -194,6 +197,7 @@ public class Pickup_Drop_Items : MonoBehaviour {
 	
 				//Debug.Log(leftHandItem.GetComponent<Collider>());
 				leftHandItem.GetComponentInChildren<Collider>().enabled = true;
+                leftHandItem.tag = "Left_Object";
 
 				leftHandItem = null;
 			}

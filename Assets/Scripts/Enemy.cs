@@ -26,7 +26,8 @@ public class Enemy : MonoBehaviour {
     //Transform facing;                     //Direction the model is facing and therefore seeing out of, usually matches direction of movement, except when searching?
 
     bool searching;                     //True when target player is lost -> search upon reaching target -> involves rotating field of view
-    bool targetingPlayer;               //True if the target is the player -> run
+    public bool targetingPlayer;               //True if the target is the player -> run
+    bool targetingAfterWarp;
     bool isImmobilized;
 
     NavMeshAgent agent;                 //Used to easily navigate the environment
@@ -96,6 +97,7 @@ public class Enemy : MonoBehaviour {
         gm = GameObject.Find("GM").GetComponent<GameManager>();
         searching = true;
         targetingPlayer = false;
+        targetingAfterWarp = false;
         isImmobilized = false;
 
         //facing = transform;//match to head of model
@@ -192,9 +194,10 @@ public class Enemy : MonoBehaviour {
         if (waitTime > 0)
         {
             waitTime -= Time.deltaTime;
-            if(waitTime < 0)
+            if(waitTime <= 0)
             {
                 target.position = afterWarp;
+                targetingPlayer = targetingAfterWarp;
                 if (agent.enabled) agent.SetDestination(target.position);
             }
         }
@@ -281,6 +284,7 @@ public class Enemy : MonoBehaviour {
         CheckView();
 
         if (targetingPlayer) FaceTarget();
+        Debug.DrawLine(transform.position, agent.destination, Color.red);
         if (target != null && agent.enabled) agent.SetDestination(target.position);
     }
 
@@ -524,10 +528,12 @@ public class Enemy : MonoBehaviour {
     public void SetTarget(Vector3 pos, bool forgetPlayer)
     {
         //if still remember the player position and targeting player, dont set new target
-        if (!forgetPlayer && targetingPlayer) return;
+        bool test = !forgetPlayer && targetingPlayer;
+        if (test) return;
 
         //if not already targeting player...
-        waitTime = 1;
+        waitTime = .3f;
+        targetingAfterWarp = test;
         searching = false;
         afterWarp = pos;
     }
@@ -538,9 +544,9 @@ public class Enemy : MonoBehaviour {
     /// <param name="playerPos">Supposed position of the player</param>
     public void ChaseTarget(Vector3 playerPos)
     {
-        waitTime = 1;
+        waitTime = .3f;
         afterWarp = playerPos;
-        targetingPlayer = true;
+        targetingAfterWarp = true;
         searching = false;
         lastSeen = playerPos;
     }
