@@ -13,10 +13,12 @@ public class MainMenu : MonoBehaviour {
 	public Text instr;
 	public Text instrMenu;
 	public Text back;
+	public Text play2;
 	 
 	public Button controlButton;
 	public Button backButton;
 	public Button instrButton;
+	public Button play2Button;
 
 	// Use this for initialization
 	void Start () {
@@ -62,6 +64,7 @@ public class MainMenu : MonoBehaviour {
 	void HideButtonText(){
 		controls.enabled = false;
 		play.enabled = false;
+		play2.enabled = false;
 		quit.enabled = false;
 		instr.enabled = false;
 	}
@@ -69,6 +72,7 @@ public class MainMenu : MonoBehaviour {
 	void RevealButtonText(){
 		controls.enabled = true;
 		play.enabled = true;
+		play2.enabled = true;
 		quit.enabled = true;
 		instr.enabled = true;
 	}
