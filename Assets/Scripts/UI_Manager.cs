@@ -32,10 +32,13 @@ public class UI_Manager : MonoBehaviour {
 
 	public List<Image> portraits;
 
-	Image pauseMenu;
-	Image controls;
-	Image quit;
+	public Image pauseMenu;
+	public Button controls;
+	public Button quit;
+	public Button back;
 	public Sprite skull;
+
+	public Text controlsMenu;
 
 	Vector2 crosshairDefault;
 
@@ -160,12 +163,6 @@ public class UI_Manager : MonoBehaviour {
 		foreach (Image image in images) {
 			if (image.name == "PauseMenu") {
 				pauseMenu = image;
-			}
-			if (image.name == "Controls") {
-				controls = image;
-			}
-			if (image.name == "Quit") {
-				quit = image;
 			}
 		}
 	}
@@ -310,7 +307,9 @@ public class UI_Manager : MonoBehaviour {
 	void EnablePauseMenu(){
 		pauseMenu.enabled = true;
 		controls.enabled = true;
+		controls.GetComponentInChildren<Text> ().enabled = true;
 		quit.enabled = true;
+		quit.GetComponentInChildren<Text> ().enabled = true;
 		Time.timeScale = 0.0f;
 	}
 
@@ -318,6 +317,28 @@ public class UI_Manager : MonoBehaviour {
 		pauseMenu.enabled = false;
 		controls.enabled = false;
 		quit.enabled = false;
+		quit.GetComponentInChildren<Text> ().enabled = false;
+		controls.GetComponentInChildren<Text> ().enabled = false;
 		Time.timeScale = 1.0f;
+	}
+
+	public void ShowControls(){
+		controls.GetComponentInChildren<Text> ().enabled = false;
+		controlsMenu.enabled = true;
+		controls.enabled = false;
+		quit.enabled = false;
+		quit.GetComponentInChildren<Text>().enabled = false;
+		back.enabled = true;
+		back.GetComponentInChildren<Text>().enabled = true;
+	}
+
+	public void HideControls(){
+		controls.GetComponentInChildren<Text> ().enabled = true;
+		controls.enabled = true;
+		controlsMenu.enabled = false;
+		quit.enabled = true;
+		quit.GetComponentInChildren<Text>().enabled = true;
+		back.enabled = false;
+		back.GetComponentInChildren<Text>().enabled = false;
 	}
 }
