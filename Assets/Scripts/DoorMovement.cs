@@ -59,7 +59,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     // Use this for initialization
     void Start () {
         src = GetComponent<AudioSource>();
-		src.spatialBlend = 1.0f;
+        if (src != null) src.spatialBlend = 1.0f;
         navOb = GetComponent<NavMeshObstacle>();
         doorCenter = transform.FindChild("DoorCenter");
         startRot = transform.rotation;
@@ -128,7 +128,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
             moving = true;
             speed = GetRotSpeed(fastOpenTime);
             IsOpen = true;
-            if(slamOpenSound != null)
+            if(slamOpenSound != null && src != null)
             {
                 src.clip = slamOpenSound;
                 src.Play();
@@ -147,7 +147,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
             moving = true;
             speed = -GetRotSpeed(fastOpenTime);
             IsOpen = false;
-            if (slamOpenSound != null)
+            if (slamOpenSound != null && src != null)
             {
                 src.clip = slamOpenSound;
                 src.Play();
@@ -190,7 +190,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     {
         if (isLocked)
         {
-            if (lockSound == null) return;
+            if (lockSound == null || src == null) return;
             src.clip = lockSound;
             src.Play();
             return;
