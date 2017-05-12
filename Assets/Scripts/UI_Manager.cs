@@ -29,9 +29,12 @@ public class UI_Manager : MonoBehaviour {
 	public Image bar;
 	Image barPrefab;
 
+	public List<Image> portraits;
+
 	Image pauseMenu;
 	Image controls;
 	Image quit;
+	public Sprite skull;
 
 	Vector2 crosshairDefault;
 
@@ -130,6 +133,9 @@ public class UI_Manager : MonoBehaviour {
 	public void UpdateHealthBars() {
 		for (int i = 0; i < healthBarList.Count; i++) {
 			healthBarList [i].fillAmount = (healthList [i].health * .01f);
+			if ((healthBarList [i].fillAmount) == 0) {
+				portraits [i].color = Color.grey;
+			}
 		}
 	}
 
