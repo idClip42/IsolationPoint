@@ -549,6 +549,7 @@ GameObject:
   - component: {fileID: 29909258}
   - component: {fileID: 29909257}
   - component: {fileID: 29909256}
+  - component: {fileID: 29909259}
   m_Layer: 0
   m_Name: ShowerCurtain
   m_TagString: Untagged
@@ -879,8 +880,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0.000030517578}
-    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 5.000015}
+    m_Center: {x: 0.0000038146973, y: 0.0000076293945, z: 0}
+    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 5.0000153}
   m_DirtyAABB: 0
 --- !u!33 &29909258
 MeshFilter:
@@ -890,6 +891,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 29909254}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &29909259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 29909254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000006, y: 0.000007094, z: 10.000035}
+  m_Center: {x: 0.0000076293945, y: 0.00001525879, z: 0}
 --- !u!1 &31133380
 GameObject:
   m_ObjectHideFlags: 0
@@ -14931,6 +14944,7 @@ GameObject:
   - component: {fileID: 481864726}
   - component: {fileID: 481864725}
   - component: {fileID: 481864724}
+  - component: {fileID: 481864727}
   m_Layer: 0
   m_Name: ShowerCurtain
   m_TagString: Untagged
@@ -15261,8 +15275,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: -0.000061035156}
-    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 4.999989}
+    m_Center: {x: 0.0000038146973, y: 0.0000076293945, z: -0.000061035156}
+    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 4.9999895}
   m_DirtyAABB: 0
 --- !u!33 &481864726
 MeshFilter:
@@ -15272,6 +15286,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 481864722}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &481864727
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 481864722}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000006, y: 0.0000023646685, z: 9.99998}
+  m_Center: {x: 0.000007629396, y: 0.000015258793, z: -0.00012207031}
 --- !u!1 &481913307
 GameObject:
   m_ObjectHideFlags: 0
@@ -23890,6 +23916,7 @@ GameObject:
   - component: {fileID: 726450947}
   - component: {fileID: 726450946}
   - component: {fileID: 726450945}
+  - component: {fileID: 726450948}
   m_Layer: 0
   m_Name: ShowerCurtain
   m_TagString: Untagged
@@ -24220,8 +24247,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0.000030517578}
-    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 5.000015}
+    m_Center: {x: 0.0000038146973, y: -0.000030517578, z: 0}
+    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 5.0000153}
   m_DirtyAABB: 0
 --- !u!33 &726450947
 MeshFilter:
@@ -24231,6 +24258,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 726450943}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &726450948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 726450943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000006, y: 0.000007094, z: 10.000035}
+  m_Center: {x: 0.0000076294, y: -0.00006103517, z: 0}
 --- !u!1 &728826559
 GameObject:
   m_ObjectHideFlags: 0
@@ -63065,6 +63104,7 @@ GameObject:
   - component: {fileID: 1886823331}
   - component: {fileID: 1886823330}
   - component: {fileID: 1886823329}
+  - component: {fileID: 1886823332}
   m_Layer: 0
   m_Name: ShowerCurtain
   m_TagString: Untagged
@@ -63395,8 +63435,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: -0.000061035156}
-    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 4.999989}
+    m_Center: {x: 0.0000038146973, y: 0, z: -0.000061035156}
+    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 4.9999895}
   m_DirtyAABB: 0
 --- !u!33 &1886823331
 MeshFilter:
@@ -63406,6 +63446,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1886823327}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1886823332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1886823327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000006, y: 0.0000023646685, z: 9.99998}
+  m_Center: {x: 0.000007629396, y: -3.7373545e-20, z: -0.00012207031}
 --- !u!1 &1887896745
 GameObject:
   m_ObjectHideFlags: 0
