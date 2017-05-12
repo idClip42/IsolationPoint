@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour {
 
@@ -131,11 +132,18 @@ public class UI_Manager : MonoBehaviour {
 	}
 
 	public void UpdateHealthBars() {
+		int deathCount = 0;
+
 		for (int i = 0; i < healthBarList.Count; i++) {
 			healthBarList [i].fillAmount = (healthList [i].health * .01f);
 			if ((healthBarList [i].fillAmount) == 0) {
 				portraits [i].color = Color.grey;
+				deathCount++;
 			}
+		}
+
+		if (deathCount == 4) {
+			SceneManager.LoadScene ("EndGameMenu");
 		}
 	}
 
