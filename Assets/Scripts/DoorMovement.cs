@@ -24,7 +24,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
             }
         }
     }
-
+    public bool enemyOpens = true;
     public bool isLocked = false;
     public bool IsLocked
     {
@@ -134,7 +134,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         {
             RaycastHit hit;
             Physics.Raycast(g.transform.position + new Vector3(0, 1, 0), doorCenter.position - (g.transform.position + new Vector3(0, 1, 0)), out hit, g.GetComponent<NavMeshAgent>().radius + 1);
-            if (hit.transform == transform)
+            if (hit.transform == transform && enemyOpens)
             {
                 SmashOpen();
             }
