@@ -1124,6 +1124,7 @@ GameObject:
   - component: {fileID: 4117383562363644}
   - component: {fileID: 54501863061658068}
   - component: {fileID: 114732213888547216}
+  - component: {fileID: 82166407091289548}
   m_Layer: 9
   m_Name: Weapon_GardenWeasel
   m_TagString: Weapon
@@ -1784,7 +1785,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1958284686485680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.103825, y: -49.37, z: 146.16248}
+  m_LocalPosition: {x: -0.53661704, y: 0.00000011920929, z: -2.3317785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430646111616324}
@@ -3428,6 +3429,92 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &82166407091289548
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1655754322332280}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 36e912d14287144f1a3c40385d3769fe, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 3
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.50095147
+      value: 0.1007305
+      inSlope: -0.3281908
+      outSlope: -0.3281908
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &82444251135778742
 AudioSource:
   m_ObjectHideFlags: 1
@@ -3672,7 +3759,8 @@ MonoBehaviour:
   visionDistance: 50
   searchDuration: 5
   trapTime: 5
-  target: {fileID: 0}
+  target: {fileID: 4430646111616324}
+  targetingPlayer: 0
   warpTime: 90
   lookTime: 2
   startAttackDistance: 0.5
@@ -4116,8 +4204,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4801814791017988}
   m_AABB:
-    m_Center: {x: 0.0037326813, y: -0.21445084, z: 1.4320221}
-    m_Extent: {x: 0.030042686, y: 0.19739988, z: 0.14375693}
+    m_Center: {x: 0.0037336946, y: -0.21445, z: 1.4320159}
+    m_Extent: {x: 0.030042566, y: 0.19740064, z: 0.14375345}
   m_DirtyAABB: 0
 --- !u!137 &137570528717780212
 SkinnedMeshRenderer:

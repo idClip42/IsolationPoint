@@ -26,24 +26,20 @@ public class SoundBubble : MonoBehaviour {
         if (src.isPlaying && !wasPlaying)
         {
             wasPlaying = true;
-            Debug.Log("Sound");
             for(int i = 0; i < gm.enemies.Length; i++)
             {
                 if((gm.enemies[i].transform.position - transform.position).sqrMagnitude <= Mathf.Pow(maxSize, 2))
                 {
-                    Debug.Log("In Range");
                     NavMeshHit hit;
                     if (NavMesh.SamplePosition(transform.position, out hit, 1.5f, NavMesh.AllAreas))
                     {
                         if (willChase)
                         {
                             gm.enemies[i].GetComponent<Enemy>().ChaseTarget(hit.position);
-                            Debug.Log("Chase");
                         }
                         else
                         {
                             gm.enemies[i].GetComponent<Enemy>().SetTarget(hit.position, false);
-                            Debug.Log("Walk");
                         }
                     }
                 }

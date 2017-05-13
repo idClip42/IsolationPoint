@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114022354702632010}
   - component: {fileID: 65112501421379214}
   - component: {fileID: 208623198634259396}
+  - component: {fileID: 82971370476323138}
   m_Layer: 0
   m_Name: DeskCabinetDoor
   m_TagString: Door
@@ -44,6 +45,7 @@ GameObject:
   - component: {fileID: 114710336179360180}
   - component: {fileID: 65702140003013850}
   - component: {fileID: 208001479109911546}
+  - component: {fileID: 82264793164448800}
   m_Layer: 0
   m_Name: DeskCabinetDoor (1)
   m_TagString: Door
@@ -318,6 +320,166 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.05, z: 0.8}
   m_Center: {x: -0.40000018, y: -0.025, z: 0.000000074505806}
+--- !u!82 &82264793164448800
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1453485108197834}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.402
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82971370476323138
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072194488826534}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.402
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114022354702632010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,10 +494,10 @@ MonoBehaviour:
   enemyOpens: 0
   isLocked: 0
   lockSound: {fileID: 0}
-  slamOpenSound: {fileID: 0}
+  slamOpenSound: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
   axisToRotateAbout: 2
-  openTime: 2
-  fastOpenTime: 0.5
+  openTime: 1.2
+  fastOpenTime: 0.2
 --- !u!114 &114710336179360180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,10 +512,10 @@ MonoBehaviour:
   enemyOpens: 0
   isLocked: 0
   lockSound: {fileID: 0}
-  slamOpenSound: {fileID: 0}
+  slamOpenSound: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
   axisToRotateAbout: 2
-  openTime: 2
-  fastOpenTime: 0.5
+  openTime: 1.2
+  fastOpenTime: 0.2
 --- !u!208 &208001479109911546
 NavMeshObstacle:
   m_ObjectHideFlags: 1
