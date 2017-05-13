@@ -199,7 +199,7 @@ public class Follower : MonoBehaviour {
     {
         anim.transform.forward = Vector3.Lerp(
                 anim.transform.forward,
-                agent.velocity,
+			Vector3.ProjectOnPlane(agent.velocity, Vector3.up),
                 0.1f
             );
     }
