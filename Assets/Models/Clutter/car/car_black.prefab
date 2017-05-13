@@ -22,12 +22,13 @@ GameObject:
   - component: {fileID: 33002346540964658}
   - component: {fileID: 23419768029584598}
   - component: {fileID: 95010832167348760}
+  - component: {fileID: 64549693770326136}
   m_Layer: 0
   m_Name: car_black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4296216910312332
 Transform:
@@ -80,6 +81,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1561629534407094}
+  m_Mesh: {fileID: 4300000, guid: 7204e7863b98b814a9500f96bd7434e9, type: 3}
+--- !u!64 &64549693770326136
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561629534407094}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 1
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 7204e7863b98b814a9500f96bd7434e9, type: 3}
 --- !u!95 &95010832167348760
 Animator:
