@@ -53,6 +53,15 @@ public class DoorMovement : MonoBehaviour, IInteractable {
     public AudioClip lockSound;
     public AudioClip slamOpenSound;
 
+    public enum AxisRotation
+    {
+        XAxis,
+        YAxis,
+        Zaxis
+    };
+    public AxisRotation axisToRotateAbout = AxisRotation.YAxis;
+    Vector3 axis;
+
     public float openTime = 5.0f;
     public float fastOpenTime = 1.5f;
 
@@ -63,6 +72,21 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         navOb = GetComponent<NavMeshObstacle>();
         doorCenter = transform.FindChild("DoorCenter");
         startRot = transform.rotation;
+        switch (axisToRotateAbout)
+        {
+            case AxisRotation.XAxis:
+                axis = new Vector3(1, 0, 0);
+                break;
+            case AxisRotation.YAxis:
+                axis = new Vector3(0, 1, 0);
+                break;
+            case AxisRotation.Zaxis:
+                axis = new Vector3(0, 0, 1);
+                break;
+            default:
+                axis = new Vector3(0, 0, 0);
+                break;
+        }
         if (transform.localScale.x < 0)
         {
             openRot = -90.0f;
@@ -94,7 +118,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
             }
             else
             {
-                transform.Rotate(0, speed * Time.deltaTime, 0);
+                transform.Rotate(speed * Time.deltaTime * axis);
             }
         }
 
