@@ -41,7 +41,7 @@ public class LightFlickerEvent : Event {
 			if(m != null) m.material.SetColor("_EmissionColor", new Color(1.0f, 1.0f, 1.0f, 1.0f) * intensity);
 
 			Light lite = l.GetComponentInChildren<Light>();
-			if(lite == null) return;
+			if(lite == null) continue;
 			lite.intensity = intensity;
         }
     }

@@ -911,8 +911,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.0000038146973, y: 0.0000076293945, z: 0}
-    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 5.0000153}
+    m_Center: {x: 0, y: 0, z: 0.000030517578}
+    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 5.000015}
   m_DirtyAABB: 0
 --- !u!33 &29909258
 MeshFilter:
@@ -4554,8 +4554,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToComplete: 1
-  clip: {fileID: 8300000, guid: c126503e1d417eb40a9873f124698202, type: 3}
-  delay: 1
+  clip: {fileID: 8300000, guid: 277e4d2dce0d8a245994880137bece8e, type: 3}
+  delay: 0
   playOnStart: 1
 --- !u!82 &163808948
 AudioSource:
@@ -5161,7 +5161,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 607746565
+  randomSeed: -1457259527
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10557,6 +10557,37 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 2
   m_CustomBakedTexture: {fileID: 0}
+--- !u!1 &261605625 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1001193648865114, guid: 341067f3dbd9b43df9aac80fa377f7c3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089611193}
+--- !u!114 &261605626 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114730869758641130, guid: 341067f3dbd9b43df9aac80fa377f7c3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089611193}
+  m_Script: {fileID: 11500000, guid: 283caf9e0decb9b48a1252dcf6e31d5f, type: 3}
+--- !u!114 &261605632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 261605625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: Fix the local power generator
+  isTriggered: 0
+  onEnter: 0
+  triggerTags: []
+  triggerNames: []
+  parent: {fileID: 0}
+  subObjectives: []
+  events: []
+  destroyTriggerOnComplete: 0
 --- !u!1 &266741186
 GameObject:
   m_ObjectHideFlags: 0
@@ -17848,8 +17879,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.0000038146973, y: 0.0000076293945, z: -0.000061035156}
-    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 4.9999895}
+    m_Center: {x: 0, y: 0, z: -0.000061035156}
+    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 4.999989}
   m_DirtyAABB: 0
 --- !u!33 &481864726
 MeshFilter:
@@ -23654,6 +23685,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 656431024}
   m_Mesh: {fileID: 4300000, guid: 1d54219f8ff20a14d8e026ea4d9f1000, type: 3}
+--- !u!114 &657130925 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114381600590929346, guid: 31545e7e1641847dc890b7afdbf30a9b,
+    type: 2}
+  m_PrefabInternal: {fileID: 753582896}
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+--- !u!114 &657130926 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114279025702618330, guid: 31545e7e1641847dc890b7afdbf30a9b,
+    type: 2}
+  m_PrefabInternal: {fileID: 753582896}
+  m_Script: {fileID: 11500000, guid: f665b6a8219cf4956a550e688c654ecc, type: 3}
 --- !u!1 &658546354
 GameObject:
   m_ObjectHideFlags: 0
@@ -25836,8 +25879,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.0000038146973, y: -0.000030517578, z: 0}
-    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 5.0000153}
+    m_Center: {x: 0, y: 0, z: 0.000030517578}
+    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 5.000015}
   m_DirtyAABB: 0
 --- !u!33 &726450947
 MeshFilter:
@@ -26765,6 +26808,11 @@ Prefab:
     - target: {fileID: 1634958923138728, guid: 31545e7e1641847dc890b7afdbf30a9b, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114381600590929346, guid: 31545e7e1641847dc890b7afdbf30a9b,
+        type: 2}
+      propertyPath: UIText
+      value: Reach the escape chopper!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31545e7e1641847dc890b7afdbf30a9b, type: 2}
@@ -28548,6 +28596,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.33044046, z: 0.3}
   m_Center: {x: 0.25, y: 0.16292143, z: -0.15}
+--- !u!114 &850508131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 850508125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a1930ce8d3dea4bab719b1008e4958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToComplete: 0.5
+  heli: {fileID: 657130926}
+--- !u!114 &850508132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 850508125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: Call for help
+  isTriggered: 0
+  onEnter: 0
+  triggerTags: []
+  triggerNames: []
+  parent: {fileID: 0}
+  subObjectives: []
+  events:
+  - {fileID: 850508131}
+  destroyTriggerOnComplete: 0
 --- !u!1 &855276166
 GameObject:
   m_ObjectHideFlags: 0
@@ -36857,7 +36939,7 @@ Prefab:
         type: 2}
       propertyPath: objectiveToFixGenerator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 261605632}
     m_RemovedComponents:
     - {fileID: 114932632235700870, guid: 341067f3dbd9b43df9aac80fa377f7c3, type: 2}
     - {fileID: 114768946414939632, guid: 341067f3dbd9b43df9aac80fa377f7c3, type: 2}
@@ -62040,7 +62122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c12b444a13304043937fcd80412d73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIText: Nothing~Just need this to trigger an event
+  UIText: 
   isTriggered: 0
   onEnter: 0
   triggerTags: []
@@ -62049,6 +62131,7 @@ MonoBehaviour:
   subObjectives: []
   events:
   - {fileID: 1852165094}
+  - {fileID: 261605626}
   destroyTriggerOnComplete: 0
 --- !u!1 &1855609257
 GameObject:
@@ -63521,8 +63604,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.0000038146973, y: 0, z: -0.000061035156}
-    m_Extent: {x: 5.000001, y: 0.0000011823329, z: 4.9999895}
+    m_Center: {x: 0, y: 0, z: -0.000061035156}
+    m_Extent: {x: 5.0000005, y: 0.0000011823328, z: 4.999989}
   m_DirtyAABB: 0
 --- !u!33 &1886823331
 MeshFilter:
@@ -70714,7 +70797,11 @@ MonoBehaviour:
   - {fileID: 1442992295}
   - {fileID: 1868155495}
   enemies: []
-  objectives: []
+  objectives:
+  - {fileID: 1852165095}
+  - {fileID: 261605632}
+  - {fileID: 850508132}
+  - {fileID: 657130925}
   currentObjective: 0
   gameover: 0
   textFadeTime: 1
