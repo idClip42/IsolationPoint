@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 114340260420500816}
   - component: {fileID: 114077797237978400}
   - component: {fileID: 114970553791688292}
+  - component: {fileID: 114908652630713662}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -706,7 +707,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114970553791688292}
+      - m_Target: {fileID: 114908652630713662}
         m_MethodName: onclick
         m_Mode: 1
         m_Arguments:
@@ -1495,6 +1496,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 0
   m_FillOrigin: 2
+--- !u!114 &114908652630713662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1470540777189088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fed097a04f3c5d4481d98343d486bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: MainMenu
 --- !u!114 &114940948441026282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1528,7 +1541,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470540777189088}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25b7ac890080087449314ee90a5777e8, type: 3}
   m_Name: 
