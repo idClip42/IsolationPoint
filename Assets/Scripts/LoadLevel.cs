@@ -26,7 +26,7 @@ public class LoadLevel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(loadingLevel == true && asyncLoad != null)
-			GetComponentInChildren<Text>().text = "Loading: " + asyncLoad.progress * 100 + "%";
+			GetComponentInChildren<Text>().text = "Loading " + asyncLoad.progress * 100 + "%";
 	}
 
 	public void onclick(){
