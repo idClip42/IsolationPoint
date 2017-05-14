@@ -60569,6 +60569,25 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1824286472}
   m_Mesh: {fileID: 4300000, guid: d229046f7a6ec724ea28952f06e80c61, type: 3}
+--- !u!1 &1826757234 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1649751803349532, guid: 5a1b1263f51038741a36d1975f60551f,
+    type: 2}
+  m_PrefabInternal: {fileID: 2072599545}
+--- !u!64 &1826757235
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1826757234}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 36d7431d147ba4f689cc81aabcd4cfee, type: 3}
 --- !u!1 &1827347898
 GameObject:
   m_ObjectHideFlags: 0
@@ -69635,7 +69654,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 65386760028198942, guid: 5a1b1263f51038741a36d1975f60551f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5a1b1263f51038741a36d1975f60551f, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2072599546 stripped
