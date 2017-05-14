@@ -29,6 +29,7 @@ public class PlayerAction : MonoBehaviour {
 		componentDict.Add("BearTrap", typeof(BearTrap));
 		componentDict.Add("Escape", typeof(Escape));
 		componentDict.Add("Ding", typeof(Ding));
+        componentDict.Add("Drawer", typeof(DrawerMovement));
 
         gm = GameObject.Find("GM").GetComponent<GameManager>();
 
