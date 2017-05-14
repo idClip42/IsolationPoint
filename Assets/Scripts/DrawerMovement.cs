@@ -14,11 +14,11 @@ public class DrawerMovement : MonoBehaviour, IInteractable {
             if (isOpen)
             {
                 //set to open position
-                transform.position = startPos + axis * openDistance;
+                transform.localPosition = startPos + axis * openDistance;
             }else
             {
                 //set to closed position
-                transform.position = startPos;
+                transform.localPosition = startPos;
             }
         }
     }
@@ -47,7 +47,7 @@ public class DrawerMovement : MonoBehaviour, IInteractable {
     void Start () {
         src = GetComponent<AudioSource>();
         if (src != null) src.spatialBlend = 1.0f;
-        startPos = transform.position;
+        startPos = transform.localPosition;
         switch (axisToRotateAbout)
         {
             case AxisRotation.XAxis:
@@ -83,7 +83,7 @@ public class DrawerMovement : MonoBehaviour, IInteractable {
             }
             else
             {
-                transform.position = transform.position + axis * speed * Time.deltaTime;
+                transform.localPosition = transform.localPosition + axis * speed * Time.deltaTime;
             }
         }
     }
