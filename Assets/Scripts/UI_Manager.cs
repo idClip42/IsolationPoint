@@ -42,7 +42,7 @@ public class UI_Manager : MonoBehaviour {
 
 	Vector2 crosshairDefault;
 
-	bool pauseGame;
+	public bool pauseGame = false;
 	public bool fixingGenerator;
 	public bool fixingRadio;
 
@@ -88,6 +88,12 @@ public class UI_Manager : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.P)) {
 			pauseGame = !pauseGame;
+
+			if (pauseGame) {
+				EnablePauseMenu ();
+			} else {
+				DisablePauseMenu ();
+			}
 		}
 
 		if (Input.GetButtonDown("AimWeapon")) {
@@ -97,13 +103,7 @@ public class UI_Manager : MonoBehaviour {
 		if (Input.GetButtonUp("AimWeapon")) {
 			crosshair.sprite = redDot;
 		}
-
-		if (pauseGame) {
-			EnablePauseMenu ();
-		} else {
-			DisablePauseMenu ();
-		}
-
+			
 		if (fixingGenerator) {
 			UpdateGbar ();
 		}
@@ -305,6 +305,8 @@ public class UI_Manager : MonoBehaviour {
 	}
 
 	void EnablePauseMenu(){
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 		pauseMenu.enabled = true;
 		controls.enabled = true;
 		controls.GetComponentInChildren<Text> ().enabled = true;
@@ -314,6 +316,8 @@ public class UI_Manager : MonoBehaviour {
 	}
 
 	void DisablePauseMenu(){
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 		pauseMenu.enabled = false;
 		controls.enabled = false;
 		quit.enabled = false;

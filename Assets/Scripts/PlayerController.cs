@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     Pickup_Drop_Items pickupScript; 	// Script for picking up/ putting down items
     GameManager gm;                     // For any data that this may hold in regards to what the playeris allowed to do.
 
+
     Vector3 velocity;                   // The velocity the Character Controller will move at every frame
 
     bool alwaysFaceForward;             // Whether the character model will always turn to face the way the camera is facing (true),
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour
 
     public int playerNum;                      // The index of the current player character
 
+
+	bool paused;						// is the game paused?
 
     int bitFieldAllLayers;              // The bitfield used to signify all layers
     int bitFieldNoHitbox;
@@ -143,6 +146,7 @@ public class PlayerController : MonoBehaviour
 		}
 		if(gameObject.tag != "Enemy")
 			anim.SetLayerWeight(headLayerIndex, 1);
+
 	}
 
 
@@ -245,7 +249,11 @@ public class PlayerController : MonoBehaviour
         // Switch between player characters
         if (!gm.FreezeCam) SwapCharactersInput();
 
-		if(Input.GetMouseButtonDown(0))
+		// gets the UI paused variable
+		paused = GameObject.Find("UI").GetComponent<UI_Manager>().pauseGame;
+
+		// locks the mouse 
+		if(Input.GetMouseButtonDown(0) && paused == false)
 			LockMouse();
 
 		// Ends if there is no health or no health script, which means the player is dead
