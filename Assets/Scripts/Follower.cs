@@ -104,7 +104,7 @@ public class Follower : MonoBehaviour {
             Debug.Log("Player needs a Health script");
 
         player = GetComponent<CharacterController>();
-        cameraAxis = player.transform.FindChild("CameraAxis");
+        cameraAxis = player.transform.Find("CameraAxis");
     }
 
     /// <summary>

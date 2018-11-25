@@ -43,7 +43,7 @@ public class Combat : MonoBehaviour {
 		timer = 0;
 		currentMaxTime = 0;
 
-		cameraTarget = transform.FindChild("CameraAxis").FindChild("CameraTarget");
+		cameraTarget = transform.Find("CameraAxis").Find("CameraTarget");
 		if(cameraTarget == null) Debug.Log("Must have camera target named 'CameraTarget'");
 		camTargetZ = cameraTarget.localPosition.z;
 

@@ -158,11 +158,11 @@ public class PlayerController : MonoBehaviour
 	void SetPlayerVars()
 	{
 		// Finds the Camera Axis
-		cameraAxis = player.transform.FindChild("CameraAxis");
+		cameraAxis = player.transform.Find("CameraAxis");
 		if(cameraAxis == null) Debug.Log("Must have camera axis named 'CameraAxis'");
 
 		// Finds the Camera Target
-		cameraTarget = cameraAxis.FindChild("CameraTarget");
+		cameraTarget = cameraAxis.Find("CameraTarget");
 		if(cameraTarget == null) Debug.Log("Must have camera target named 'CameraTarget'");
 
 		// Finds the Character Model

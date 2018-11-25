@@ -70,7 +70,7 @@ public class DoorMovement : MonoBehaviour, IInteractable {
         src = GetComponent<AudioSource>();
         if (src != null) src.spatialBlend = 1.0f;
         navOb = GetComponent<NavMeshObstacle>();
-        doorCenter = transform.FindChild("DoorCenter");
+        doorCenter = transform.Find("DoorCenter");
         startRot = transform.rotation;
         switch (axisToRotateAbout)
         {

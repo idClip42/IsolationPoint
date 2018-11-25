@@ -1,7 +1,10 @@
-﻿Shader "CookbookShaders/Parallax" {
+﻿// Upgrade NOTE: upgraded instancing buffer 'Props' to new syntax.
+
+Shader "CookbookShaders/ParallaxCutout" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
+		_Cutoff ("Alpha Cutoff", Range(0,1)) = 0.5
 		_NormalTex ("Normal Map", 2D) = "bump" {}
 		_NormalMapIntensity("Normal Map Intensity", Range(-1,1)) = 1
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
@@ -11,9 +14,9 @@
 		_StepCount ("Step Count", Range(0,300)) = 100
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags { "Queue"="AlphaTest" "RenderType"="TransparentCutout"}
 		LOD 200
-		
+
 		CGPROGRAM
 		#pragma surface surf Standard vertex:vert fullforwardshadows
 		#pragma target 3.0
@@ -28,6 +31,7 @@
 			float3 tangentViewDir;
 		};
 
+		fixed _Cutoff;
 		half _NormalMapIntensity;
 		half _Glossiness;
 		half _Metallic;
@@ -35,8 +39,8 @@
 		half _Height;
 		fixed _StepCount;
 
-		UNITY_INSTANCING_CBUFFER_START(Props)
-		UNITY_INSTANCING_CBUFFER_END
+		UNITY_INSTANCING_BUFFER_START(Props)
+		UNITY_INSTANCING_BUFFER_END(Props)
 
 
 		void vert(inout appdata_full i, out Input o)
@@ -91,7 +95,7 @@
 			float3 rayDir = normalize(IN.tangentViewDir);
 			int STEPS = (int) _StepCount;
 			float stepDistance = 0.01;
-			float4 finalColor = 1;
+			float4 finalColor = 0;
 			float4 finalNorm = 1;
 
 			for (int i = 0; i < STEPS; i++)
@@ -108,10 +112,13 @@
 				rayPos += stepDistance * rayDir;
 			}
 
+			clip(finalColor.a - _Cutoff);
+
 			o.Albedo = finalColor.rgb;
 			o.Alpha = finalColor.a;
 
-			fixed3 n = UnpackNormal(tex2D(_NormalTex, IN.uv_DispTex));
+			//fixed3 n = UnpackNormal(tex2D(_NormalTex, IN.uv_DispTex));
+			fixed3 n = finalNorm;
 			n.x *= _NormalMapIntensity;
 			n.y *= _NormalMapIntensity;
 			o.Normal = normalize(n);

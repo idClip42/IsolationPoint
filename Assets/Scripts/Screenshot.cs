@@ -11,7 +11,7 @@ public class Screenshot : MonoBehaviour
 	{
 		if(Input.GetKeyDown(button))
 		{
-			Application.CaptureScreenshot(name + System.DateTime.Now.ToOADate() + ".png", multiplier);
+			ScreenCapture.CaptureScreenshot(name + System.DateTime.Now.ToOADate() + ".png", multiplier);
 		}
 	}
 }
